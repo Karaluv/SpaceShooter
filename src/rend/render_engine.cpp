@@ -4,12 +4,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <thread>
 // Include GLEW
 #include <GL/glew.h>
 
 // Include GLFW
 #include <GLFW/glfw3.h>
-
 
 // Include GLM
 #include <glm/glm.hpp>
@@ -33,11 +33,6 @@ using namespace glm;
 
 #include <map>
 
-
-void initializeR()
-{
-	std::cout << "hui";
-}
 
 GLuint load_mesh(std::string name, int index_of_model, GLuint* elementbuffer, GLuint* normalbuffer, GLuint* uvbuffer, GLuint* vertexbuffer)
 {
@@ -138,8 +133,131 @@ class render_engine
 {
 public:
 	render_engine() {}
+	~render_engine()
+	{
+		terminate_all();
+	}
+
+	void new_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
+	{
+		IsInObject_ = true;
+		int index = NamesDict[name];
+
+		auto new_obj = new render_object;
+
+		new_obj->set_position(x, y, z);
+		new_obj->set_orientation(ax, ay, az, aw);
+		new_obj->update_model(index, IndexBuffer[index]);
+
+		RendObjs.push_back(new_obj);
+		IsInObject_ = false;
+	}
+
+	void start() {
+		this->RenderTask_ = std::thread(&render_engine::render_process, this);
+	}
+
+	void stop() {
+		this->RenderTaskisRunning_ = false;
+		RenderTask_.join();
+	}
+
+	void render_process()
+	{
+		const int target_fps = (1000000000 / 144);
+
+		RenderTaskisRunning_ = true;
+		initialize();
+		std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+		std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+		while (RenderTaskisRunning_)
+		{
+			render_frame();
+			end = std::chrono::steady_clock::now();
+			auto render_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+			if (render_time > target_fps)
+				std::cout << "Your PC is too slow, render fps is less than 60fps.\n So render auto shutsdown\n";
+			else
+				std::this_thread::sleep_for(std::chrono::nanoseconds(render_time));
+			begin = std::chrono::steady_clock::now();
+		}
+		terminate_all();
+	}
+
+	void terminate_all()
+	{
+		stop();
+		for (int i = 0; i < VertexBuffers.size(); i++)
+		{
+			delete_mesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
+		}
+		glDeleteTextures(1, &TextureID);
+		TwTerminate();
+		glfwTerminate();
+	}
+
+	void delete_obj(int index)
+	{
+		IsInObject_ = true;
+		delete& RendObjs[index];
+		RendObjs.erase(RendObjs.begin() + index);
+		IsInObject_ = false;
+	}
+
+	void update_obj(int index, double x, double y, double z, double ax, double ay, double az, double aw)
+	{
+		IsInObject_ = true;
+		if (index < RendObjs.size())
+		{
+			RendObjs[index]->set_orientation(ax, ay, az, aw);
+			RendObjs[index]->set_position(x, y, z);
+		}
+		else
+			std::cout << "NO such object exicts!";
+		IsInObject_ = false;
+	}
+	bool get_IsInObject()
+	{
+		return IsInObject_;
+	}
+private:
+
+	void render_frame()
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		update_matrixes();
+
+		glUseProgram(programID);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture);
+		glUniform1i(TextureID, 0);
+		glm::vec3 lightPos = glm::vec3(4, 4, 4);
+		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
+		int index;
+		for (int i = 0; i < RendObjs.size(); ++i)
+		{
+			index = RendObjs[i]->get_index();
+			switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index], ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID, vertexNormal_modelspaceID);
+			IsInObject_ = true;
+			RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)), MatrixID, ModelMatrixID, ViewMatrixID);
+			RendObjs[i]->draw_object();
+			IsInObject_ = false;
+		}
+
+		glDisableVertexAttribArray(vertexPosition_modelspaceID);
+		glDisableVertexAttribArray(vertexUVID);
+		glDisableVertexAttribArray(vertexNormal_modelspaceID);
+
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
 	void initialize()
 	{
+
 		glfwInit();
 
 		glfwWindowHint(GLFW_SAMPLES, 4);
@@ -197,74 +315,10 @@ public:
 		camera_position = glm::vec3(0, 0, 7);
 		camera_angel = glm::vec3(0, 0, 0);
 		camera_rotation = glm::vec3(0, 1, 0);
-		
-	}
-	void new_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
-	{
-		int index = NamesDict[name];
 
-		auto new_obj = new render_object;
-
-		new_obj->set_position(x, y, z);
-		new_obj->set_orientation(ax, ay, az, aw);
-		new_obj->update_model(index, IndexBuffer[index]);
-
-		RendObjs.push_back(new_obj);
+		RenderTaskisTerminated_ = false;
 
 	}
-	void render_frame()
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		update_matrixes();
-
-		glUseProgram(programID);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture);
-		glUniform1i(TextureID, 0);
-		glm::vec3 lightPos = glm::vec3(4, 4, 4);
-		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-
-		double x, y, z, w;
-		int index;
-		for (int i = 0; i < RendObjs.size(); ++i)
-		{
-			index = RendObjs[i]->get_index();
-			switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index], ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID, vertexNormal_modelspaceID);
-
-			RendObjs[i]->get_orientation(&x, &y, &z, &w);
-			RendObjs[i]->set_orientation(x, y, z + 3.14159f / 2.0f * 0.001, w);
-			RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)), MatrixID, ModelMatrixID, ViewMatrixID);
-			RendObjs[i]->draw_object();
-		}
-
-		glDisableVertexAttribArray(vertexPosition_modelspaceID);
-		glDisableVertexAttribArray(vertexUVID);
-		glDisableVertexAttribArray(vertexNormal_modelspaceID);
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
-	
-	void terminate_all()
-	{
-		for (int i = 0; i < VertexBuffers.size(); i++)
-		{
-			delete_mesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
-		}
-		glDeleteTextures(1, &TextureID);
-		TwTerminate();
-		glfwTerminate();
-	}
-
-	void delete_obj(int index)
-	{
-		delete &RendObjs[index];
-		RendObjs.erase(RendObjs.begin() + index);
-	}
-
-
-private:
 
 	void delete_mesh(int index, GLuint& vertexbuffer, GLuint& uvbuffer, GLuint& normalbuffer, GLuint& elementbuffer)
 	{
@@ -291,6 +345,8 @@ private:
 			IndexBuff.back() = load_mesh(PathDict[i], i + 1, &ElementBuff.back(), &NormalBuff.back(), &UvBuff.back(), &VertexBuff.back());
 		}
 	}
+
+private:
 
 	GLFWwindow* window;
 
@@ -327,17 +383,23 @@ private:
 	std::map<int, std::string> PathDict = { {0,"res/scube.obj"},{1,"res/suzanne.obj"} };
 	std::map<std::string, int>  NamesDict = { {"cube",0},{"monkey",1} };
 
+
+	std::atomic<bool> RenderTaskisRunning_ = false;
+	std::atomic<bool> RenderTaskisTerminated_ = true;
+	std::atomic<bool> IsInObject_ = false;
+	std::thread RenderTask_;
+
 	class render_object
 	{
 	public:
 		render_object() {}
-		~render_object() 
+		~render_object()
 		{
-			delete &position;
-			delete &orientation;
-			delete &model_index;
+			delete& position;
+			delete& orientation;
+			delete& model_index;
 			delete& index_size;
-			delete &ProjectionMatrix;
+			delete& ProjectionMatrix;
 			delete& ViewMatrix;
 			delete& ScalingMatrix;
 			delete& MatrixID;
@@ -444,17 +506,4 @@ private:
 
 	std::vector<render_object*> RendObjs;
 };
-
-void run(void)
-{
-	render_engine RendEng;
-	RendEng.initialize();
-
-	do {
-		RendEng.render_frame();
-	} 
-	while (true);
-
-	RendEng.terminate_all();
-}
 
