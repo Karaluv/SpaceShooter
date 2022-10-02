@@ -40,6 +40,174 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/
+
+#############################################
+# Utility command for Experimental
+
+build Experimental: phony CMakeFiles/Experimental
+
+
+#############################################
+# Utility command for Nightly
+
+build Nightly: phony CMakeFiles/Nightly
+
+
+#############################################
+# Utility command for Continuous
+
+build Continuous: phony CMakeFiles/Continuous
+
+
+#############################################
+# Utility command for NightlyMemoryCheck
+
+build NightlyMemoryCheck: phony CMakeFiles/NightlyMemoryCheck
+
+
+#############################################
+# Utility command for NightlyStart
+
+build NightlyStart: phony CMakeFiles/NightlyStart
+
+
+#############################################
+# Utility command for NightlyUpdate
+
+build NightlyUpdate: phony CMakeFiles/NightlyUpdate
+
+
+#############################################
+# Utility command for NightlyConfigure
+
+build NightlyConfigure: phony CMakeFiles/NightlyConfigure
+
+
+#############################################
+# Utility command for NightlyBuild
+
+build NightlyBuild: phony CMakeFiles/NightlyBuild
+
+
+#############################################
+# Utility command for NightlyTest
+
+build NightlyTest: phony CMakeFiles/NightlyTest
+
+
+#############################################
+# Utility command for NightlyCoverage
+
+build NightlyCoverage: phony CMakeFiles/NightlyCoverage
+
+
+#############################################
+# Utility command for NightlyMemCheck
+
+build NightlyMemCheck: phony CMakeFiles/NightlyMemCheck
+
+
+#############################################
+# Utility command for NightlySubmit
+
+build NightlySubmit: phony CMakeFiles/NightlySubmit
+
+
+#############################################
+# Utility command for ExperimentalStart
+
+build ExperimentalStart: phony CMakeFiles/ExperimentalStart
+
+
+#############################################
+# Utility command for ExperimentalUpdate
+
+build ExperimentalUpdate: phony CMakeFiles/ExperimentalUpdate
+
+
+#############################################
+# Utility command for ExperimentalConfigure
+
+build ExperimentalConfigure: phony CMakeFiles/ExperimentalConfigure
+
+
+#############################################
+# Utility command for ExperimentalBuild
+
+build ExperimentalBuild: phony CMakeFiles/ExperimentalBuild
+
+
+#############################################
+# Utility command for ExperimentalTest
+
+build ExperimentalTest: phony CMakeFiles/ExperimentalTest
+
+
+#############################################
+# Utility command for ExperimentalCoverage
+
+build ExperimentalCoverage: phony CMakeFiles/ExperimentalCoverage
+
+
+#############################################
+# Utility command for ExperimentalMemCheck
+
+build ExperimentalMemCheck: phony CMakeFiles/ExperimentalMemCheck
+
+
+#############################################
+# Utility command for ExperimentalSubmit
+
+build ExperimentalSubmit: phony CMakeFiles/ExperimentalSubmit
+
+
+#############################################
+# Utility command for ContinuousStart
+
+build ContinuousStart: phony CMakeFiles/ContinuousStart
+
+
+#############################################
+# Utility command for ContinuousUpdate
+
+build ContinuousUpdate: phony CMakeFiles/ContinuousUpdate
+
+
+#############################################
+# Utility command for ContinuousConfigure
+
+build ContinuousConfigure: phony CMakeFiles/ContinuousConfigure
+
+
+#############################################
+# Utility command for ContinuousBuild
+
+build ContinuousBuild: phony CMakeFiles/ContinuousBuild
+
+
+#############################################
+# Utility command for ContinuousTest
+
+build ContinuousTest: phony CMakeFiles/ContinuousTest
+
+
+#############################################
+# Utility command for ContinuousCoverage
+
+build ContinuousCoverage: phony CMakeFiles/ContinuousCoverage
+
+
+#############################################
+# Utility command for ContinuousMemCheck
+
+build ContinuousMemCheck: phony CMakeFiles/ContinuousMemCheck
+
+
+#############################################
+# Utility command for ContinuousSubmit
+
+build ContinuousSubmit: phony CMakeFiles/ContinuousSubmit
+
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target render_libs
 
@@ -59,16 +227,6 @@ build CMakeFiles/render_libs.dir/src/rend/render.cpp.obj: CXX_COMPILER__render_l
   TARGET_COMPILE_PDB = CMakeFiles\render_libs.dir\render_libs.pdb
   TARGET_PDB = render_libs.pdb
 
-build CMakeFiles/render_libs.dir/src/rend/render_engine.cpp.obj: CXX_COMPILER__render_libs_Debug C$:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/src/rend/render_engine.cpp || cmake_object_order_depends_target_render_libs
-  DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
-  DEP_FILE = CMakeFiles\render_libs.dir\src\rend\render_engine.cpp.obj.d
-  FLAGS = -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd
-  INCLUDES = -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/AntTweakBar-1.16/include -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/glfw-3.1.2/include -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/glm-0.9.7.1 -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/glew-1.13.0/include -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/assimp-3.0.1270/include -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/external/bullet-2.81-rev2613/src -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/src/rend -IC:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/.
-  OBJECT_DIR = CMakeFiles\render_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_libs.dir\src\rend
-  TARGET_COMPILE_PDB = CMakeFiles\render_libs.dir\render_libs.pdb
-  TARGET_PDB = render_libs.pdb
-
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target render_libs
@@ -77,7 +235,7 @@ build CMakeFiles/render_libs.dir/src/rend/render_engine.cpp.obj: CXX_COMPILER__r
 #############################################
 # Link the static library render_libs.lib
 
-build render_libs.lib: CXX_STATIC_LIBRARY_LINKER__render_libs_Debug CMakeFiles/render_libs.dir/src/rend/render.cpp.obj CMakeFiles/render_libs.dir/src/rend/render_engine.cpp.obj
+build render_libs.lib: CXX_STATIC_LIBRARY_LINKER__render_libs_Debug CMakeFiles/render_libs.dir/src/rend/render.cpp.obj
   LANGUAGE_COMPILE_FLAGS = -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd
   OBJECT_DIR = CMakeFiles\render_libs.dir
   POST_BUILD = cd .
@@ -213,6 +371,18 @@ build game_core.exe: CXX_EXECUTABLE_LINKER__game_core_Debug CMakeFiles/game_core
 
 
 #############################################
+# Utility command for test
+
+build CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build test: phony CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -275,6 +445,230 @@ build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
   restat = 1
 
 build install/strip: phony CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for CMakeFiles\Experimental
+
+build CMakeFiles/Experimental | ${cmake_ninja_workdir}CMakeFiles/Experimental: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D Experimental"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\Nightly
+
+build CMakeFiles/Nightly | ${cmake_ninja_workdir}CMakeFiles/Nightly: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D Nightly"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\Continuous
+
+build CMakeFiles/Continuous | ${cmake_ninja_workdir}CMakeFiles/Continuous: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D Continuous"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyMemoryCheck
+
+build CMakeFiles/NightlyMemoryCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemoryCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyMemoryCheck"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyStart
+
+build CMakeFiles/NightlyStart | ${cmake_ninja_workdir}CMakeFiles/NightlyStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyStart"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyUpdate
+
+build CMakeFiles/NightlyUpdate | ${cmake_ninja_workdir}CMakeFiles/NightlyUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyConfigure
+
+build CMakeFiles/NightlyConfigure | ${cmake_ninja_workdir}CMakeFiles/NightlyConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyBuild
+
+build CMakeFiles/NightlyBuild | ${cmake_ninja_workdir}CMakeFiles/NightlyBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyBuild"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyTest
+
+build CMakeFiles/NightlyTest | ${cmake_ninja_workdir}CMakeFiles/NightlyTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyTest"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyCoverage
+
+build CMakeFiles/NightlyCoverage | ${cmake_ninja_workdir}CMakeFiles/NightlyCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlyMemCheck
+
+build CMakeFiles/NightlyMemCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlyMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\NightlySubmit
+
+build CMakeFiles/NightlySubmit | ${cmake_ninja_workdir}CMakeFiles/NightlySubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D NightlySubmit"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalStart
+
+build CMakeFiles/ExperimentalStart | ${cmake_ninja_workdir}CMakeFiles/ExperimentalStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalStart"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalUpdate
+
+build CMakeFiles/ExperimentalUpdate | ${cmake_ninja_workdir}CMakeFiles/ExperimentalUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalConfigure
+
+build CMakeFiles/ExperimentalConfigure | ${cmake_ninja_workdir}CMakeFiles/ExperimentalConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalBuild
+
+build CMakeFiles/ExperimentalBuild | ${cmake_ninja_workdir}CMakeFiles/ExperimentalBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalBuild"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalTest
+
+build CMakeFiles/ExperimentalTest | ${cmake_ninja_workdir}CMakeFiles/ExperimentalTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalTest"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalCoverage
+
+build CMakeFiles/ExperimentalCoverage | ${cmake_ninja_workdir}CMakeFiles/ExperimentalCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalMemCheck
+
+build CMakeFiles/ExperimentalMemCheck | ${cmake_ninja_workdir}CMakeFiles/ExperimentalMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ExperimentalSubmit
+
+build CMakeFiles/ExperimentalSubmit | ${cmake_ninja_workdir}CMakeFiles/ExperimentalSubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ExperimentalSubmit"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousStart
+
+build CMakeFiles/ContinuousStart | ${cmake_ninja_workdir}CMakeFiles/ContinuousStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousStart"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousUpdate
+
+build CMakeFiles/ContinuousUpdate | ${cmake_ninja_workdir}CMakeFiles/ContinuousUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousConfigure
+
+build CMakeFiles/ContinuousConfigure | ${cmake_ninja_workdir}CMakeFiles/ContinuousConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousBuild
+
+build CMakeFiles/ContinuousBuild | ${cmake_ninja_workdir}CMakeFiles/ContinuousBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousBuild"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousTest
+
+build CMakeFiles/ContinuousTest | ${cmake_ninja_workdir}CMakeFiles/ContinuousTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousTest"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousCoverage
+
+build CMakeFiles/ContinuousCoverage | ${cmake_ninja_workdir}CMakeFiles/ContinuousCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousMemCheck
+
+build CMakeFiles/ContinuousMemCheck | ${cmake_ninja_workdir}CMakeFiles/ContinuousMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles\ContinuousSubmit
+
+build CMakeFiles/ContinuousSubmit | ${cmake_ninja_workdir}CMakeFiles/ContinuousSubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" -D ContinuousSubmit"
+  pool = console
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -445,6 +839,18 @@ build external/ANTTWEAKBAR_116_OGLCORE_GLFW.lib: CXX_STATIC_LIBRARY_LINKER__ANTT
 
 
 #############################################
+# Utility command for test
+
+build external/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/test: phony external/CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build external/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -518,6 +924,18 @@ build external/install/strip: phony external/CMakeFiles/install/strip.util
 # Utility command for uninstall
 
 build external/glfw-3.1.2/uninstall: phony external/glfw-3.1.2/CMakeFiles/uninstall
+
+
+#############################################
+# Utility command for test
+
+build external/glfw-3.1.2/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\glfw-3.1.2 && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/glfw-3.1.2/test: phony external/glfw-3.1.2/CMakeFiles/test.util
 
 
 #############################################
@@ -744,6 +1162,18 @@ build external/glfw-3.1.2/src/glfw3.lib: C_STATIC_LIBRARY_LINKER__glfw_Debug ext
 
 
 #############################################
+# Utility command for test
+
+build external/glfw-3.1.2/src/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\glfw-3.1.2\src && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/glfw-3.1.2/src/test: phony external/glfw-3.1.2/src/CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build external/glfw-3.1.2/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -927,6 +1357,18 @@ build external/assimp-3.0.1270/contrib/zlib/zlib.lib: C_STATIC_LIBRARY_LINKER__z
   TARGET_COMPILE_PDB = external\assimp-3.0.1270\contrib\zlib\CMakeFiles\zlib.dir\zlib.pdb
   TARGET_FILE = external\assimp-3.0.1270\contrib\zlib\zlib.lib
   TARGET_PDB = external\assimp-3.0.1270\contrib\zlib\zlib.pdb
+
+
+#############################################
+# Utility command for test
+
+build external/assimp-3.0.1270/contrib/zlib/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\assimp-3.0.1270\contrib\zlib && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/assimp-3.0.1270/contrib/zlib/test: phony external/assimp-3.0.1270/contrib/zlib/CMakeFiles/test.util
 
 
 #############################################
@@ -2317,6 +2759,18 @@ build external/assimp-3.0.1270/code/assimp.lib: CXX_STATIC_LIBRARY_LINKER__assim
 
 
 #############################################
+# Utility command for test
+
+build external/assimp-3.0.1270/code/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\assimp-3.0.1270\code && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/assimp-3.0.1270/code/test: phony external/assimp-3.0.1270/code/CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build external/assimp-3.0.1270/code/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -2490,6 +2944,18 @@ build external/bullet-2.81-rev2613/src/BulletSoftBody/BulletSoftBody.lib: CXX_ST
   TARGET_COMPILE_PDB = external\bullet-2.81-rev2613\src\BulletSoftBody\CMakeFiles\BulletSoftBody.dir\BulletSoftBody.pdb
   TARGET_FILE = external\bullet-2.81-rev2613\src\BulletSoftBody\BulletSoftBody.lib
   TARGET_PDB = external\bullet-2.81-rev2613\src\BulletSoftBody\BulletSoftBody.pdb
+
+
+#############################################
+# Utility command for test
+
+build external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\bullet-2.81-rev2613\src\BulletSoftBody && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/bullet-2.81-rev2613/src/BulletSoftBody/test: phony external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/test.util
 
 
 #############################################
@@ -3510,6 +3976,18 @@ build external/bullet-2.81-rev2613/src/BulletCollision/BulletCollision.lib: CXX_
 
 
 #############################################
+# Utility command for test
+
+build external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\bullet-2.81-rev2613\src\BulletCollision && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/bullet-2.81-rev2613/src/BulletCollision/test: phony external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -3806,6 +4284,18 @@ build external/bullet-2.81-rev2613/src/BulletDynamics/BulletDynamics.lib: CXX_ST
 
 
 #############################################
+# Utility command for test
+
+build external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\bullet-2.81-rev2613\src\BulletDynamics && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/bullet-2.81-rev2613/src/BulletDynamics/test: phony external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/test.util
+
+
+#############################################
 # Utility command for edit_cache
 
 build external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -3979,6 +4469,18 @@ build external/bullet-2.81-rev2613/src/LinearMath/LinearMath.lib: CXX_STATIC_LIB
   TARGET_COMPILE_PDB = external\bullet-2.81-rev2613\src\LinearMath\CMakeFiles\LinearMath.dir\LinearMath.pdb
   TARGET_FILE = external\bullet-2.81-rev2613\src\LinearMath\LinearMath.lib
   TARGET_PDB = external\bullet-2.81-rev2613\src\LinearMath\LinearMath.pdb
+
+
+#############################################
+# Utility command for test
+
+build external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\external\bullet-2.81-rev2613\src\LinearMath && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build external/bullet-2.81-rev2613/src/LinearMath/test: phony external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/test.util
 
 
 #############################################
@@ -4177,14 +4679,14 @@ build external/glfw-3.1.2/src/all: phony external/glfw-3.1.2/src/glfw3.lib
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../external/CMakeLists.txt ../external/assimp-3.0.1270/code/CMakeLists.txt ../external/assimp-3.0.1270/contrib/zlib/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletCollision/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletDynamics/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeLists.txt ../external/bullet-2.81-rev2613/src/LinearMath/CMakeLists.txt ../external/glfw-3.1.2/CMakeLists.txt ../external/glfw-3.1.2/cmake_uninstall.cmake.in ../external/glfw-3.1.2/src/CMakeLists.txt ../external/glfw-3.1.2/src/glfw3.pc.in ../external/glfw-3.1.2/src/glfw3Config.cmake.in ../external/glfw-3.1.2/src/glfw_config.h.in ../external/rpavlik-cmake-modules-fe2273/CleanDirectoryList.cmake ../external/rpavlik-cmake-modules-fe2273/CreateLaunchers.cmake ../external/rpavlik-cmake-modules-fe2273/MSVCMultipleProcessCompile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeRCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckFunctionExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckLibraryExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckTypeSize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindDoxygen.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindOpenGL.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageMessage.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindThreads.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.22060601-MSVC_2/CMakeCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeCXXCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeRCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../external/CMakeLists.txt ../external/assimp-3.0.1270/code/CMakeLists.txt ../external/assimp-3.0.1270/contrib/zlib/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletCollision/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletDynamics/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeLists.txt ../external/bullet-2.81-rev2613/src/LinearMath/CMakeLists.txt ../external/glfw-3.1.2/CMakeLists.txt ../external/glfw-3.1.2/cmake_uninstall.cmake.in ../external/glfw-3.1.2/src/CMakeLists.txt ../external/glfw-3.1.2/src/glfw3.pc.in ../external/glfw-3.1.2/src/glfw3Config.cmake.in ../external/glfw-3.1.2/src/glfw_config.h.in ../external/rpavlik-cmake-modules-fe2273/CleanDirectoryList.cmake ../external/rpavlik-cmake-modules-fe2273/CreateLaunchers.cmake ../external/rpavlik-cmake-modules-fe2273/MSVCMultipleProcessCompile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeRCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTest.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTestTargets.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTestUseLaunchers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckFunctionExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckLibraryExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckTypeSize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/DartConfiguration.tcl.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindDoxygen.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindOpenGL.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageMessage.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindThreads.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.22060601-MSVC_2/CMakeCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeCXXCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeRCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../external/CMakeLists.txt ../external/assimp-3.0.1270/code/CMakeLists.txt ../external/assimp-3.0.1270/contrib/zlib/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletCollision/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletDynamics/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeLists.txt ../external/bullet-2.81-rev2613/src/LinearMath/CMakeLists.txt ../external/glfw-3.1.2/CMakeLists.txt ../external/glfw-3.1.2/cmake_uninstall.cmake.in ../external/glfw-3.1.2/src/CMakeLists.txt ../external/glfw-3.1.2/src/glfw3.pc.in ../external/glfw-3.1.2/src/glfw3Config.cmake.in ../external/glfw-3.1.2/src/glfw_config.h.in ../external/rpavlik-cmake-modules-fe2273/CleanDirectoryList.cmake ../external/rpavlik-cmake-modules-fe2273/CreateLaunchers.cmake ../external/rpavlik-cmake-modules-fe2273/MSVCMultipleProcessCompile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeRCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckFunctionExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckLibraryExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckTypeSize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindDoxygen.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindOpenGL.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageMessage.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindThreads.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.22060601-MSVC_2/CMakeCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeCXXCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeRCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../external/CMakeLists.txt ../external/assimp-3.0.1270/code/CMakeLists.txt ../external/assimp-3.0.1270/contrib/zlib/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletCollision/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletDynamics/CMakeLists.txt ../external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeLists.txt ../external/bullet-2.81-rev2613/src/LinearMath/CMakeLists.txt ../external/glfw-3.1.2/CMakeLists.txt ../external/glfw-3.1.2/cmake_uninstall.cmake.in ../external/glfw-3.1.2/src/CMakeLists.txt ../external/glfw-3.1.2/src/glfw3.pc.in ../external/glfw-3.1.2/src/glfw3Config.cmake.in ../external/glfw-3.1.2/src/glfw_config.h.in ../external/rpavlik-cmake-modules-fe2273/CleanDirectoryList.cmake ../external/rpavlik-cmake-modules-fe2273/CreateLaunchers.cmake ../external/rpavlik-cmake-modules-fe2273/MSVCMultipleProcessCompile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeRCInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTest.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTestTargets.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CTestUseLaunchers.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckFunctionExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFile.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckIncludeFileCXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckLibraryExists.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/CheckTypeSize.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Compiler/Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/DartConfiguration.tcl.in C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindDoxygen.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindOpenGL.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindPackageMessage.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/FindThreads.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/Windows.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/Platform/WindowsPaths.cmake C$:/Program$ Files/Microsoft$ Visual$ Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.23/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.23.22060601-MSVC_2/CMakeCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeCXXCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeRCCompiler.cmake CMakeFiles/3.23.22060601-MSVC_2/CMakeSystem.cmake: phony
 
 
 #############################################

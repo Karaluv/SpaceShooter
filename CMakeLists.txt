@@ -2,14 +2,13 @@ cmake_minimum_required(VERSION 3.0.0)
 project(SpaceShooter VERSION 0.1.0)
 find_package(OpenGL REQUIRED)
 
-# Compile external dependencies
-add_subdirectory(external)
-
-# On Visual 2005 and above, this mocan set the debug working directory
 # cmake_policy(SET CMP0026 OLD)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-modules-fe2273")
 include(CreateLaunchers)
 include(MSVCMultipleProcessCompile) # /MP
+include(CTest)
+
+add_subdirectory(external)
 
 if(INCLUDE_DISTRIB)
 	add_subdirectory(distrib)
@@ -42,7 +41,8 @@ add_definitions(
 
 add_library(render_libs
 	src/rend/render.cpp
-	src/rend/render_engine.cpp
+	src/rend/render_engine.h
+	src/rend/render_object.h
 )
 
 add_library(render_engine_libs

@@ -18,6 +18,7 @@
         "uvmap",
         "vertexbuffer",
         "vertexshader",
+        "Voxel",
         "Wcharfun",
         "Wcursorposfun",
         "Wkeyfun",

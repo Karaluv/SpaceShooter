@@ -1,5 +1,5 @@
 #include <iostream>
-#include <render_engine.cpp>
+#include <render_engine.h>
 #include <thread>
 #include <chrono>
 namespace srs

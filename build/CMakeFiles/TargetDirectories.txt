@@ -1,6 +1,35 @@
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/Experimental.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/Nightly.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/Continuous.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyStart.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyUpdate.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyConfigure.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyBuild.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyTest.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyCoverage.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlyMemCheck.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/NightlySubmit.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalStart.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalUpdate.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalConfigure.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalBuild.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalTest.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalCoverage.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalMemCheck.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ExperimentalSubmit.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousStart.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousUpdate.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousConfigure.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousBuild.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousTest.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousCoverage.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousMemCheck.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousSubmit.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render_libs.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render_engine_libs.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/game_core.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/list_install_components.dir
@@ -9,6 +38,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/insta
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/GLEW_1130.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/list_install_components.dir
@@ -16,6 +46,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFi
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/uninstall.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/list_install_components.dir
@@ -23,6 +54,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/glfw.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/list_install_components.dir
@@ -30,6 +62,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/glfw-3.1.2/src/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/zlib.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/list_install_components.dir
@@ -37,6 +70,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/contrib/zlib/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/assimp.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/list_install_components.dir
@@ -44,6 +78,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/assimp-3.0.1270/code/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/BulletSoftBody.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/list_install_components.dir
@@ -51,6 +86,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletSoftBody/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/BulletCollision.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/list_install_components.dir
@@ -58,6 +94,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/BulletDynamics.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/list_install_components.dir
@@ -65,6 +102,7 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/install/local.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/BulletDynamics/CMakeFiles/install/strip.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/LinearMath.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/edit_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/rebuild_cache.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/external/bullet-2.81-rev2613/src/LinearMath/CMakeFiles/list_install_components.dir

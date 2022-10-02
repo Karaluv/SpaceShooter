@@ -5,9 +5,9 @@
 1973	2656	6858963952962613	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/input.c.obj	6712038cb3e3f2c6
 11	905	6858963934814476	CMakeFiles/render_engine_libs.dir/common/controls.cpp.obj	51650b86af7c9df8
 18767	21964	6858972149533630	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/B3DImporter.cpp.obj	d03816bd6dee4194
-5	1116	6859134655188020	CMakeFiles/render_libs.dir/src/rend/render.cpp.obj	86f48aef8015aba2
+5	1134	6864096100214619	CMakeFiles/render_libs.dir/src/rend/render.cpp.obj	86f48aef8015aba2
 19	1360	6858963939863630	CMakeFiles/render_engine_libs.dir/common/objloader.cpp.obj	82b67305a49f7fd
-23	923	6858963935524070	CMakeFiles/render_engine_libs.dir/common/quaternion_utils.cpp.obj	f4ab6b09057d6dbc
+11	389	6864086003758946	CMakeFiles/render_engine_libs.dir/common/quaternion_utils.cpp.obj	f4ab6b09057d6dbc
 4603	4700	6858963973637909	external/ANTTWEAKBAR_116_OGLCORE_GLFW.lib	e24c522ad88c1727
 924	1040	6858963936669832	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/TwEventGLFW.c.obj	5777bf2423c4a382
 19310	21779	6858972147609175	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/BVHLoader.cpp.obj	dc0e14c39d48f333
@@ -15,10 +15,10 @@
 3081	5804	6858971987595075	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/MDCLoader.cpp.obj	50f94b2d23ff32f0
 13634	15265	6858972082686439	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/BaseProcess.cpp.obj	e5bd8ad6d15371f3
 58	1955	6858963946016358	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/TwColors.cpp.obj	9e9948ad59fec5a7
-8	1087	6859134654947965	CMakeFiles/game_core.dir/src/game_core.cpp.obj	3c9e28601528e0e1
+8	1148	6864096100322391	CMakeFiles/game_core.dir/src/game_core.cpp.obj	3c9e28601528e0e1
 28	1294	6858963939389893	CMakeFiles/render_engine_libs.dir/common/vboindexer.cpp.obj	231e2a981efc440e
 1956	2800	6858963954442161	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/context.c.obj	9ca33a454b2fe721
-1116	1175	6859134655837984	render_libs.lib	adfa8f4fbc430e49
+1135	1195	6864096100858642	render_libs.lib	93c22c2c4a9bf5d7
 22454	25146	6858972181596190	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/ValidateDataStructure.cpp.obj	b819ffd8f47fe12e
 2	1406	6858963940577467	CMakeFiles/render_engine_libs.dir/common/shader.cpp.obj	11084072707d5389
 1992	2918	6858963955399976	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/init.c.obj	d128bce75c2db5
@@ -26,11 +26,11 @@
 18066	20410	6858972134059074	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/FindInvalidDataProcess.cpp.obj	c8ef879b17d813dd
 42	1972	6858963945877623	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/LoadOGL.cpp.obj	d0f29ca08ca2733a
 9277	10201	6858972032019902	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/__/contrib/poly2tri/poly2tri/sweep/cdt.cc.obj	fd9eda42a2a7f5e3
-8	868	6859134560177390	CMakeFiles/render_libs.dir/src/rend/render_engine.cpp.obj	661482be8ba5574e
+8	965	6864086009523472	CMakeFiles/render_libs.dir/src/rend/render_engine.cpp.obj	661482be8ba5574e
 37	2391	6858963950435824	external/CMakeFiles/GLEW_1130.dir/glew-1.13.0/src/glew.c.obj	b30dfb29ba227bd3
 24	3404	6858971964081868	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/NFFLoader.cpp.obj	d443bbfee3c062c1
 22161	24495	6858972174881097	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/MakeVerboseFormat.cpp.obj	a4fd78469a775e41
-1407	2621	6858963948998478	render_engine_libs.lib	d875718fda8fd2f2
+390	449	6864086004339560	render_engine_libs.lib	d875718fda8fd2f2
 2078	2845	6858963954995217	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/window.c.obj	29a5784a05c7eda
 382	3025	6858963956628026	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/TwFonts.cpp.obj	8e68d4c47f780a7d
 1361	3255	6858963959055636	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/TwPrecomp.cpp.obj	bc856e7e768e0ea8
@@ -50,7 +50,7 @@
 78	3595	6858963962527116	external/CMakeFiles/ANTTWEAKBAR_116_OGLCORE_GLFW.dir/AntTweakBar-1.16/src/TwBar.cpp.obj	1c798fb1581d6cc7
 4305	7626	6858972005940530	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/XFileParser.cpp.obj	a4adf2010cfcd6a8
 3049	3621	6858963962812844	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/wgl_context.c.obj	a7a8de7e38e518c0
-1175	1364	6859134656790610	game_core.exe	f364ce1ba650fb2b
+1195	1382	6864096101738644	game_core.exe	f364ce1ba650fb2b
 2392	4654	6858971976588552	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/M3Importer.cpp.obj	fd064c777c81db76
 3026	3631	6858963962930493	external/glfw-3.1.2/src/CMakeFiles/glfw.dir/win32_window.c.obj	d84cf2a7d5a3a8c
 52	3495	6858971964866297	external/assimp-3.0.1270/code/CMakeFiles/assimp.dir/IRRLoader.cpp.obj	67d20775ae1923d1
@@ -180,3 +180,7 @@
 57	454	6859117443317429	external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btBroadphaseProxy.cpp.obj	1b85f395cef7c53b
 63	545	6859117444316998	external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btCollisionAlgorithm.cpp.obj	4b14545c296bdde5
 64	332	6859118433727002	external/bullet-2.81-rev2613/src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btDispatcher.cpp.obj	492c5f032856ade
+6	1030	6864099079177714	CMakeFiles/render_libs.dir/src/rend/render.cpp.obj	86f48aef8015aba2
+9	1039	6864099079177714	CMakeFiles/game_core.dir/src/game_core.cpp.obj	3c9e28601528e0e1
+1031	1086	6864099079747696	render_libs.lib	93c22c2c4a9bf5d7
+1086	1266	6864099080587688	game_core.exe	f364ce1ba650fb2b
