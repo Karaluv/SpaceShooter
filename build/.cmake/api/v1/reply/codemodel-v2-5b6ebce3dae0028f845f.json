@@ -1,0 +1,340 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						7,
+						9,
+						10
+					]
+				},
+				{
+					"build" : "external",
+					"childIndexes" : 
+					[
+						2,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external-Debug-d8969718d56d94ae4e32.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "external",
+					"targetIndexes" : 
+					[
+						0,
+						4
+					]
+				},
+				{
+					"build" : "external/glfw-3.1.2",
+					"childIndexes" : 
+					[
+						3
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external.glfw-3.1.2-Debug-a17a4ad07bb6085b98b2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "external/glfw-3.1.2",
+					"targetIndexes" : 
+					[
+						11
+					]
+				},
+				{
+					"build" : "external/glfw-3.1.2/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external.glfw-3.1.2.src-Debug-3d16ca6781b24f96db92.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "external/glfw-3.1.2/src",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "external/assimp-3.0.1270/contrib/zlib",
+					"jsonFile" : "directory-external.assimp-3.0.1270.contrib.zlib-Debug-17e4839c1a8cc4db10a0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/assimp-3.0.1270/contrib/zlib",
+					"targetIndexes" : 
+					[
+						12
+					]
+				},
+				{
+					"build" : "external/assimp-3.0.1270/code",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external.assimp-3.0.1270.code-Debug-0bc54b31d89b22b872a0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/assimp-3.0.1270/code",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "external/bullet-2.81-rev2613/src/BulletSoftBody",
+					"jsonFile" : "directory-external.bullet-2.81-rev2613.src.BulletSoftBody-Debug-1758d8ca183f8270fd52.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/bullet-2.81-rev2613/src/BulletSoftBody",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "external/bullet-2.81-rev2613/src/BulletCollision",
+					"jsonFile" : "directory-external.bullet-2.81-rev2613.src.BulletCollision-Debug-33e7873b04be9b4ad52a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/bullet-2.81-rev2613/src/BulletCollision",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "external/bullet-2.81-rev2613/src/BulletDynamics",
+					"jsonFile" : "directory-external.bullet-2.81-rev2613.src.BulletDynamics-Debug-1c33ec569f433487da68.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/bullet-2.81-rev2613/src/BulletDynamics",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "external/bullet-2.81-rev2613/src/LinearMath",
+					"jsonFile" : "directory-external.bullet-2.81-rev2613.src.LinearMath-Debug-26e02491416b60f8ca1a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "external/bullet-2.81-rev2613/src/LinearMath",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"name" : "SpaceShooter",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						9,
+						10,
+						12
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2,
+						3
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						11
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "ANTTWEAKBAR_116_OGLCORE_GLFW::@89556154f30252d09d22",
+					"jsonFile" : "target-ANTTWEAKBAR_116_OGLCORE_GLFW-Debug-f509e6b207097dd0da51.json",
+					"name" : "ANTTWEAKBAR_116_OGLCORE_GLFW",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "BulletCollision::@6c93c58645eeba18715d",
+					"jsonFile" : "target-BulletCollision-Debug-ffd679112a258af415e3.json",
+					"name" : "BulletCollision",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "BulletDynamics::@98c59d1dc90ba8342e16",
+					"jsonFile" : "target-BulletDynamics-Debug-fb3ef233a35c847a221d.json",
+					"name" : "BulletDynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "BulletSoftBody::@aa1392132c271f34e15a",
+					"jsonFile" : "target-BulletSoftBody-Debug-dc0f2c93b046b88a7ca2.json",
+					"name" : "BulletSoftBody",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "GLEW_1130::@89556154f30252d09d22",
+					"jsonFile" : "target-GLEW_1130-Debug-112bce9d020c89c599d0.json",
+					"name" : "GLEW_1130",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "LinearMath::@d41c7d776783058eea1b",
+					"jsonFile" : "target-LinearMath-Debug-98052c2f538078d569c2.json",
+					"name" : "LinearMath",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "assimp::@fd34c06cfae9bc0e2791",
+					"jsonFile" : "target-assimp-Debug-269c0e25639736b28a96.json",
+					"name" : "assimp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "game_core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-game_core-Debug-cf32ce04411f79900c63.json",
+					"name" : "game_core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@160694664b387c03da1c",
+					"jsonFile" : "target-glfw-Debug-d9eccf3df709ec9a4ced.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "render_engine_libs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-render_engine_libs-Debug-e96e88516349c4eda2d6.json",
+					"name" : "render_engine_libs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "render_libs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-render_libs-Debug-3fd607139cf6828e1694.json",
+					"name" : "render_libs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "uninstall::@27f92cc50d0fa9119448",
+					"jsonFile" : "target-uninstall-Debug-f3679dd48026977e9877.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "zlib::@a7644ee3d8b06da981e1",
+					"jsonFile" : "target-zlib-Debug-7eafa4eb946f388c9d4e.json",
+					"name" : "zlib",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build",
+		"source" : "C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

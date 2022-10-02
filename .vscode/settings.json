@@ -1,0 +1,32 @@
+{
+    "cSpell.words": [
+        "elementbuffer",
+        "exicts",
+        "fragmentshader",
+        "glew",
+        "GLEW",
+        "glfw",
+        "GLFW",
+        "glfwTerminate",
+        "indexsize",
+        "modelspace",
+        "normalbuffer",
+        "scube",
+        "Taskis",
+        "uvbuffer",
+        "UVID",
+        "uvmap",
+        "vertexbuffer",
+        "vertexshader",
+        "Wcharfun",
+        "Wcursorposfun",
+        "Wkeyfun",
+        "Wmousebuttonfun",
+        "worldspace",
+        "Wscrollfun",
+        "Wwindow"
+    ],
+    "files.associations": {
+        "vector": "cpp"
+    }
+}

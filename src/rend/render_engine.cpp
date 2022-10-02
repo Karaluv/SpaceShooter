@@ -5,12 +5,12 @@
 #include <string>
 #include <iostream>
 #include <thread>
+#include <mutex>
+#include <map>
 // Include GLEW
 #include <GL/glew.h>
-
 // Include GLFW
 #include <GLFW/glfw3.h>
-
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -19,22 +19,19 @@
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/norm.hpp>
 using namespace glm;
-
 // Include AntTweakBar
 #include <AntTweakBar.h>
-
-
+// Include copied libraries
 #include <common/shader.hpp>
 #include <common/texture.hpp>
 #include <common/controls.hpp>
 #include <common/objloader.hpp>
 #include <common/vboindexer.hpp>
-#include <common/quaternion_utils.hpp> // See quaternion_utils.cpp for RotationBetweenVectors, LookAt and RotateTowards
+#include <common/quaternion_utils.hpp>
 
-#include <map>
+using namespace glm;
 
-
-GLuint load_mesh(std::string name, int index_of_model, GLuint* elementbuffer, GLuint* normalbuffer, GLuint* uvbuffer, GLuint* vertexbuffer)
+GLuint load_mesh(std::string name, int index_of_model, GLuint *elementbuffer, GLuint *normalbuffer, GLuint *uvbuffer, GLuint *vertexbuffer)
 {
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
@@ -51,16 +48,13 @@ GLuint load_mesh(std::string name, int index_of_model, GLuint* elementbuffer, GL
 
 	// Load it into a VBO
 
-
 	glGenBuffers(index_of_model, vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, *vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0], GL_STATIC_DRAW);
 
-
 	glGenBuffers(index_of_model, uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, *uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, indexed_uvs.size() * sizeof(glm::vec2), &indexed_uvs[0], GL_STATIC_DRAW);
-
 
 	glGenBuffers(index_of_model, normalbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, *normalbuffer);
@@ -72,7 +66,6 @@ GLuint load_mesh(std::string name, int index_of_model, GLuint* elementbuffer, GL
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *elementbuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
 
-
 	int indices_size = indices.size();
 
 	vertices.clear();
@@ -82,48 +75,44 @@ GLuint load_mesh(std::string name, int index_of_model, GLuint* elementbuffer, GL
 	indices.clear();
 	indexed_vertices.clear();
 	indexed_uvs.clear();
-	indexed_normals.size();
 
 	return GLuint(indices_size);
-
-
-
 }
 
 void switch_render_mesh(GLuint VertexBuffer, GLuint UvBuffer, GLuint NormalBuffer, GLuint ElementsBuffer,
-	GLuint vertexPosition_modelspaceID, GLuint vertexUVID, GLuint vertexNormal_modelspaceID)
+						GLuint vertexPosition_modelspaceID, GLuint vertexUVID, GLuint vertexNormal_modelspaceID)
 {
 	glEnableVertexAttribArray(vertexPosition_modelspaceID);
 	glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
 	glVertexAttribPointer(
-		vertexPosition_modelspaceID,  // The attribute we want to configure
-		3,                            // size
-		GL_FLOAT,                     // type
-		GL_FALSE,                     // normalized?
-		0,                            // stride
-		(void*)0                      // array buffer offset
+		vertexPosition_modelspaceID, // The attribute we want to configure
+		3,							 // size
+		GL_FLOAT,					 // type
+		GL_FALSE,					 // normalized?
+		0,							 // stride
+		(void *)0					 // array buffer offset
 	);
 
 	glEnableVertexAttribArray(vertexUVID);
 	glBindBuffer(GL_ARRAY_BUFFER, UvBuffer);
 	glVertexAttribPointer(
-		vertexUVID,                   // The attribute we want to configure
-		2,                            //   size : U+V => 2
-		GL_FLOAT,                     // type
-		GL_FALSE,                     // normalized?
-		0,                            // stride
-		(void*)0                      // array buffer offset
+		vertexUVID, // The attribute we want to configure
+		2,			//   size : U+V => 2
+		GL_FLOAT,	// type
+		GL_FALSE,	// normalized?
+		0,			// stride
+		(void *)0	// array buffer offset
 	);
 
 	glEnableVertexAttribArray(vertexNormal_modelspaceID);
 	glBindBuffer(GL_ARRAY_BUFFER, NormalBuffer);
 	glVertexAttribPointer(
-		vertexNormal_modelspaceID,    // The attribute we want to configure
-		3,                            // size
-		GL_FLOAT,                     // type
-		GL_FALSE,                     // normalized?
-		0,                            // stride
-		(void*)0                      // array buffer offset
+		vertexNormal_modelspaceID, // The attribute we want to configure
+		3,						   // size
+		GL_FLOAT,				   // type
+		GL_FALSE,				   // normalized?
+		0,						   // stride
+		(void *)0				   // array buffer offset
 	);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBuffer);
@@ -140,7 +129,7 @@ public:
 
 	void new_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
 	{
-		IsInObject_ = true;
+		access_object.lock();
 		int index = NamesDict[name];
 
 		auto new_obj = new render_object;
@@ -150,14 +139,16 @@ public:
 		new_obj->update_model(index, IndexBuffer[index]);
 
 		RendObjs.push_back(new_obj);
-		IsInObject_ = false;
+		access_object.unlock();
 	}
 
-	void start() {
+	void start()
+	{
 		this->RenderTask_ = std::thread(&render_engine::render_process, this);
 	}
 
-	void stop() {
+	void stop()
+	{
 		this->RenderTaskisRunning_ = false;
 		RenderTask_.join();
 	}
@@ -170,14 +161,13 @@ public:
 		initialize();
 		std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 		std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
 		while (RenderTaskisRunning_)
 		{
 			render_frame();
 			end = std::chrono::steady_clock::now();
 			auto render_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
 			if (render_time > target_fps)
-				std::cout << "Your PC is too slow, render fps is less than 60fps.\n So render auto shutsdown\n";
+				std::cout << "Your PC is too slow, render fps is less than 60fps.\n So render auto shuts down\n";
 			else
 				std::this_thread::sleep_for(std::chrono::nanoseconds(render_time));
 			begin = std::chrono::steady_clock::now();
@@ -195,19 +185,20 @@ public:
 		glDeleteTextures(1, &TextureID);
 		TwTerminate();
 		glfwTerminate();
+		initialized = false;
 	}
 
 	void delete_obj(int index)
 	{
-		IsInObject_ = true;
-		delete& RendObjs[index];
+		access_object.lock();
+		delete &RendObjs[index];
 		RendObjs.erase(RendObjs.begin() + index);
-		IsInObject_ = false;
+		access_object.unlock();
 	}
 
 	void update_obj(int index, double x, double y, double z, double ax, double ay, double az, double aw)
 	{
-		IsInObject_ = true;
+		access_object.lock();
 		if (index < RendObjs.size())
 		{
 			RendObjs[index]->set_orientation(ax, ay, az, aw);
@@ -215,14 +206,14 @@ public:
 		}
 		else
 			std::cout << "NO such object exicts!";
-		IsInObject_ = false;
+		access_object.unlock();
 	}
-	bool get_IsInObject()
+
+	bool GetInitialize()
 	{
-		return IsInObject_;
+		return initialized;
 	}
 private:
-
 	void render_frame()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -237,16 +228,15 @@ private:
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 		int index;
+		access_object.lock();
 		for (int i = 0; i < RendObjs.size(); ++i)
 		{
 			index = RendObjs[i]->get_index();
 			switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index], ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID, vertexNormal_modelspaceID);
-			IsInObject_ = true;
 			RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)), MatrixID, ModelMatrixID, ViewMatrixID);
 			RendObjs[i]->draw_object();
-			IsInObject_ = false;
 		}
-
+		access_object.unlock();
 		glDisableVertexAttribArray(vertexPosition_modelspaceID);
 		glDisableVertexAttribArray(vertexUVID);
 		glDisableVertexAttribArray(vertexNormal_modelspaceID);
@@ -270,18 +260,16 @@ private:
 
 		glewInit();
 
-		glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW); // - Directly redirect GLFW mouse button events to AntTweakBar
-		glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW);          // - Directly redirect GLFW mouse position events to AntTweakBar
-		glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW);    // - Directly redirect GLFW mouse wheel events to AntTweakBar
-		glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW);                         // - Directly redirect GLFW key events to AntTweakBar
-		glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW);                      // - Directly redirect GLFW char events to AntTweakBar
+		// glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW); // - Directly redirect GLFW mouse button events to AntTweakBar
+		// glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW);		// - Directly redirect GLFW mouse position events to AntTweakBar
+		// glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW);			// - Directly redirect GLFW mouse wheel events to AntTweakBar
+		// glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW);							// - Directly redirect GLFW key events to AntTweakBar
+		// glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW);						// - Directly redirect GLFW char events to AntTweakBar
 
-		glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		glfwPollEvents();
-		glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+		// glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+		////glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		// glfwPollEvents();
+		//  glfwSetCursorPos(window, 1024 / 2, 768 / 2);
 
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -309,18 +297,17 @@ private:
 		glUseProgram(programID);
 		LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
 
-		new_object("monkey", 0.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-		new_object("cube", 2.0, -1.0, -2.0, 0.0, 0.0, 0.0, 0.0);
-
-		camera_position = glm::vec3(0, 0, 7);
-		camera_angel = glm::vec3(0, 0, 0);
-		camera_rotation = glm::vec3(0, 1, 0);
-
+		//new_object("monkey", 0.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0);
+		//new_object("cube", 2.0, -1.0, -2.0, 0.0, 0.0, 0.0, 0.0);
+		
+		ViewCam.Position = glm::vec3(0, 0, 7);
+		ViewCam.Angel = glm::vec3(0, 0, 0);
+		ViewCam.Rotation = glm::vec3(0, 1, 0);
+		initialized = true;
 		RenderTaskisTerminated_ = false;
-
 	}
 
-	void delete_mesh(int index, GLuint& vertexbuffer, GLuint& uvbuffer, GLuint& normalbuffer, GLuint& elementbuffer)
+	void delete_mesh(int index, GLuint &vertexbuffer, GLuint &uvbuffer, GLuint &normalbuffer, GLuint &elementbuffer)
 	{
 		glDeleteBuffers(index, &vertexbuffer);
 		glDeleteBuffers(index, &uvbuffer);
@@ -331,9 +318,9 @@ private:
 	void update_matrixes()
 	{
 		ProjectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-		ViewMatrix = glm::lookAt(camera_position, camera_angel, camera_rotation);
+		ViewMatrix = glm::lookAt(ViewCam.Position, ViewCam.Angel, ViewCam.Rotation);
 	}
-	void LoadAllMesh(std::vector<GLuint>& ElementBuff, std::vector<GLuint>& NormalBuff, std::vector<GLuint>& UvBuff, std::vector<GLuint>& VertexBuff, std::vector<GLuint>& IndexBuff)
+	void LoadAllMesh(std::vector<GLuint> &ElementBuff, std::vector<GLuint> &NormalBuff, std::vector<GLuint> &UvBuff, std::vector<GLuint> &VertexBuff, std::vector<GLuint> &IndexBuff)
 	{
 		for (int i = 0; i < PathDict.size(); ++i)
 		{
@@ -347,10 +334,10 @@ private:
 	}
 
 private:
-
-	GLFWwindow* window;
+	GLFWwindow *window;
 
 	bool gLookAtOther = true;
+	bool initialized = false;
 
 	GLuint programID;
 
@@ -366,10 +353,6 @@ private:
 	GLuint Texture;
 	GLuint TextureID;
 
-	vec3 camera_position;
-	vec3 camera_angel;
-	vec3 camera_rotation;
-
 	glm::mat4 ProjectionMatrix;
 	glm::mat4 ViewMatrix;
 
@@ -379,14 +362,13 @@ private:
 	std::vector<GLuint> VertexBuffers;
 	std::vector<GLuint> IndexBuffer;
 
+	std::map<int, std::string> PathDict = {{0, "res/scube.obj"}, {1, "res/suzanne.obj"}};
+	std::map<std::string, int> NamesDict = {{"cube", 0}, {"monkey", 1}};
 
-	std::map<int, std::string> PathDict = { {0,"res/scube.obj"},{1,"res/suzanne.obj"} };
-	std::map<std::string, int>  NamesDict = { {"cube",0},{"monkey",1} };
+	bool RenderTaskisRunning_ = false;
+	bool RenderTaskisTerminated_ = true;
 
-
-	std::atomic<bool> RenderTaskisRunning_ = false;
-	std::atomic<bool> RenderTaskisTerminated_ = true;
-	std::atomic<bool> IsInObject_ = false;
+	std::mutex access_object;
 	std::thread RenderTask_;
 
 	class render_object
@@ -395,16 +377,16 @@ private:
 		render_object() {}
 		~render_object()
 		{
-			delete& position;
-			delete& orientation;
-			delete& model_index;
-			delete& index_size;
-			delete& ProjectionMatrix;
-			delete& ViewMatrix;
-			delete& ScalingMatrix;
-			delete& MatrixID;
-			delete& ModelMatrixID;
-			delete& ViewMatrixID;
+			delete &position;
+			delete &orientation;
+			delete &model_index;
+			delete &index_size;
+			delete &ProjectionMatrix;
+			delete &ViewMatrix;
+			delete &ScalingMatrix;
+			delete &MatrixID;
+			delete &ModelMatrixID;
+			delete &ViewMatrixID;
 		}
 
 		void update_model(int index, GLuint indexsize)
@@ -414,7 +396,7 @@ private:
 		}
 
 		void update_matrix(glm::mat4 ProjectionMatrixV, glm::mat4 ViewMatrixV, glm::mat4 ScalingMatrixV,
-			GLuint MatrixIDV, GLuint ModelMatrixIDV, GLuint ViewMatrixIDV)
+						   GLuint MatrixIDV, GLuint ModelMatrixIDV, GLuint ViewMatrixIDV)
 		{
 			ProjectionMatrix = ProjectionMatrixV;
 			ViewMatrix = ViewMatrixV;
@@ -424,7 +406,7 @@ private:
 			ModelMatrixID = ModelMatrixIDV;
 			ViewMatrixID = ViewMatrixIDV;
 		}
-		void get_position(double* x, double* y, double* z)
+		void get_position(double *x, double *y, double *z)
 		{
 			*x = position.x;
 			*y = position.y;
@@ -434,7 +416,7 @@ private:
 		{
 			return position;
 		}
-		void get_orientation(double* x, double* y, double* z, double* w)
+		void get_orientation(double *x, double *y, double *z, double *w)
 		{
 			*x = orientation.x;
 			*y = orientation.y;
@@ -487,7 +469,7 @@ private:
 			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-			glDrawElements(GL_TRIANGLES, 2904, GL_UNSIGNED_SHORT, (void*)(0));
+			glDrawElements(GL_TRIANGLES, 2904, GL_UNSIGNED_SHORT, (void *)(0));
 		}
 
 	private:
@@ -504,6 +486,14 @@ private:
 		GLuint ViewMatrixID;
 	};
 
-	std::vector<render_object*> RendObjs;
-};
+	struct camera
+	{
+		vec3 Position = glm::vec3(0, 0, 7);
+		vec3 Angel = glm::vec3(0, 0, 0);
+		vec3 Rotation = glm::vec3(0, 1, 0);	
+	};
+	
 
+	camera ViewCam;
+	std::vector<render_object *> RendObjs;
+};

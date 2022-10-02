@@ -1,0 +1,298 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+1
+MSBuild version 17.3.1+2badb37d1 for .NET Framework
+Build started 26.09.2022 14:34:09.
+Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdC.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdC.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X64 Debug\CMakeCCompilerId.obj
+LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj]
+Done Building Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" (default targets) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" (default target) (1) ->
+(Link target) -> 
+  LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:01.22
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+1
+MSBuild version 17.3.1+2badb37d1 for .NET Framework
+Build started 26.09.2022 14:34:10.
+Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdC.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdC.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X64 Debug\CMakeCCompilerId.obj
+LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj]
+Done Building Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" (default targets) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj" (default target) (1) ->
+(Link target) -> 
+  LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdC\CompilerIdC.vcxproj]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:00.47
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+1
+MSBuild version 17.3.1+2badb37d1 for .NET Framework
+Build started 26.09.2022 14:34:11.
+Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdCXX.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdCXX.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X64 Debug\CMakeCXXCompilerId.obj
+LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj]
+Done Building Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default target) (1) ->
+(Link target) -> 
+  LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:00.50
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler:  
+Build flags: 
+Id flags:  
+
+The output was:
+1
+MSBuild version 17.3.1+2badb37d1 for .NET Framework
+Build started 26.09.2022 14:34:12.
+Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+  Creating directory "Debug\CompilerIdCXX.tlog\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdCXX.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.33.31629\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X64 Debug\CMakeCXXCompilerId.obj
+LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj]
+Done Building Project "C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default target) (1) ->
+(Link target) -> 
+  LINK : fatal error LNK1104: cannot open file 'ucrtd.lib' [C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\3.23.22060601-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:00.48
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+clang: error: unable to execute command: program not executable
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+clang: error: unable to execute command: program not executable
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Determining if the include file pthread.h exists failed with the following output:
+Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_b1359 && [1/2] Building C object CMakeFiles/cmTC_b1359.dir/CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_b1359.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_b1359.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_b1359.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_b1359.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'pthread.h' file not found
+#include <pthread.h>
+         ^~~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+
+Determining size of off64_t failed with the following output:
+Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_0d025 && [1/2] Building C object CMakeFiles/cmTC_0d025.dir/OFF64_T.c.obj
+FAILED: CMakeFiles/cmTC_0d025.dir/OFF64_T.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1  -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_0d025.dir/OFF64_T.c.obj -MF CMakeFiles\cmTC_0d025.dir\OFF64_T.c.obj.d -o CMakeFiles/cmTC_0d025.dir/OFF64_T.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:29:12: error: use of undeclared identifier 'off64_t'
+  ('0' + ((SIZE / 10000)%10)),
+           ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
+#define SIZE (sizeof(off64_t))
+                     ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:30:12: error: use of undeclared identifier 'off64_t'
+  ('0' + ((SIZE / 1000)%10)),
+           ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
+#define SIZE (sizeof(off64_t))
+                     ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:31:12: error: use of undeclared identifier 'off64_t'
+  ('0' + ((SIZE / 100)%10)),
+           ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
+#define SIZE (sizeof(off64_t))
+                     ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:32:12: error: use of undeclared identifier 'off64_t'
+  ('0' + ((SIZE / 10)%10)),
+           ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
+#define SIZE (sizeof(off64_t))
+                     ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:33:12: error: use of undeclared identifier 'off64_t'
+  ('0' +  (SIZE    % 10)),
+           ^
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
+#define SIZE (sizeof(off64_t))
+                     ^
+5 errors generated.
+ninja: build stopped: subcommand failed.
+
+
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__PPC64__)
+# define KEY '_','_','P','P','C','6','4','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#elif defined(__PPC__)
+# define KEY '_','_','P','P','C','_','_'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__aarch64__)
+# define KEY '_','_','a','a','r','c','h','6','4','_','_'
+#elif defined(__ARM_ARCH_7A__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','A','_','_'
+#elif defined(__ARM_ARCH_7S__)
+# define KEY '_','_','A','R','M','_','A','R','C','H','_','7','S','_','_'
+#endif
+
+#define SIZE (sizeof(off64_t))
+static char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining if the function fseeko exists failed with the following output:
+Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_2a4ab && [1/2] Building C object CMakeFiles/cmTC_2a4ab.dir/CheckFunctionExists.c.obj
+[2/2] Linking C executable cmTC_2a4ab.exe
+FAILED: cmTC_2a4ab.exe 
+cmd.exe /C "cd . && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=fseeko -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_2a4ab.dir/CheckFunctionExists.c.obj -o cmTC_2a4ab.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_2a4ab.lib -Xlinker /pdb:cmTC_2a4ab.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+lld-link: error: undefined symbol: fseeko
+>>> referenced by C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.23\Modules\CheckFunctionExists.c:17
+>>>               CMakeFiles/cmTC_2a4ab.dir/CheckFunctionExists.c.obj:(main)
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+ninja: build stopped: subcommand failed.
+
+
+
+Determining if the include file unistd.h exists failed with the following output:
+Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_ad571 && [1/2] Building C object CMakeFiles/cmTC_ad571.dir/CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_ad571.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_ad571.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_ad571.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_ad571.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'unistd.h' file not found
+#include <unistd.h>
+         ^~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+
