@@ -23,6 +23,9 @@ namespace srs
 		while (!RendEng->GetInitialize())
 			std::this_thread::sleep_for(std::chrono::nanoseconds(100));
 		RendEng->new_object("cube", 1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0);
+		RendEng->new_object("monkey", -1.0, -2.0, -4.0, 0.0, 0.0, 0.0, 0.0);
+		RendEng->new_object("cube", -1.0, -2.0, -3.0, 0.0, 0.0, 0.0, 0.0);
+
 		double x, y, z;
 		x = 1.0;
 		y = 2.0;

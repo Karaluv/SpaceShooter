@@ -29,6 +29,7 @@
 #include <common/quaternion_utils.hpp>
 // Include render object
 #include <render_object.h>
+#include <render_mesh.h>
 
 using namespace glm;
 
@@ -51,10 +52,8 @@ public:
         this->RenderTaskisRunning_ = false;
         RenderTask_.join();
 
-        for (int i = 0; i < VertexBuffers.size(); i++)
-        {
-            delete_mesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
-        }
+        delete MeshSpace;
+
         glDeleteTextures(1, &TextureID);
         TwTerminate();
         glfwTerminate();
@@ -96,7 +95,7 @@ public:
         access_object.lock();
         int index = NamesDict[name];
 
-        auto new_obj = new render_object;
+        render_object *new_obj = new render_object;
 
         new_obj->set_position(x, y, z);
         new_obj->set_orientation(ax, ay, az, aw);
@@ -145,8 +144,11 @@ private:
         for (int i = 0; i < RendObjs.size(); ++i)
         {
             index = RendObjs[i]->get_index();
-            switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index], ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID, vertexNormal_modelspaceID);
-            RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)), MatrixID, ModelMatrixID, ViewMatrixID);
+            MeshSpace->switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index],
+                                          ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID,
+                                          vertexNormal_modelspaceID);
+            RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)),
+                                       MatrixID, ModelMatrixID, ViewMatrixID);
             RendObjs[i]->draw_object();
         }
         access_object.unlock();
@@ -173,11 +175,11 @@ private:
 
         glewInit();
 
-        // glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW); // - Directly redirect GLFW mouse button events to AntTweakBar
-        // glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW);		// - Directly redirect GLFW mouse position events to AntTweakBar
-        // glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW);			// - Directly redirect GLFW mouse wheel events to AntTweakBar
-        // glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW);							// - Directly redirect GLFW key events to AntTweakBar
-        // glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW);						// - Directly redirect GLFW char events to AntTweakBar
+        // glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW); r
+        // glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW);
+        // glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW);
+        // glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW);
+        // glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW);
 
         // glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
         ////glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -205,13 +207,10 @@ private:
         Texture = loadDDS("res/uvmap.DDS");
         TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
-        LoadAllMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
+        MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
 
         glUseProgram(programID);
         LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
-
-        // new_object("monkey", 0.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0);
-        // new_object("cube", 2.0, -1.0, -2.0, 0.0, 0.0, 0.0, 0.0);
 
         ViewCam.Position = glm::vec3(0, 0, 7);
         ViewCam.Angel = glm::vec3(0, 0, 0);
@@ -220,30 +219,10 @@ private:
         RenderTaskisTerminated_ = false;
     }
 
-    void delete_mesh(int index, GLuint &vertexbuffer, GLuint &uvbuffer, GLuint &normalbuffer, GLuint &elementbuffer)
-    {
-        glDeleteBuffers(index, &vertexbuffer);
-        glDeleteBuffers(index, &uvbuffer);
-        glDeleteBuffers(index, &normalbuffer);
-        glDeleteBuffers(index, &elementbuffer);
-        glDeleteProgram(programID);
-    }
     void update_matrixes()
     {
         ProjectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
         ViewMatrix = glm::lookAt(ViewCam.Position, ViewCam.Angel, ViewCam.Rotation);
-    }
-    void LoadAllMesh(std::vector<GLuint> &ElementBuff, std::vector<GLuint> &NormalBuff, std::vector<GLuint> &UvBuff, std::vector<GLuint> &VertexBuff, std::vector<GLuint> &IndexBuff)
-    {
-        for (int i = 0; i < PathDict.size(); ++i)
-        {
-            ElementBuff.push_back(GLuint(0));
-            NormalBuff.push_back(GLuint(0));
-            UvBuff.push_back(GLuint(0));
-            VertexBuff.push_back(GLuint(0));
-            IndexBuff.push_back(GLuint(0));
-            IndexBuff.back() = load_mesh(PathDict[i], i + 1, &ElementBuff.back(), &NormalBuff.back(), &UvBuff.back(), &VertexBuff.back());
-        }
     }
 
 private:
@@ -284,93 +263,6 @@ private:
     std::mutex access_object;
     std::thread RenderTask_;
 
-    GLuint load_mesh(std::string name, int index_of_model, GLuint *elementbuffer, GLuint *normalbuffer, GLuint *uvbuffer, GLuint *vertexbuffer)
-    {
-        std::vector<glm::vec3> vertices;
-        std::vector<glm::vec2> uvs;
-        std::vector<glm::vec3> normals;
-
-        std::vector<unsigned short> indices;
-        std::vector<glm::vec3> indexed_vertices;
-        std::vector<glm::vec2> indexed_uvs;
-        std::vector<glm::vec3> indexed_normals;
-
-        bool res = loadOBJ(name.c_str(), vertices, uvs, normals);
-
-        indexVBO(vertices, uvs, normals, indices, indexed_vertices, indexed_uvs, indexed_normals);
-
-        // Load it into a VBO
-
-        glGenBuffers(index_of_model, vertexbuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, *vertexbuffer);
-        glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0], GL_STATIC_DRAW);
-
-        glGenBuffers(index_of_model, uvbuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, *uvbuffer);
-        glBufferData(GL_ARRAY_BUFFER, indexed_uvs.size() * sizeof(glm::vec2), &indexed_uvs[0], GL_STATIC_DRAW);
-
-        glGenBuffers(index_of_model, normalbuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, *normalbuffer);
-        glBufferData(GL_ARRAY_BUFFER, indexed_normals.size() * sizeof(glm::vec3), &indexed_normals[0], GL_STATIC_DRAW);
-
-        // Generate a buffer for the indices as well
-
-        glGenBuffers(index_of_model, elementbuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *elementbuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
-
-        int indices_size = indices.size();
-
-        vertices.clear();
-        uvs.clear();
-        normals.clear();
-
-        indices.clear();
-        indexed_vertices.clear();
-        indexed_uvs.clear();
-
-        return GLuint(indices_size);
-    }
-
-    void switch_render_mesh(GLuint VertexBuffer, GLuint UvBuffer, GLuint NormalBuffer, GLuint ElementsBuffer,
-                            GLuint vertexPosition_modelspaceID, GLuint vertexUVID, GLuint vertexNormal_modelspaceID)
-    {
-        glEnableVertexAttribArray(vertexPosition_modelspaceID);
-        glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
-        glVertexAttribPointer(
-            vertexPosition_modelspaceID, // The attribute we want to configure
-            3,                           // size
-            GL_FLOAT,                    // type
-            GL_FALSE,                    // normalized?
-            0,                           // stride
-            (void *)0                    // array buffer offset
-        );
-
-        glEnableVertexAttribArray(vertexUVID);
-        glBindBuffer(GL_ARRAY_BUFFER, UvBuffer);
-        glVertexAttribPointer(
-            vertexUVID, // The attribute we want to configure
-            2,          //   size : U+V => 2
-            GL_FLOAT,   // type
-            GL_FALSE,   // normalized?
-            0,          // stride
-            (void *)0   // array buffer offset
-        );
-
-        glEnableVertexAttribArray(vertexNormal_modelspaceID);
-        glBindBuffer(GL_ARRAY_BUFFER, NormalBuffer);
-        glVertexAttribPointer(
-            vertexNormal_modelspaceID, // The attribute we want to configure
-            3,                         // size
-            GL_FLOAT,                  // type
-            GL_FALSE,                  // normalized?
-            0,                         // stride
-            (void *)0                  // array buffer offset
-        );
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementsBuffer);
-    }
-
     struct camera
     {
         vec3 Position = glm::vec3(0, 0, 7);
@@ -379,6 +271,8 @@ private:
     };
 
     camera ViewCam;
+
+    MeshControl *MeshSpace = new MeshControl;
 
     std::vector<render_object *> RendObjs;
 };

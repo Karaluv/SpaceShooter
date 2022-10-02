@@ -43,6 +43,7 @@ add_library(render_libs
 	src/rend/render.cpp
 	src/rend/render_engine.h
 	src/rend/render_object.h
+	src/rend/render_mesh.h
 )
 
 add_library(render_engine_libs
