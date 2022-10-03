@@ -8,9 +8,9 @@
 int main()
 {
 
-	srs::start_render();
+	srs::initialize_all();
 
-	srs::terminate_render();
+	srs::start_render();
 
 	srs::tmp_func();
 

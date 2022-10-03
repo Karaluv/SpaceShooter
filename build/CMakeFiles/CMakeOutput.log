@@ -1,5 +1,4 @@
 The system is: Windows - 10.0.22000 - AMD64
-The system is: Windows - 10.0.22000 - AMD64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe 
 Build flags: 
@@ -29,16 +28,16 @@ The CXX compiler identification is Clang, found in "C:/Users/egrvr/Documents/pro
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_96a8b && [1/2] Building C object CMakeFiles/cmTC_96a8b.dir/CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_96a8b.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_03e9a && [1/2] Building C object CMakeFiles/cmTC_03e9a.dir/CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_03e9a.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_1a3d8 && [1/2] Building CXX object CMakeFiles/cmTC_1a3d8.dir/CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_1a3d8.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_9c1fa && [1/2] Building CXX object CMakeFiles/cmTC_9c1fa.dir/CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_9c1fa.exe
 
 
 
@@ -47,8 +46,8 @@ Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MIC
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_bd728 && [1/2] Building CXX object CMakeFiles/cmTC_bd728.dir/feature_tests.cxx.obj
-[2/2] Linking CXX executable cmTC_bd728.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_228f8 && [1/2] Building CXX object CMakeFiles/cmTC_228f8.dir/feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_228f8.exe
 
 
 
@@ -113,8 +112,8 @@ Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MIC
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_bd13b && [1/2] Building CXX object CMakeFiles/cmTC_bd13b.dir/feature_tests.cxx.obj
-[2/2] Linking CXX executable cmTC_bd13b.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_9ab56 && [1/2] Building CXX object CMakeFiles/cmTC_9ab56.dir/feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_9ab56.exe
 
 
 
@@ -177,24 +176,24 @@ Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MIC
 Determining if the include file sys/types.h exists passed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_18371 && [1/2] Building C object CMakeFiles/cmTC_18371.dir/CheckIncludeFile.c.obj
-[2/2] Linking C executable cmTC_18371.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_41056 && [1/2] Building C object CMakeFiles/cmTC_41056.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_41056.exe
 
 
 
 Determining if the include file stdint.h exists passed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_9a5da && [1/2] Building C object CMakeFiles/cmTC_9a5da.dir/CheckIncludeFile.c.obj
-[2/2] Linking C executable cmTC_9a5da.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_b070a && [1/2] Building C object CMakeFiles/cmTC_b070a.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_b070a.exe
 
 
 
 Determining if the include file stddef.h exists passed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_ca0df && [1/2] Building C object CMakeFiles/cmTC_ca0df.dir/CheckIncludeFile.c.obj
-[2/2] Linking C executable cmTC_ca0df.exe
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_46b28 && [1/2] Building C object CMakeFiles/cmTC_46b28.dir/CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_46b28.exe
 
 
 

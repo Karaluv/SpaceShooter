@@ -61,8 +61,8 @@ add_library(render_engine_libs
 	common/quaternion_utils.cpp
 	common/quaternion_utils.hpp
 
-	res/StandardShading.vertexshader
-	res/StandardShading.fragmentshader
+	res/StandardShading.GLSL
+	res/StandardShading.GLSL
 )
 
 add_executable(game_core

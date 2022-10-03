@@ -1,35 +1,9 @@
-// Include standard headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <thread>
-#include <mutex>
-#include <map>
-// Include GLEW
-#include <GL/glew.h>
-// Include GLFW
-#include <GLFW/glfw3.h>
-// Include GLM
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/euler_angles.hpp>
-#include <glm/gtx/norm.hpp>
-// Include AntTweakBar
-#include <AntTweakBar.h>
-// Include copied libraries
-#include <common/shader.hpp>
-#include <common/texture.hpp>
-#include <common/controls.hpp>
-#include <common/objloader.hpp>
-#include <common/vboindexer.hpp>
-#include <common/quaternion_utils.hpp>
+
 // Include render object
 #include <render_object.h>
 #include <render_mesh.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace glm;
 
@@ -54,6 +28,10 @@ public:
 
         delete MeshSpace;
 
+        for (int i = 0; i < VertexBuffers.size(); i++)
+        {
+            MeshSpace->DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
+        }
         glDeleteTextures(1, &TextureID);
         TwTerminate();
         glfwTerminate();
@@ -136,8 +114,36 @@ private:
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, Texture);
         glUniform1i(TextureID, 0);
-        glm::vec3 lightPos = glm::vec3(4, 4, 4);
-        glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
+        // glm::vec3 lightPos = glm::vec3(4, 4, 4);
+        //  glUniform3f(3, lightPos.x, lightPos.y, lightPos.z);
+        //  glUniform3f(3, 0, 0, 0);
+        // glUniform3f(LightID, 4, 4, 4);
+        glm::vec3 pointLightsPosition[] = {
+            glm::vec3(-10, -20, -10),
+            glm::vec3(10, -10, 10),
+            glm::vec3(4, 4, 4)};
+        glm::vec3 pointLightsColor[] = {
+            glm::vec3(1, 1, 1),
+            glm::vec3(0.5, 0.5, 0.5),
+            glm::vec3(0, 0, 0)};
+        GLfloat pointLightsPower[3] = {50, 50, 50};
+        int pointLightsCount = 3;
+
+        glUniform3fv(LightsColorID, 3,
+                     glm::value_ptr(pointLightsColor[0]));
+
+        glUniform3fv(LightsPositionID, 3,
+                     glm::value_ptr(pointLightsPosition[0]));
+
+        glUniform1fv(LightsPowerID, 3, pointLightsPower);
+        // glUniform3fv(LightsColorsID, 3,
+        //              glm::value_ptr(pointLightsColors[0]));
+        //  glUniform3fv(LightsCountID, pointLightsCount);
+        // glUniform1d(LightsCountID, pointLightsCount);
+
+        glUniform3f(3, 2.0, 2.0, 2.0);
+        //   glUniform3f(5, -2.0, 2.0, 2.0);
 
         int index;
         access_object.lock();
@@ -151,6 +157,7 @@ private:
                                        MatrixID, ModelMatrixID, ViewMatrixID);
             RendObjs[i]->draw_object();
         }
+
         access_object.unlock();
         glDisableVertexAttribArray(vertexPosition_modelspaceID);
         glDisableVertexAttribArray(vertexUVID);
@@ -194,7 +201,7 @@ private:
 
         glEnable(GL_CULL_FACE);
 
-        programID = LoadShaders("res/StandardShading.vertexshader", "res/StandardShading.fragmentshader");
+        programID = LoadShaders("res/StandardShadingVert.GLSL", "res/StandardShading.GLSL");
 
         MatrixID = glGetUniformLocation(programID, "MVP");
         ViewMatrixID = glGetUniformLocation(programID, "V");
@@ -210,7 +217,11 @@ private:
         MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
 
         glUseProgram(programID);
-        LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+
+        LightsPositionID = glGetUniformLocation(programID, "LightsPosition");
+        LightsColorID = glGetUniformLocation(programID, "LightsColor");
+        LightsPowerID = glGetUniformLocation(programID, "LightsPower");
+        LightsCountID = glGetUniformLocation(programID, "LightsCount");
 
         ViewCam.Position = glm::vec3(0, 0, 7);
         ViewCam.Angel = glm::vec3(0, 0, 0);
@@ -233,7 +244,11 @@ private:
 
     GLuint programID;
 
-    GLuint LightID;
+    GLuint LightsPositionID;
+    GLuint LightsPowerID;
+    GLuint LightsColorID;
+    GLuint LightsCountID;
+
     GLuint MatrixID;
     GLuint ViewMatrixID;
     GLuint ModelMatrixID;
