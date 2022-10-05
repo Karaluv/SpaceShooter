@@ -14,10 +14,10 @@ out vec3 color;
 uniform sampler2D myTextureSampler;
 uniform mat4 MV;
 //uniform vec3 LightPosition_worldspace;
-uniform vec3 LightsPosition[3];
-uniform vec3 LightsColor[3];
-uniform float LightsPower[3];
-uniform int LightsCount;
+uniform vec3  LightPosits[3];
+uniform vec3  LightColors[3];
+uniform float LightPowers[3];
+uniform int   LightCount;
 
 void main(){
 
@@ -59,11 +59,11 @@ void main(){
 		// Ambient : simulates indirect lighting
 		for (int i=0; i<3;++i)
 		{
-			distance = length(LightsPosition[i]-Position_worldspace);
+			distance = length(LightPosits[i]-Position_worldspace);
 		color +=
 		// Diffuse : "color" of the object
-		MaterialDiffuseColor * LightColor *LightsPower[i] * cosTheta / (distance*distance) +
+		MaterialDiffuseColor * LightColor *LightPowers[i] * cosTheta / (distance*distance) +
 		// Specular : reflective highlight, like a mirror
-		MaterialSpecularColor * LightColor *  LightsPower[i] * pow(cosAlpha,5) / (distance*distance);
+		MaterialSpecularColor * LightColor *  LightPowers[i] * pow(cosAlpha,5) / (distance*distance);
 		}
 }

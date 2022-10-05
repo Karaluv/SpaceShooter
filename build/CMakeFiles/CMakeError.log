@@ -23,9 +23,9 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 Determining if the include file pthread.h exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_4d1d3 && [1/2] Building C object CMakeFiles/cmTC_4d1d3.dir/CheckIncludeFile.c.obj
-FAILED: CMakeFiles/cmTC_4d1d3.dir/CheckIncludeFile.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_4d1d3.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_4d1d3.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_4d1d3.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_07947 && [1/2] Building C object CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_07947.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'pthread.h' file not found
 #include <pthread.h>
          ^~~~~~~~~~~
@@ -37,9 +37,9 @@ ninja: build stopped: subcommand failed.
 Determining size of off64_t failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_1e83e && [1/2] Building C object CMakeFiles/cmTC_1e83e.dir/OFF64_T.c.obj
-FAILED: CMakeFiles/cmTC_1e83e.dir/OFF64_T.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1  -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_1e83e.dir/OFF64_T.c.obj -MF CMakeFiles\cmTC_1e83e.dir\OFF64_T.c.obj.d -o CMakeFiles/cmTC_1e83e.dir/OFF64_T.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_810a3 && [1/2] Building C object CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj
+FAILED: CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1  -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj -MF CMakeFiles\cmTC_810a3.dir\OFF64_T.c.obj.d -o CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:29:12: error: use of undeclared identifier 'off64_t'
   ('0' + ((SIZE / 10000)%10)),
            ^
@@ -130,13 +130,13 @@ int main(int argc, char *argv[])
 Determining if the function fseeko exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_4db7b && [1/2] Building C object CMakeFiles/cmTC_4db7b.dir/CheckFunctionExists.c.obj
-[2/2] Linking C executable cmTC_4db7b.exe
-FAILED: cmTC_4db7b.exe 
-cmd.exe /C "cd . && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=fseeko -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_4db7b.dir/CheckFunctionExists.c.obj -o cmTC_4db7b.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_4db7b.lib -Xlinker /pdb:cmTC_4db7b.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_f55fb && [1/2] Building C object CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj
+[2/2] Linking C executable cmTC_f55fb.exe
+FAILED: cmTC_f55fb.exe 
+cmd.exe /C "cd . && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=fseeko -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj -o cmTC_f55fb.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_f55fb.lib -Xlinker /pdb:cmTC_f55fb.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
 lld-link: error: undefined symbol: fseeko
 >>> referenced by C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.23\Modules\CheckFunctionExists.c:17
->>>               CMakeFiles/cmTC_4db7b.dir/CheckFunctionExists.c.obj:(main)
+>>>               CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj:(main)
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ninja: build stopped: subcommand failed.
 
@@ -145,9 +145,9 @@ ninja: build stopped: subcommand failed.
 Determining if the include file unistd.h exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_c0b6f && [1/2] Building C object CMakeFiles/cmTC_c0b6f.dir/CheckIncludeFile.c.obj
-FAILED: CMakeFiles/cmTC_c0b6f.dir/CheckIncludeFile.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_c0b6f.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_c0b6f.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_c0b6f.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_71541 && [1/2] Building C object CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_71541.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'unistd.h' file not found
 #include <unistd.h>
          ^~~~~~~~~~

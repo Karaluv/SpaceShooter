@@ -1,12 +1,13 @@
-
-// Include render object
-#include <render_object.h>
-#include <render_mesh.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <render_camera.h>
+#include <render_object.h>
+#include <render_mesh.h>
+
 using namespace glm;
 
+// point light source
 class render_engine
 {
 public:
@@ -79,17 +80,56 @@ public:
         new_obj->set_orientation(ax, ay, az, aw);
         new_obj->update_model(index, IndexBuffer[index]);
 
+        new_obj->update_camera(ViewCamera);
+        glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+        new_obj->update_matrix(ScaleMatrix, ModelMatrixID);
+
         RendObjs.push_back(new_obj);
         access_object.unlock();
+    }
+
+    void new_light(std::string name, double x, double y, double z, double r, double g, double b, double power)
+    {
+        access_light.lock();
+
+        light *new_light = new light;
+
+        new_light->set_position(x, y, z);
+        new_light->set_color(r, g, b);
+        new_light->set_power(power);
+
+        Lights.push_back(new_light);
+        access_light.unlock();
+    }
+    void delete_light(int index)
+    {
+        access_light.lock();
+        Lights.erase(Lights.begin() + index);
+        access_light.unlock();
     }
     void delete_obj(int index)
     {
         access_object.lock();
-        delete &RendObjs[index];
         RendObjs.erase(RendObjs.begin() + index);
         access_object.unlock();
     }
-
+    void update_light(int index, double x, double y, double z, double r, double g, double b, double power)
+    {
+        access_light.lock();
+        // check if index is valid
+        if (index < Lights.size())
+        {
+            Lights[index]->set_position(x, y, z);
+            Lights[index]->set_color(r, g, b);
+            Lights[index]->set_power(power);
+        }
+        // print error message
+        else
+        {
+            std::cout << "Error: index out of range\n";
+        }
+        access_light.unlock();
+    }
     void update_obj(int index, double x, double y, double z, double ax, double ay, double az, double aw)
     {
         access_object.lock();
@@ -97,6 +137,8 @@ public:
         {
             RendObjs[index]->set_orientation(ax, ay, az, aw);
             RendObjs[index]->set_position(x, y, z);
+            glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+            RendObjs[index]->update_matrix(ScaleMatrix, ModelMatrixID);
         }
         else
             std::cout << "NO such object exicts!";
@@ -115,50 +157,38 @@ private:
         glBindTexture(GL_TEXTURE_2D, Texture);
         glUniform1i(TextureID, 0);
 
-        // glm::vec3 lightPos = glm::vec3(4, 4, 4);
-        //  glUniform3f(3, lightPos.x, lightPos.y, lightPos.z);
-        //  glUniform3f(3, 0, 0, 0);
-        // glUniform3f(LightID, 4, 4, 4);
-        glm::vec3 pointLightsPosition[] = {
-            glm::vec3(-10, -20, -10),
-            glm::vec3(10, -10, 10),
-            glm::vec3(4, 4, 4)};
-        glm::vec3 pointLightsColor[] = {
-            glm::vec3(1, 1, 1),
-            glm::vec3(0.5, 0.5, 0.5),
-            glm::vec3(0, 0, 0)};
-        GLfloat pointLightsPower[3] = {50, 50, 50};
-        int pointLightsCount = 3;
+        // create arrays of Lights
+        glm::vec3 *LightPositions = new glm::vec3[Lights.size()];
+        glm::vec3 *LightColors = new glm::vec3[Lights.size()];
+        GLfloat *LightPowers = new GLfloat[Lights.size()];
+        access_light.lock();
+        for (int i = 0; i < Lights.size(); i++)
+        {
+            LightPositions[i] = Lights[i]->get_position();
+            LightColors[i] = Lights[i]->get_color();
+            LightPowers[i] = Lights[i]->get_power();
+        }
 
-        glUniform3fv(LightsColorID, 3,
-                     glm::value_ptr(pointLightsColor[0]));
+        glUniform1i(LightCountID, Lights.size());
+        // pass to shader all lights positions
+        glUniform3fv(LightPositsID, 3, glm::value_ptr(LightPositions[0]));
+        // pass to shader all lights colors
+        glUniform3fv(LightColorsID, 3, glm::value_ptr(LightColors[0]));
+        // pass to shader all lights power
+        glUniform1fv(LightPowersID, 3, LightPowers);
+        access_light.unlock();
 
-        glUniform3fv(LightsPositionID, 3,
-                     glm::value_ptr(pointLightsPosition[0]));
-
-        glUniform1fv(LightsPowerID, 3, pointLightsPower);
-        // glUniform3fv(LightsColorsID, 3,
-        //              glm::value_ptr(pointLightsColors[0]));
-        //  glUniform3fv(LightsCountID, pointLightsCount);
-        // glUniform1d(LightsCountID, pointLightsCount);
-
-        glUniform3f(3, 2.0, 2.0, 2.0);
-        //   glUniform3f(5, -2.0, 2.0, 2.0);
-
-        int index;
         access_object.lock();
         for (int i = 0; i < RendObjs.size(); ++i)
         {
-            index = RendObjs[i]->get_index();
+            int index = RendObjs[i]->get_index();
             MeshSpace->switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index],
                                           ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID,
                                           vertexNormal_modelspaceID);
-            RendObjs[i]->update_matrix(ProjectionMatrix, ViewMatrix, scale(mat4(), vec3(1.0f, 1.0f, 1.0f)),
-                                       MatrixID, ModelMatrixID, ViewMatrixID);
             RendObjs[i]->draw_object();
         }
-
         access_object.unlock();
+
         glDisableVertexAttribArray(vertexPosition_modelspaceID);
         glDisableVertexAttribArray(vertexUVID);
         glDisableVertexAttribArray(vertexNormal_modelspaceID);
@@ -182,17 +212,6 @@ private:
 
         glewInit();
 
-        // glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW); r
-        // glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW);
-        // glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW);
-        // glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW);
-        // glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW);
-
-        // glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-        ////glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        // glfwPollEvents();
-        //  glfwSetCursorPos(window, 1024 / 2, 768 / 2);
-
         glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
         glEnable(GL_DEPTH_TEST);
@@ -203,8 +222,7 @@ private:
 
         programID = LoadShaders("res/StandardShadingVert.GLSL", "res/StandardShading.GLSL");
 
-        MatrixID = glGetUniformLocation(programID, "MVP");
-        ViewMatrixID = glGetUniformLocation(programID, "V");
+        ViewCamera->AutoSetID(programID);
         ModelMatrixID = glGetUniformLocation(programID, "M");
 
         vertexPosition_modelspaceID = glGetAttribLocation(programID, "vertexPosition_modelspace");
@@ -217,23 +235,22 @@ private:
         MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
 
         glUseProgram(programID);
+        LightPositsID = glGetUniformLocation(programID, "LightPosits");
+        LightColorsID = glGetUniformLocation(programID, "LightColors");
+        LightPowersID = glGetUniformLocation(programID, "LightPowers");
+        LightCountID = glGetUniformLocation(programID, "LightCount");
 
-        LightsPositionID = glGetUniformLocation(programID, "LightsPosition");
-        LightsColorID = glGetUniformLocation(programID, "LightsColor");
-        LightsPowerID = glGetUniformLocation(programID, "LightsPower");
-        LightsCountID = glGetUniformLocation(programID, "LightsCount");
-
-        ViewCam.Position = glm::vec3(0, 0, 7);
-        ViewCam.Angel = glm::vec3(0, 0, 0);
-        ViewCam.Rotation = glm::vec3(0, 1, 0);
+        ViewCamera->set_position(glm::vec3(0, 0, 7));
+        ViewCamera->set_angel(glm::vec3(0, 0, 0));
+        ViewCamera->set_rotation(glm::vec3(0, 1, 0));
         initialized = true;
         RenderTaskisTerminated_ = false;
     }
 
     void update_matrixes()
     {
-        ProjectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-        ViewMatrix = glm::lookAt(ViewCam.Position, ViewCam.Angel, ViewCam.Rotation);
+        ViewCamera->update_matrixes();
+        ViewCamera->PassMatrixesToShader();
     }
 
 private:
@@ -244,13 +261,11 @@ private:
 
     GLuint programID;
 
-    GLuint LightsPositionID;
-    GLuint LightsPowerID;
-    GLuint LightsColorID;
-    GLuint LightsCountID;
+    GLuint LightPositsID;
+    GLuint LightPowersID;
+    GLuint LightColorsID;
+    GLuint LightCountID;
 
-    GLuint MatrixID;
-    GLuint ViewMatrixID;
     GLuint ModelMatrixID;
 
     GLuint vertexPosition_modelspaceID;
@@ -259,9 +274,6 @@ private:
 
     GLuint Texture;
     GLuint TextureID;
-
-    glm::mat4 ProjectionMatrix;
-    glm::mat4 ViewMatrix;
 
     std::vector<GLuint> ElementBuffers;
     std::vector<GLuint> NormalBuffers;
@@ -276,18 +288,11 @@ private:
     bool RenderTaskisTerminated_ = true;
 
     std::mutex access_object;
+    std::mutex access_light;
     std::thread RenderTask_;
 
-    struct camera
-    {
-        vec3 Position = glm::vec3(0, 0, 7);
-        vec3 Angel = glm::vec3(0, 0, 0);
-        vec3 Rotation = glm::vec3(0, 1, 0);
-    };
-
-    camera ViewCam;
-
     MeshControl *MeshSpace = new MeshControl;
-
+    camera *ViewCamera = new camera;
     std::vector<render_object *> RendObjs;
+    std::vector<light *> Lights;
 };

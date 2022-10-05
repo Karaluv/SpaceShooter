@@ -55,7 +55,8 @@ namespace srs
 		RendEng->new_object("cube", 1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0);
 		RendEng->new_object("monkey", -1.0, -2.0, -4.0, 0.0, 0.0, 0.0, 0.0);
 		RendEng->new_object("cube", -1.0, -2.0, -3.0, 0.0, 0.0, 0.0, 0.0);
-
+		RendEng->new_light("light", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+		RendEng->new_light("light", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 		double x, y, z;
 		x = 1.0;
 		y = 2.0;
