@@ -32,4 +32,6 @@
 
 #folders
 .vs/
+.vscode/
 out/
+build/
