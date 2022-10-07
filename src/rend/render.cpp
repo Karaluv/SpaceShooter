@@ -36,42 +36,58 @@ namespace srs
 {
 	render_engine *RendEng = new render_engine();
 
-	void initialize_all()
-	{
-
-		std::cout << "Render Engine was initialized successfully!\n";
-	}
 	void start_render()
 	{
 		RendEng->start();
+		// add loop which will check if render is initialized
+		while (!RendEng->GetInitialize())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+	}
+
+	// void which updates camera position, angel, rotation from doubles
+	void update_camera(double x, double y, double z, double pitch, double yaw, double roll)
+	{
+		RendEng->update_camera(x, y, z, pitch, yaw, roll, 0);
+	}
+	// void which updates object position and rotation using doubles and object id
+	void update_object(int id, double x, double y, double z, double rx, double ry, double rz, double rw)
+	{
+		RendEng->update_object(id, x, y, z, rx, ry, rz, rw);
+	}
+	// void which updates light position and color with power and light id
+	void update_light(int id, double x, double y, double z, double r, double g, double b, double p)
+	{
+		RendEng->update_light(id, x, y, z, r, g, b, p);
+	}
+
+	// void which creates new object with given parameters
+	void create_object(std::string path, double x, double y, double z, double rx, double ry, double rz, double rw)
+	{
+		RendEng->create_object(path, x, y, z, rx, ry, rz, rw);
+	}
+	// void which creates new light with given parameters
+	void create_light(double x, double y, double z, double r, double g, double b, double p)
+	{
+		RendEng->create_light("test", x, y, z, r, g, b, p);
+	}
+	// void which deletes object with given id
+	void delete_object(int id)
+	{
+		RendEng->delete_object(id);
+	}
+	// void which deletes light with given id
+	void delete_light(int id)
+	{
+		RendEng->delete_light(id);
 	}
 	void update_data()
 	{
 	}
-	void tmp_func()
+
+	void stop_render()
 	{
-		while (!RendEng->GetInitialize())
-			std::this_thread::sleep_for(std::chrono::nanoseconds(100));
-		RendEng->new_object("cube", 1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0);
-		RendEng->new_object("monkey", -1.0, -2.0, -4.0, 0.0, 0.0, 0.0, 0.0);
-		RendEng->new_object("cube", -1.0, -2.0, -3.0, 0.0, 0.0, 0.0, 0.0);
-		RendEng->new_light("light", 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-		RendEng->new_light("light", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-		double x, y, z;
-		x = 1.0;
-		y = 2.0;
-		z = 3.0;
-		while (true)
-		{
-			x += 0.002;
-			y -= 0.002;
-			z -= 0.002;
-			RendEng->update_obj(0, x, y, z, 0.0, 0.0, 0.0, 0.0);
-			std::this_thread::sleep_for(std::chrono::nanoseconds(1000000000 / 144));
-		}
-	}
-	void terminate_render()
-	{
-		std::cout << "Render Engine was terminated successfully!\n";
+		RendEng->stop();
 	}
 }

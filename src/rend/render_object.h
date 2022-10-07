@@ -80,9 +80,8 @@ public:
 
         glUniformMatrix4fv(camera_->get_matrix_id(), 1, GL_FALSE, &MVP[0][0]);
         glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-        // glUniformMatrix4fv(camera_, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-        glDrawElements(GL_TRIANGLES, 2904, GL_UNSIGNED_SHORT, (void *)(0));
+        glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_SHORT, (void *)(0));
     }
 
 protected:

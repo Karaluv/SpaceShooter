@@ -2,9 +2,9 @@ using namespace glm;
 class camera
 {
 private:
-    vec3 Position = glm::vec3(0, 0, 7);
+    vec3 Position = glm::vec3(0, 0, 0);
     vec3 Angel = glm::vec3(0, 0, 0);
-    vec3 Rotation = glm::vec3(0, 1, 0);
+    vec3 Rotation = glm::vec3(0, 0, 0);
     glm::mat4 ViewMatrix;
     glm::mat4 ProjectionMatrix;
 

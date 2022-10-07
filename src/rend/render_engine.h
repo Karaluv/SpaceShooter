@@ -7,7 +7,6 @@
 
 using namespace glm;
 
-// point light source
 class render_engine
 {
 public:
@@ -36,7 +35,7 @@ public:
         glDeleteTextures(1, &TextureID);
         TwTerminate();
         glfwTerminate();
-        initialized = false;
+        Is_Initialized_ = false;
     }
 
     void render_process()
@@ -66,12 +65,12 @@ public:
 
     bool GetInitialize()
     {
-        return initialized;
+        return Is_Initialized_;
     }
 
-    void new_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
+    void create_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
     {
-        access_object.lock();
+        access_object_.lock();
         int index = NamesDict[name];
 
         render_object *new_obj = new render_object;
@@ -85,12 +84,11 @@ public:
         new_obj->update_matrix(ScaleMatrix, ModelMatrixID);
 
         RendObjs.push_back(new_obj);
-        access_object.unlock();
+        access_object_.unlock();
     }
-
-    void new_light(std::string name, double x, double y, double z, double r, double g, double b, double power)
+    void create_light(std::string name, double x, double y, double z, double r, double g, double b, double power)
     {
-        access_light.lock();
+        access_light_.lock();
 
         light *new_light = new light;
 
@@ -99,23 +97,23 @@ public:
         new_light->set_power(power);
 
         Lights.push_back(new_light);
-        access_light.unlock();
+        access_light_.unlock();
     }
     void delete_light(int index)
     {
-        access_light.lock();
+        access_light_.lock();
         Lights.erase(Lights.begin() + index);
-        access_light.unlock();
+        access_light_.unlock();
     }
-    void delete_obj(int index)
+    void delete_object(int index)
     {
-        access_object.lock();
+        access_object_.lock();
         RendObjs.erase(RendObjs.begin() + index);
-        access_object.unlock();
+        access_object_.unlock();
     }
     void update_light(int index, double x, double y, double z, double r, double g, double b, double power)
     {
-        access_light.lock();
+        access_light_.lock();
         // check if index is valid
         if (index < Lights.size())
         {
@@ -128,11 +126,11 @@ public:
         {
             std::cout << "Error: index out of range\n";
         }
-        access_light.unlock();
+        access_light_.unlock();
     }
-    void update_obj(int index, double x, double y, double z, double ax, double ay, double az, double aw)
+    void update_object(int index, double x, double y, double z, double ax, double ay, double az, double aw)
     {
-        access_object.lock();
+        access_object_.lock();
         if (index < RendObjs.size())
         {
             RendObjs[index]->set_orientation(ax, ay, az, aw);
@@ -142,7 +140,16 @@ public:
         }
         else
             std::cout << "NO such object exicts!";
-        access_object.unlock();
+        access_object_.unlock();
+    }
+
+    void update_camera(double x, double y, double z, double ax, double ay, double az, double aw)
+    {
+        access_camera_.lock();
+        ViewCamera->set_position(vec3(x, y, z));
+        ViewCamera->set_angel(vec3(ax, ay, az));
+        ViewCamera->set_rotation(vec3(aw, 0, 0));
+        access_camera_.unlock();
     }
 
 private:
@@ -161,7 +168,7 @@ private:
         glm::vec3 *LightPositions = new glm::vec3[Lights.size()];
         glm::vec3 *LightColors = new glm::vec3[Lights.size()];
         GLfloat *LightPowers = new GLfloat[Lights.size()];
-        access_light.lock();
+        access_light_.lock();
         for (int i = 0; i < Lights.size(); i++)
         {
             LightPositions[i] = Lights[i]->get_position();
@@ -176,9 +183,9 @@ private:
         glUniform3fv(LightColorsID, 3, glm::value_ptr(LightColors[0]));
         // pass to shader all lights power
         glUniform1fv(LightPowersID, 3, LightPowers);
-        access_light.unlock();
+        access_light_.unlock();
 
-        access_object.lock();
+        access_object_.lock();
         for (int i = 0; i < RendObjs.size(); ++i)
         {
             int index = RendObjs[i]->get_index();
@@ -187,7 +194,7 @@ private:
                                           vertexNormal_modelspaceID);
             RendObjs[i]->draw_object();
         }
-        access_object.unlock();
+        access_object_.unlock();
 
         glDisableVertexAttribArray(vertexPosition_modelspaceID);
         glDisableVertexAttribArray(vertexUVID);
@@ -243,7 +250,7 @@ private:
         ViewCamera->set_position(glm::vec3(0, 0, 7));
         ViewCamera->set_angel(glm::vec3(0, 0, 0));
         ViewCamera->set_rotation(glm::vec3(0, 1, 0));
-        initialized = true;
+        Is_Initialized_ = true;
         RenderTaskisTerminated_ = false;
     }
 
@@ -255,9 +262,6 @@ private:
 
 private:
     GLFWwindow *window;
-
-    bool gLookAtOther = true;
-    bool initialized = false;
 
     GLuint programID;
 
@@ -284,11 +288,15 @@ private:
     std::map<int, std::string> PathDict = {{0, "res/scube.obj"}, {1, "res/suzanne.obj"}};
     std::map<std::string, int> NamesDict = {{"cube", 0}, {"monkey", 1}};
 
+    bool Is_Initialized_ = false;
+
     bool RenderTaskisRunning_ = false;
     bool RenderTaskisTerminated_ = true;
 
-    std::mutex access_object;
-    std::mutex access_light;
+    std::mutex access_object_;
+    std::mutex access_light_;
+    // add mutex for camera
+    std::mutex access_camera_;
     std::thread RenderTask_;
 
     MeshControl *MeshSpace = new MeshControl;
