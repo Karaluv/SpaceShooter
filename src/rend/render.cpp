@@ -4,7 +4,7 @@
 #include <thread>
 #include <chrono>
 
-#include <render_engine.h>
+#include <render_engine.cpp>
 
 namespace srs
 
@@ -22,28 +22,28 @@ namespace srs
 	}
 
 	// void which updates camera position, angel, rotation from doubles
-	void update_camera(double x, double y, double z, double pitch, double yaw, double roll)
+	void update_camera(float x, float y, float z, float pitch, float yaw, float roll)
 	{
 		RendEng->update_camera(x, y, z, pitch, yaw, roll, 0);
 	}
 	// void which updates object position and rotation using doubles and object id
-	void update_object(int id, double x, double y, double z, double rx, double ry, double rz, double rw)
+	void update_object(int id, float x, float y, float z, float rx, float ry, float rz, float rw)
 	{
 		RendEng->update_object(id, x, y, z, rx, ry, rz, rw);
 	}
 	// void which updates light position and color with power and light id
-	void update_light(int id, double x, double y, double z, double r, double g, double b, double p)
+	void update_light(int id, float x, float y, float z, float r, float g, float b, float p)
 	{
 		RendEng->update_light(id, x, y, z, r, g, b, p);
 	}
 
 	// void which creates new object with given parameters
-	void create_object(std::string path, double x, double y, double z, double rx, double ry, double rz, double rw)
+	void create_object(std::string path, float x, float y, float z, float rx, float ry, float rz, float rw)
 	{
 		RendEng->create_object(path, x, y, z, rx, ry, rz, rw);
 	}
 	// void which creates new light with given parameters
-	void create_light(double x, double y, double z, double r, double g, double b, double p)
+	void create_light(float x, float y, float z, float r, float g, float b, float p)
 	{
 		RendEng->create_light("test", x, y, z, r, g, b, p);
 	}

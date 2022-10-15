@@ -95,7 +95,7 @@ public:
         return Is_Initialized_;
     }
 
-    void create_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
+    void create_object(std::string name, float x, float y, float z, float ax, float ay, float az, float aw)
     {
         access_object_.lock();
         int index = NamesId[name];
@@ -113,7 +113,7 @@ public:
         RendObjs.push_back(new_obj);
         access_object_.unlock();
     }
-    void create_light(std::string name, double x, double y, double z, double r, double g, double b, double power)
+    void create_light(std::string name, float x, float y, float z, float r, float g, float b, float power)
     {
         access_light_.lock();
 
@@ -138,7 +138,7 @@ public:
         RendObjs.erase(RendObjs.begin() + index);
         access_object_.unlock();
     }
-    void update_light(int index, double x, double y, double z, double r, double g, double b, double power)
+    void update_light(int index, float x, float y, float z, float r, float g, float b, float power)
     {
         access_light_.lock();
         // check if index is valid
@@ -155,7 +155,7 @@ public:
         }
         access_light_.unlock();
     }
-    void update_object(int index, double x, double y, double z, double ax, double ay, double az, double aw)
+    void update_object(int index, float x, float y, float z, float ax, float ay, float az, float aw)
     {
         access_object_.lock();
         if (index < RendObjs.size())
@@ -170,7 +170,7 @@ public:
         access_object_.unlock();
     }
 
-    void update_camera(double x, double y, double z, double ax, double ay, double az, double aw)
+    void update_camera(float x, float y, float z, float ax, float ay, float az, float aw)
     {
         access_camera_.lock();
         ViewCamera->set_position(glm::vec3(x, y, z));
@@ -203,7 +203,7 @@ private:
             LightPowers[i] = Lights[i]->get_power();
         }
 
-        glUniform1i(LightCountID, Lights.size());
+        glUniform1i(LightCountID, GLint(Lights.size()));
         // pass to shader all lights positions
         glUniform3fv(LightPositsID, 3, glm::value_ptr(LightPositions[0]));
         // pass to shader all lights colors
@@ -270,7 +270,6 @@ private:
         Load_All();
         MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, IdMeshes);
 
-
         glUseProgram(programID);
         LightPositsID = glGetUniformLocation(programID, "LightPosits");
         LightColorsID = glGetUniformLocation(programID, "LightColors");
@@ -306,7 +305,7 @@ private:
         for (int i = 0; i < number_of_objects; i++)
         {
         }
-        //MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
+        // MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
     }
     void update_matrixes()
     {

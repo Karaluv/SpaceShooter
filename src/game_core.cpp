@@ -24,12 +24,12 @@ int main()
 		for (int i = 0; i < 10000; i++)
 		{
 			// rotate monkey by sin i around y axis
-			srs::update_object(0, 0, 0, -1, 0, sin(double(i) / 100), 0, 1);
+			srs::update_object(0, 0, 0, -1, 0, sin(float(i) / 100), 0, 1);
 			// move cube by sin i around y axis
-			srs::update_object(1, 4 + sin(double(i) / 100), 0, -1, 0, 0, 0, 1);
+			srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
 			// change light color by sin i
-			srs::update_light(0, 8, 3, -2, sin(double(i) / 100), 0, 0, 100);
+			srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
 			// srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);

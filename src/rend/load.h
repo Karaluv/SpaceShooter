@@ -18,6 +18,7 @@ std::string get_file_contents(const char *filename)
     catch (int e)
     {
         std::cout << "Error: " << e << std::endl;
+        return "Error in get_file_contents";
     }
 }
 

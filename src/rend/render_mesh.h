@@ -11,8 +11,8 @@ protected:
     std::vector<GLuint> VertexBuffers;
     std::vector<GLuint> IndexBuffer;
 
-    //std::map<int, std::string> PathDict = {{0, "res/scube.obj"}, {1, "res/suzanne.obj"}};
-    //std::map<std::string, int> NamesDict = {{"cube", 0}, {"monkey", 1}};
+    // std::map<int, std::string> PathDict = {{0, "res/scube.obj"}, {1, "res/suzanne.obj"}};
+    // std::map<std::string, int> NamesDict = {{"cube", 0}, {"monkey", 1}};
 
     bool RenderTaskisRunning_ = false;
     bool RenderTaskisTerminated_ = true;
@@ -32,7 +32,7 @@ public:
     }
     void LoadAllCustomMesh(std::vector<GLuint> &ElementBuff, std::vector<GLuint> &NormalBuff,
                            std::vector<GLuint> &UvBuff, std::vector<GLuint> &VertexBuff,
-                           std::vector<GLuint> &IndexBuff, std::map<int,std::string> PathDict)
+                           std::vector<GLuint> &IndexBuff, std::map<int, std::string> PathDict)
     {
         for (int i = 0; i < PathDict.size(); ++i)
         {
@@ -102,7 +102,7 @@ public:
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0],
                      GL_STATIC_DRAW);
 
-        int indices_size = indices.size();
+        size_t indices_size = indices.size();
 
         vertices.clear();
         uvs.clear();
