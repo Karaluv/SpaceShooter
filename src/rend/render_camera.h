@@ -1,10 +1,9 @@
-using namespace glm;
 class camera
 {
 private:
-    vec3 Position = glm::vec3(0, 0, 0);
-    vec3 Angel = glm::vec3(0, 0, 0);
-    vec3 Rotation = glm::vec3(0, 0, 0);
+    glm::vec3 Position = glm::vec3(0, 0, 0);
+    glm::vec3 Angel = glm::vec3(0, 0, 0);
+    glm::vec3 Rotation = glm::vec3(0, 0, 0);
     glm::mat4 ViewMatrix;
     glm::mat4 ProjectionMatrix;
 
@@ -13,7 +12,7 @@ private:
 
 public:
     camera() = default;
-    camera(vec3 pos, vec3 angel, vec3 rotation)
+    camera(glm::vec3 pos, glm::vec3 angel, glm::vec3 rotation)
     {
         Position = pos;
         Angel = angel;
@@ -31,27 +30,27 @@ public:
         MatrixID = glGetUniformLocation(programID, "MVP");
         ViewMatrixID = glGetUniformLocation(programID, "V");
     }
-    void set_position(vec3 pos)
+    void set_position(glm::vec3 pos)
     {
         Position = pos;
     }
-    void set_angel(vec3 angel)
+    void set_angel(glm::vec3 angel)
     {
         Angel = angel;
     }
-    void set_rotation(vec3 rotation)
+    void set_rotation(glm::vec3 rotation)
     {
         Rotation = rotation;
     }
-    vec3 get_position()
+    glm::vec3 get_position()
     {
         return Position;
     }
-    vec3 get_angel()
+    glm::vec3 get_angel()
     {
         return Angel;
     }
-    vec3 get_rotation()
+    glm::vec3 get_rotation()
     {
         return Rotation;
     }

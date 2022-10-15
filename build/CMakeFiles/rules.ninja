@@ -12,12 +12,17 @@
 # =============================================================================
 
 #############################################
+# localized /showIncludes string
+
+msvc_deps_prefix = Note: including file: 
+
+
+#############################################
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__render_libs_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -25,7 +30,7 @@ rule CXX_COMPILER__render_libs_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__render_libs_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -34,9 +39,8 @@ rule CXX_STATIC_LIBRARY_LINKER__render_libs_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__render_engine_libs_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -44,7 +48,7 @@ rule CXX_COMPILER__render_engine_libs_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__render_engine_libs_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -53,9 +57,8 @@ rule CXX_STATIC_LIBRARY_LINKER__render_engine_libs_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__game_core_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -63,7 +66,7 @@ rule CXX_COMPILER__game_core_Debug
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__game_core_Debug
-  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Xlinker /MANIFEST:EMBED -Xlinker /implib:$TARGET_IMPLIB -Xlinker /pdb:$TARGET_PDB -Xlinker /version:0.0  $LINK_PATH $LINK_LIBRARIES $MANIFESTS && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E vs_link_exe --intdir=$OBJECT_DIR --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests $MANIFESTS -- C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\link.exe /nologo $in  /out:$TARGET_FILE /implib:$TARGET_IMPLIB /pdb:$TARGET_PDB /version:0.0 $LINK_FLAGS $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 
@@ -80,9 +83,8 @@ rule CUSTOM_COMMAND
 # Rule for compiling C files.
 
 rule C_COMPILER__GLEW_1130_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
 
 
@@ -90,7 +92,7 @@ rule C_COMPILER__GLEW_1130_Debug
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__GLEW_1130_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
 
@@ -99,9 +101,8 @@ rule C_STATIC_LIBRARY_LINKER__GLEW_1130_Debug
 # Rule for compiling C files.
 
 rule C_COMPILER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
 
 
@@ -109,9 +110,8 @@ rule C_COMPILER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -119,7 +119,7 @@ rule CXX_COMPILER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -128,9 +128,8 @@ rule CXX_STATIC_LIBRARY_LINKER__ANTTWEAKBAR_116_OGLCORE_GLFW_Debug
 # Rule for compiling C files.
 
 rule C_COMPILER__glfw_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
 
 
@@ -138,7 +137,7 @@ rule C_COMPILER__glfw_Debug
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__glfw_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
 
@@ -147,9 +146,8 @@ rule C_STATIC_LIBRARY_LINKER__glfw_Debug
 # Rule for compiling C files.
 
 rule C_COMPILER__zlib_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
 
 
@@ -157,7 +155,7 @@ rule C_COMPILER__zlib_Debug
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__zlib_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
 
@@ -166,9 +164,8 @@ rule C_STATIC_LIBRARY_LINKER__zlib_Debug
 # Rule for compiling C files.
 
 rule C_COMPILER__assimp_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
 
 
@@ -176,9 +173,8 @@ rule C_COMPILER__assimp_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__assimp_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -186,10 +182,10 @@ rule CXX_COMPILER__assimp_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__assimp_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS @$RSP_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE @$RSP_FILE  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   rspfile = $RSP_FILE
-  rspfile_content = $in $LINK_PATH $LINK_LIBRARIES
+  rspfile_content = $in_newline $LINK_PATH $LINK_LIBRARIES
   restat = $RESTAT
 
 
@@ -197,9 +193,8 @@ rule CXX_STATIC_LIBRARY_LINKER__assimp_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__BulletSoftBody_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -207,7 +202,7 @@ rule CXX_COMPILER__BulletSoftBody_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__BulletSoftBody_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -216,9 +211,8 @@ rule CXX_STATIC_LIBRARY_LINKER__BulletSoftBody_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__BulletCollision_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -226,10 +220,10 @@ rule CXX_COMPILER__BulletCollision_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__BulletCollision_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS @$RSP_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE @$RSP_FILE  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   rspfile = $RSP_FILE
-  rspfile_content = $in $LINK_PATH $LINK_LIBRARIES
+  rspfile_content = $in_newline $LINK_PATH $LINK_LIBRARIES
   restat = $RESTAT
 
 
@@ -237,9 +231,8 @@ rule CXX_STATIC_LIBRARY_LINKER__BulletCollision_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__BulletDynamics_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -247,7 +240,7 @@ rule CXX_COMPILER__BulletDynamics_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__BulletDynamics_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -256,9 +249,8 @@ rule CXX_STATIC_LIBRARY_LINKER__BulletDynamics_Debug
 # Rule for compiling CXX files.
 
 rule CXX_COMPILER__LinearMath_Debug
-  depfile = $DEP_FILE
-  deps = gcc
-  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  deps = msvc
+  command = C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
 
 
@@ -266,7 +258,7 @@ rule CXX_COMPILER__LinearMath_Debug
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__LinearMath_Debug
-  command = cmd.exe /C "$PRE_LINK && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\llvm-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\LLVM-R~1.EXE $TARGET_FILE && $POST_BUILD"
+  command = cmd.exe /C "$PRE_LINK && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 

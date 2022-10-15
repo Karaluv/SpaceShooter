@@ -1,35 +1,10 @@
-Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe 
-Build flags: 
-Id flags:  
-
-The output was:
-1
-clang: error: unable to execute command: program not executable
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-
-
-Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
-Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe 
-Build flags: 
-Id flags:  
-
-The output was:
-1
-clang: error: unable to execute command: program not executable
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-
-
 Determining if the include file pthread.h exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_07947 && [1/2] Building C object CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj
-FAILED: CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_07947.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_07947.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'pthread.h' file not found
-#include <pthread.h>
-         ^~~~~~~~~~~
-1 error generated.
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_8aa9b && [1/2] Building C object CMakeFiles\cmTC_8aa9b.dir\CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_8aa9b.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_8aa9b.dir\CheckIncludeFile.c.obj /FdCMakeFiles\cmTC_8aa9b.dir\ /FS -c C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CMakeTmp\CheckIncludeFile.c
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CMakeTmp\CheckIncludeFile.c(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
 ninja: build stopped: subcommand failed.
 
 
@@ -37,40 +12,14 @@ ninja: build stopped: subcommand failed.
 Determining size of off64_t failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_810a3 && [1/2] Building C object CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj
-FAILED: CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1  -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj -MF CMakeFiles\cmTC_810a3.dir\OFF64_T.c.obj.d -o CMakeFiles/cmTC_810a3.dir/OFF64_T.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:29:12: error: use of undeclared identifier 'off64_t'
-  ('0' + ((SIZE / 10000)%10)),
-           ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
-#define SIZE (sizeof(off64_t))
-                     ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:30:12: error: use of undeclared identifier 'off64_t'
-  ('0' + ((SIZE / 1000)%10)),
-           ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
-#define SIZE (sizeof(off64_t))
-                     ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:31:12: error: use of undeclared identifier 'off64_t'
-  ('0' + ((SIZE / 100)%10)),
-           ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
-#define SIZE (sizeof(off64_t))
-                     ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:32:12: error: use of undeclared identifier 'off64_t'
-  ('0' + ((SIZE / 10)%10)),
-           ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
-#define SIZE (sizeof(off64_t))
-                     ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:33:12: error: use of undeclared identifier 'off64_t'
-  ('0' +  (SIZE    % 10)),
-           ^
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CheckTypeSize/OFF64_T.c:27:22: note: expanded from macro 'SIZE'
-#define SIZE (sizeof(off64_t))
-                     ^
-5 errors generated.
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_1dd1f && [1/2] Building C object CMakeFiles\cmTC_1dd1f.dir\OFF64_T.c.obj
+FAILED: CMakeFiles/cmTC_1dd1f.dir/OFF64_T.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo -DHAVE_STDDEF_H -DHAVE_STDINT_H -DHAVE_SYS_TYPES_H -D_LARGEFILE64_SOURCE=1  /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_1dd1f.dir\OFF64_T.c.obj /FdCMakeFiles\cmTC_1dd1f.dir\ /FS -c C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c(29): error C2065: 'off64_t': undeclared identifier
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c(30): error C2065: 'off64_t': undeclared identifier
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c(31): error C2065: 'off64_t': undeclared identifier
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c(32): error C2065: 'off64_t': undeclared identifier
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CheckTypeSize\OFF64_T.c(33): error C2065: 'off64_t': undeclared identifier
 ninja: build stopped: subcommand failed.
 
 
@@ -130,14 +79,13 @@ int main(int argc, char *argv[])
 Determining if the function fseeko exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_f55fb && [1/2] Building C object CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj
-[2/2] Linking C executable cmTC_f55fb.exe
-FAILED: cmTC_f55fb.exe 
-cmd.exe /C "cd . && C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe -fuse-ld=lld-link -nostartfiles -nostdlib -DCHECK_FUNCTION_EXISTS=fseeko -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Xlinker /subsystem:console CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj -o cmTC_f55fb.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_f55fb.lib -Xlinker /pdb:cmTC_f55fb.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  && cd ."
-lld-link: error: undefined symbol: fseeko
->>> referenced by C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.23\Modules\CheckFunctionExists.c:17
->>>               CMakeFiles/cmTC_f55fb.dir/CheckFunctionExists.c.obj:(main)
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_aa3b0 && [1/2] Building C object CMakeFiles\cmTC_aa3b0.dir\CheckFunctionExists.c.obj
+[2/2] Linking C executable cmTC_aa3b0.exe
+FAILED: cmTC_aa3b0.exe 
+cmd.exe /C "cd . && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_aa3b0.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests  -- C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\link.exe /nologo CMakeFiles\cmTC_aa3b0.dir\CheckFunctionExists.c.obj  /out:cmTC_aa3b0.exe /implib:cmTC_aa3b0.lib /pdb:cmTC_aa3b0.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+LINK Pass 1: command "C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\link.exe /nologo CMakeFiles\cmTC_aa3b0.dir\CheckFunctionExists.c.obj /out:cmTC_aa3b0.exe /implib:cmTC_aa3b0.lib /pdb:cmTC_aa3b0.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\cmTC_aa3b0.dir/intermediate.manifest CMakeFiles\cmTC_aa3b0.dir/manifest.res" failed (exit code 1120) with the following output:
+CheckFunctionExists.c.obj : error LNK2019: unresolved external symbol fseeko referenced in function main
+cmTC_aa3b0.exe : fatal error LNK1120: 1 unresolved externals
 ninja: build stopped: subcommand failed.
 
 
@@ -145,13 +93,10 @@ ninja: build stopped: subcommand failed.
 Determining if the include file unistd.h exists failed with the following output:
 Change Dir: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_71541 && [1/2] Building C object CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj
-FAILED: CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj 
-C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\Llvm\x64\bin\clang.exe   -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -MD -MT CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj -MF CMakeFiles\cmTC_71541.dir\CheckIncludeFile.c.obj.d -o CMakeFiles/cmTC_71541.dir/CheckIncludeFile.c.obj -c C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: 'unistd.h' file not found
-#include <unistd.h>
-         ^~~~~~~~~~
-1 error generated.
+Run Build Command(s):C:/PROGRA~1/MICROS~4/2022/ENTERP~1/Common7/IDE/COMMON~1/MICROS~1/CMake/Ninja/ninja.exe cmTC_d17ad && [1/2] Building C object CMakeFiles\cmTC_d17ad.dir\CheckIncludeFile.c.obj
+FAILED: CMakeFiles/cmTC_d17ad.dir/CheckIncludeFile.c.obj 
+C:\PROGRA~1\MICROS~4\2022\ENTERP~1\VC\Tools\MSVC\1433~1.316\bin\Hostx64\x64\cl.exe  /nologo   /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_d17ad.dir\CheckIncludeFile.c.obj /FdCMakeFiles\cmTC_d17ad.dir\ /FS -c C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CMakeTmp\CheckIncludeFile.c
+C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build\CMakeFiles\CMakeTmp\CheckIncludeFile.c(1): fatal error C1083: Cannot open include file: 'unistd.h': No such file or directory
 ninja: build stopped: subcommand failed.
 
 

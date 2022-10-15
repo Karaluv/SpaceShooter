@@ -63,8 +63,8 @@ UpdateOptions:
 UpdateType: git
 
 # Compiler info
-Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/x64/bin/clang.exe
-CompilerVersion: 14.0.5
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.33.31629/bin/Hostx64/x64/cl.exe
+CompilerVersion: 19.33.31630.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 

@@ -1,33 +1,8 @@
 // Include standard headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
 #include <string>
 #include <iostream>
 #include <thread>
-#include <mutex>
 #include <chrono>
-#include <map>
-// Include GLEW
-#include <GL/glew.h>
-// Include GLFW
-#include <GLFW/glfw3.h>
-// Include GLM
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/euler_angles.hpp>
-#include <glm/gtx/norm.hpp>
-// Include AntTweakBar
-#include <AntTweakBar.h>
-// Include copied libraries
-#include <common/shader.hpp>
-#include <common/texture.hpp>
-#include <common/controls.hpp>
-#include <common/objloader.hpp>
-#include <common/vboindexer.hpp>
-#include <common/quaternion_utils.hpp>
 
 #include <render_engine.h>
 

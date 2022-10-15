@@ -1,153 +1,94 @@
-using namespace glm;
+class Object2Render
+{
+public:
+    Object2Render() = default;
+    ~Object2Render() = default;
 
-class render_object
+    glm::vec3 getPosition() const { return position; }
+    glm::vec3 getRotation() const { return rotation; }
+    glm::quat getOrientation() const { return orientation; }
+
+    void setPosition(glm::vec3 pos) { position = pos; }
+    void setRotation(glm::vec3 rot) { rotation = rot; }
+    void setOrientation(glm::quat ori) { orientation = ori; }
+
+    int getID() const { return MyID; }
+    void setID(int id) { MyID = id; }
+
+    int getTypeId() const { return TypeID; }
+    void setTypeId(int id) { TypeID = id; }
+
+protected:
+    glm::vec3 position;
+    glm::vec3 rotation;
+    glm::quat orientation;
+
+    unsigned int MyID;
+    unsigned int TypeID;
+};
+
+class render_object : public Object2Render
 {
 public:
     render_object() = default;
     ~render_object() = default;
 
-    void update_model(int index, GLuint indexsize)
-    {
-        model_index = index;
-        index_size = indexsize;
-    }
-    void update_camera(camera *cam)
-    {
-        camera_ = cam;
-    }
+    void update_number_of_vertices(int num) { number_of_vertices = num; }
+    void update_camera(camera *cam) { camera_ = cam; }
+
     void update_matrix(glm::mat4 ScalingMatrixV, GLuint ModelMatrixIDV)
     {
         ScalingMatrix = ScalingMatrixV;
         ModelMatrixID = ModelMatrixIDV;
     }
-    void get_position(double *x, double *y, double *z)
+    void update_model(int index, GLuint IndexBufferV)
     {
-        *x = position.x;
-        *y = position.y;
-        *z = position.z;
+        number_of_vertices = IndexBufferV;
+        MyID = index;
     }
-    vec3 get_position()
-    {
-        return position;
-    }
-    void get_orientation(double *x, double *y, double *z, double *w)
-    {
-        *x = orientation.x;
-        *y = orientation.y;
-        *z = orientation.z;
-        *w = orientation.w;
-    }
-    void set_position(vec3 new_position)
-    {
-        position = new_position;
-    }
-    void set_position(double x, double y, double z)
-    {
-        position.x = x;
-        position.y = y;
-        position.z = z;
-    }
-    void set_position()
-    {
-        position = vec3(0.0, 0.0, 0.0);
-    }
-    void set_orientation()
-    {
-        orientation = quat(0.0, 0.0, 0.0, 0.0);
-    }
-    void set_orientation(quat new_orientation)
-    {
-        orientation = new_orientation;
-    }
-    void set_orientation(double x, double y, double z, double w)
-    {
-        orientation.x = x;
-        orientation.y = y;
-        orientation.z = z;
-        orientation.w = w;
-    }
-    int get_index()
-    {
-        return model_index;
-    }
-
     void draw_object()
     {
-        glm::mat4 RotationMatrix = eulerAngleYXZ(orientation.x, orientation.y, orientation.z);
-        glm::mat4 TranslationMatrix = translate(mat4(), position); // A bit to the left
+        glm::mat4 RotationMatrix = glm::eulerAngleYXZ(orientation.x, orientation.y, orientation.z);
+        glm::mat4 TranslationMatrix = glm::translate(glm::mat4(), position); // A bit to the left
         glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
         glm::mat4 MVP = camera_->get_projection_matrix() * camera_->get_view_matrix() * ModelMatrix;
 
         glUniformMatrix4fv(camera_->get_matrix_id(), 1, GL_FALSE, &MVP[0][0]);
         glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 
-        glDrawElements(GL_TRIANGLES, index_size, GL_UNSIGNED_SHORT, (void *)(0));
+        glDrawElements(GL_TRIANGLES, number_of_vertices, GL_UNSIGNED_SHORT, (void *)(0));
     }
 
 protected:
     camera *camera_;
-    vec3 position;
-    quat orientation;
-    int model_index;
-    GLuint index_size;
-    glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
+    GLuint number_of_vertices;
 
+    glm::mat4 ScalingMatrix = glm::scale(glm::mat4(), glm::vec3(1.0f, 1.0f, 1.0f));
     int ModelMatrixID;
 };
 
-class light
+class light : public Object2Render
 {
 private:
-    vec3 Position = glm::vec3(0, 0, 0);
-    vec3 Color = glm::vec3(1, 1, 1);
+    glm::vec3 Color = glm::vec3(1, 1, 1);
     float Power = 1.0f;
-    vec3 Direction = glm::vec3(0, 0, 0);
 
 public:
     light() = default;
-    light(vec3 pos, vec3 color, float power, vec3 direction)
+    light(glm::vec3 pos, glm::vec3 color, float power, glm::vec3 direction)
     {
-        Position = pos;
         Color = color;
         Power = power;
-        Direction = direction;
+        position = pos;
+        rotation = direction;
     }
     ~light() = default;
-    // get light position
-    vec3 get_position()
-    {
-        return Position;
-    }
-    // get light color
-    vec3 get_color()
-    {
-        return Color;
-    }
-    // get light power
-    float get_power()
-    {
-        return Power;
-    }
-    void set_position(vec3 pos)
-    {
-        Position = pos;
-    }
-    void set_position(float x, float y, float z)
-    {
-        Position = vec3(x, y, z);
-    }
-    void set_color(vec3 color)
-    {
-        Color = color;
-    }
-    void set_color(float r, float g, float b)
-    {
-        Color = vec3(r, g, b);
-    }
-    void set_power(float power)
-    {
-        Power = power;
-    }
+    glm::vec3 get_position() { return position; }
+    glm::vec3 get_color() { return Color; }
+    float get_power() { return Power; }
+    void set_position(glm::vec3 pos) { position = pos; }
+    void set_color(glm::vec3 color) { Color = color; }
+    void set_power(float power) { Power = power; }
 };
 
 class RenderVoxel : render_object
@@ -165,5 +106,18 @@ private:
 class RenderCustomObj : render_object
 {
 public:
+    RenderCustomObj() = default;
+    RenderCustomObj(int id, int type_id, glm::vec3 pos, glm::vec3 rot, glm::quat ori, int num_vertices)
+    {
+        MyID = id;
+        TypeID = type_id;
+        position = pos;
+        rotation = rot;
+        orientation = ori;
+        ScalingMatrix = glm::scale(glm::mat4(), glm::vec3(1.0f, 1.0f, 1.0f));
+        number_of_vertices = num_vertices;
+    }
+    ~RenderCustomObj() = default;
+
 private:
 };

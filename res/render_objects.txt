@@ -1,0 +1,2 @@
+0 monkey res/obj/suzanne.obj res/texture/uvmap.DDS
+1 cube res/obj/scube.obj res/texture/uvmap.DDS

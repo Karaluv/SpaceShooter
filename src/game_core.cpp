@@ -1,4 +1,6 @@
-// Your First C++ Program
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 #include <iostream>
 #include <render.cpp>
@@ -7,7 +9,7 @@
 
 int main()
 {
-
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
 		// create monkey and cube and several lights in different positions and angels

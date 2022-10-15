@@ -1,11 +1,38 @@
+// Include standard headers
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <map>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+// Include GLEW
+#include <GL/glew.h>
+// Include GLFW
+#include <GLFW/glfw3.h>
+// Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/euler_angles.hpp>
+// Include AntTweakBar
+#include <AntTweakBar.h>
+// Include copied libraries
+#include <common/shader.hpp>
+#include <common/texture.hpp>
+#include <common/controls.hpp>
+#include <common/objloader.hpp>
+#include <common/vboindexer.hpp>
+#include <common/quaternion_utils.hpp>
 
+#include <load.h>
 #include <render_camera.h>
 #include <render_object.h>
 #include <render_mesh.h>
-
-using namespace glm;
 
 class render_engine
 {
@@ -41,8 +68,8 @@ public:
     void render_process()
     {
 
-        const int target_fps = (1000000000 / 144);
-        RenderTaskisRunning_ = true;
+        const int target_fps = (1000000000 / 144); // 144 fps
+        RenderTaskisRunning_ = true;               // set this to false to stop the render process
 
         initialize();
 
@@ -71,12 +98,12 @@ public:
     void create_object(std::string name, double x, double y, double z, double ax, double ay, double az, double aw)
     {
         access_object_.lock();
-        int index = NamesDict[name];
+        int index = NamesId[name];
 
         render_object *new_obj = new render_object;
 
-        new_obj->set_position(x, y, z);
-        new_obj->set_orientation(ax, ay, az, aw);
+        new_obj->setPosition(glm::vec3(x, y, z));
+        new_obj->setOrientation(glm::quat(ax, ay, az, aw));
         new_obj->update_model(index, IndexBuffer[index]);
 
         new_obj->update_camera(ViewCamera);
@@ -92,8 +119,8 @@ public:
 
         light *new_light = new light;
 
-        new_light->set_position(x, y, z);
-        new_light->set_color(r, g, b);
+        new_light->set_position(glm::vec3(x, y, z));
+        new_light->set_color(glm::vec3(r, g, b));
         new_light->set_power(power);
 
         Lights.push_back(new_light);
@@ -117,8 +144,8 @@ public:
         // check if index is valid
         if (index < Lights.size())
         {
-            Lights[index]->set_position(x, y, z);
-            Lights[index]->set_color(r, g, b);
+            Lights[index]->set_position(glm::vec3(x, y, z));
+            Lights[index]->set_color(glm::vec3(r, g, b));
             Lights[index]->set_power(power);
         }
         // print error message
@@ -133,8 +160,8 @@ public:
         access_object_.lock();
         if (index < RendObjs.size())
         {
-            RendObjs[index]->set_orientation(ax, ay, az, aw);
-            RendObjs[index]->set_position(x, y, z);
+            RendObjs[index]->setPosition(glm::vec3(x, y, z));
+            RendObjs[index]->setOrientation(glm::quat(ax, ay, az, aw));
             glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
             RendObjs[index]->update_matrix(ScaleMatrix, ModelMatrixID);
         }
@@ -146,9 +173,9 @@ public:
     void update_camera(double x, double y, double z, double ax, double ay, double az, double aw)
     {
         access_camera_.lock();
-        ViewCamera->set_position(vec3(x, y, z));
-        ViewCamera->set_angel(vec3(ax, ay, az));
-        ViewCamera->set_rotation(vec3(aw, 0, 0));
+        ViewCamera->set_position(glm::vec3(x, y, z));
+        ViewCamera->set_angel(glm::vec3(ax, ay, az));
+        ViewCamera->set_rotation(glm::vec3(aw, 0, 0));
         access_camera_.unlock();
     }
 
@@ -164,10 +191,10 @@ private:
         glBindTexture(GL_TEXTURE_2D, Texture);
         glUniform1i(TextureID, 0);
 
-        // create arrays of Lights
         glm::vec3 *LightPositions = new glm::vec3[Lights.size()];
         glm::vec3 *LightColors = new glm::vec3[Lights.size()];
         GLfloat *LightPowers = new GLfloat[Lights.size()];
+
         access_light_.lock();
         for (int i = 0; i < Lights.size(); i++)
         {
@@ -186,9 +213,10 @@ private:
         access_light_.unlock();
 
         access_object_.lock();
+        std::cout << "All right";
         for (int i = 0; i < RendObjs.size(); ++i)
         {
-            int index = RendObjs[i]->get_index();
+            int index = RendObjs[i]->getID();
             MeshSpace->switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index],
                                           ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID,
                                           vertexNormal_modelspaceID);
@@ -213,7 +241,7 @@ private:
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-        window = glfwCreateWindow(1024, 768, "render-test", NULL, NULL);
+        window = glfwCreateWindow(1024, 768, "SpaceShooter", NULL, NULL);
 
         glfwMakeContextCurrent(window);
 
@@ -239,7 +267,9 @@ private:
         Texture = loadDDS("res/uvmap.DDS");
         TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
-        MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
+        Load_All();
+        MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, IdMeshes);
+
 
         glUseProgram(programID);
         LightPositsID = glGetUniformLocation(programID, "LightPosits");
@@ -253,7 +283,31 @@ private:
         Is_Initialized_ = true;
         RenderTaskisTerminated_ = false;
     }
+    void Load_All()
+    {
+        // load txt file with struct
+        // e.g. 1 line: name, path to mesh, path to texture
+        // e.g. 2 line: name, path to mesh, path to texture
+        // etc.
+        // then load all meshes and textures to buffers
 
+        std::string FatherFile = "res/render_objects.txt";
+        // 3 maps of int and string
+        int number_of_objects = 0;
+        number_of_objects = read_obj_list(FatherFile, IdNames, IdMeshes, IdTextures);
+
+        // NamesId from IdNames
+        for (auto it = IdNames.begin(); it != IdNames.end(); ++it)
+        {
+            NamesId[it->second] = it->first;
+        }
+
+        // load all meshes and textures to buffers
+        for (int i = 0; i < number_of_objects; i++)
+        {
+        }
+        //MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
+    }
     void update_matrixes()
     {
         ViewCamera->update_matrixes();
@@ -285,8 +339,10 @@ private:
     std::vector<GLuint> VertexBuffers;
     std::vector<GLuint> IndexBuffer;
 
-    std::map<int, std::string> PathDict = {{0, "res/scube.obj"}, {1, "res/suzanne.obj"}};
-    std::map<std::string, int> NamesDict = {{"cube", 0}, {"monkey", 1}};
+    std::map<int, std::string> IdMeshes;
+    std::map<int, std::string> IdTextures;
+    std::map<int, std::string> IdNames;
+    std::map<std::string, int> NamesId;
 
     bool Is_Initialized_ = false;
 
