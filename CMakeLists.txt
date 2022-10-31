@@ -22,6 +22,7 @@ include_directories(
 	external/assimp-3.0.1270/include/
 	external/bullet-2.81-rev2613/src/
 	src/rend/
+	src/serg/
 	.
 )
 
@@ -42,7 +43,12 @@ add_definitions(
 add_library(OBJLoader
 	src/rend/objloader.cpp)
 
-add_library(render_engine
+add_library(serg_libs
+	src/serg/serg_main.cpp
+)
+
+add_library(render_engine_libs
+
 	common/shader.cpp
 	common/shader.hpp
 	common/controls.cpp
@@ -82,7 +88,9 @@ add_executable(game_core
 target_link_libraries(game_core
 	${ALL_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
-	render
+	render_libs
+	serg_libs
+	render_engine_libs
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")

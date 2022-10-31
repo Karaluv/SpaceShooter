@@ -3,9 +3,11 @@
 #include <crtdbg.h>
 
 #include <iostream>
-#include <render.cpp>
 #include <thread>
 #include <chrono>
+
+#include <render.cpp>
+#include <serg_main.cpp>
 
 int main()
 {
