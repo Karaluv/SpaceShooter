@@ -40,14 +40,13 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
+# render engine
+
 add_library(OBJLoader
 	src/rend/objloader.cpp)
 
-add_library(serg_libs
-	src/serg/serg_main.cpp
-)
 
-add_library(render_engine_libs
+add_library(render_engine
 
 	common/shader.cpp
 	common/shader.hpp
@@ -73,6 +72,7 @@ add_library(render
 	src/rend/render_engine.cpp
 )
 
+
 target_link_libraries(render_engine
 	${ALL_LIBS}
 	OBJLoader
@@ -82,15 +82,24 @@ target_link_libraries(render
 	render_engine
 )
 
+# sergey
+
+add_library(serg_libs
+	src/serg/serg_main.cpp
+)
+
+# link libraries
+
 add_executable(game_core
 	src/game_core.cpp)
 
 target_link_libraries(game_core
 	${ALL_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
-	render_libs
+	render
+	render_engine
+	
 	serg_libs
-	render_engine_libs
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")

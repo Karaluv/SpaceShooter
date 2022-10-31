@@ -56,22 +56,6 @@ public:
 	}
 };
 
-class Weapon : Massive_Point {
-protected:
-	double start_speed;
-	unsigned destructive_power;
-public:
-	Weapon(double start_speed, unsigned destructive_power) : Massive_Point(), start_speed(start_speed), 
-		destructive_power(destructive_power) {};
-	Weapon(): Massive_Point(), start_speed(0), destructive_power(0) {};
-	void set_parametres(double start_speed, unsigned destructive_power) {
-		this->start_speed = start_speed;
-		this->destructive_power = destructive_power;
-	}
-	void cause_damage(Space_Ship* ship, double force) {
-		ship->get_damage(force * destructive_power);
-	}
-};
 
 class Space_Ship : public Massive_Point {
 private:
@@ -94,5 +78,22 @@ public:
 	void shout(unsigned weapon_type) {
 		arsenal[weapon_type] --;
 
+	}
+};
+
+class Weapon : Massive_Point {
+protected:
+	double start_speed;
+	unsigned destructive_power;
+public:
+	Weapon(double start_speed, unsigned destructive_power) : Massive_Point(), start_speed(start_speed), 
+		destructive_power(destructive_power) {};
+	Weapon(): Massive_Point(), start_speed(0), destructive_power(0) {};
+	void set_parametres(double start_speed, unsigned destructive_power) {
+		this->start_speed = start_speed;
+		this->destructive_power = destructive_power;
+	}
+	void cause_damage(Space_Ship* ship, double force) {
+		ship->get_damage(force * destructive_power);
 	}
 };
