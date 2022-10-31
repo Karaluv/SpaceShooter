@@ -22,6 +22,7 @@ include_directories(
 	external/assimp-3.0.1270/include/
 	external/bullet-2.81-rev2613/src/
 	src/rend/
+	src/serg/
 	.
 )
 
@@ -45,6 +46,10 @@ add_library(render_libs
 	src/rend/render_object.h
 	src/rend/render_mesh.h
 	src/rend/render_camera.h
+)
+
+add_library(serg_libs
+	src/serg/serg_main.cpp
 )
 
 add_library(render_engine_libs
@@ -73,6 +78,7 @@ target_link_libraries(game_core
 	${ALL_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
 	render_libs
+	serg_libs
 	render_engine_libs
 )
 
