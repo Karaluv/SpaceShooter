@@ -39,24 +39,16 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-add_library(render_libs
-	src/rend/render.cpp
-	src/rend/render_engine.cpp
-	src/rend/render_object.h
-	src/rend/render_mesh.h
-	src/rend/render_camera.h
-)
+add_library(OBJLoader
+	src/rend/objloader.cpp)
 
-add_library(render_engine_libs
-
+add_library(render_engine
 	common/shader.cpp
 	common/shader.hpp
 	common/controls.cpp
 	common/controls.hpp
 	common/texture.cpp
 	common/texture.hpp
-	common/objloader.cpp
-	common/objloader.hpp
 	common/vboindexer.cpp
 	common/vboindexer.hpp
 	common/quaternion_utils.cpp
@@ -64,6 +56,24 @@ add_library(render_engine_libs
 
 	res/StandardShading.GLSL
 	res/StandardShading.GLSL
+
+	src/rend/render_object.hpp
+	src/rend/render_mesh.hpp
+	src/rend/render_camera.hpp
+)
+
+add_library(render
+	src/rend/render.cpp
+	src/rend/render_engine.cpp
+)
+
+target_link_libraries(render_engine
+	${ALL_LIBS}
+	OBJLoader
+)
+
+target_link_libraries(render
+	render_engine
 )
 
 add_executable(game_core
@@ -72,8 +82,7 @@ add_executable(game_core
 target_link_libraries(game_core
 	${ALL_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
-	render_libs
-	render_engine_libs
+	render
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")

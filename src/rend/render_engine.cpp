@@ -25,14 +25,14 @@
 #include <common/shader.hpp>
 #include <common/texture.hpp>
 #include <common/controls.hpp>
-#include <common/objloader.hpp>
 #include <common/vboindexer.hpp>
 #include <common/quaternion_utils.hpp>
 
-#include <load.h>
-#include <render_camera.h>
-#include <render_object.h>
-#include <render_mesh.h>
+#include <objloader.cpp>
+#include <load.hpp>
+#include <render_camera.hpp>
+#include <render_object.hpp>
+#include <render_mesh.hpp>
 
 class render_engine
 {
@@ -284,28 +284,14 @@ private:
     }
     void Load_All()
     {
-        // load txt file with struct
-        // e.g. 1 line: name, path to mesh, path to texture
-        // e.g. 2 line: name, path to mesh, path to texture
-        // etc.
-        // then load all meshes and textures to buffers
-
         std::string FatherFile = "res/render_objects.txt";
-        // 3 maps of int and string
         int number_of_objects = 0;
         number_of_objects = read_obj_list(FatherFile, IdNames, IdMeshes, IdTextures);
 
-        // NamesId from IdNames
         for (auto it = IdNames.begin(); it != IdNames.end(); ++it)
         {
             NamesId[it->second] = it->first;
         }
-
-        // load all meshes and textures to buffers
-        for (int i = 0; i < number_of_objects; i++)
-        {
-        }
-        // MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer);
     }
     void update_matrixes()
     {

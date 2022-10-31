@@ -209,130 +209,157 @@ build ContinuousMemCheck: phony CMakeFiles\ContinuousMemCheck
 build ContinuousSubmit: phony CMakeFiles\ContinuousSubmit
 
 # =============================================================================
-# Object build statements for STATIC_LIBRARY target render_libs
+# Object build statements for STATIC_LIBRARY target OBJLoader
 
 
 #############################################
-# Order-only phony target for render_libs
+# Order-only phony target for OBJLoader
 
-build cmake_object_order_depends_target_render_libs: phony || CMakeFiles\render_libs.dir
+build cmake_object_order_depends_target_OBJLoader: phony || CMakeFiles\OBJLoader.dir
 
-build CMakeFiles\render_libs.dir\src\rend\render.cpp.obj: CXX_COMPILER__render_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend\render.cpp || cmake_object_order_depends_target_render_libs
+build CMakeFiles\OBJLoader.dir\src\rend\objloader.cpp.obj: CXX_COMPILER__OBJLoader_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend\objloader.cpp || cmake_object_order_depends_target_OBJLoader
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_libs.dir\src\rend
-  TARGET_COMPILE_PDB = CMakeFiles\render_libs.dir\render_libs.pdb
-  TARGET_PDB = render_libs.pdb
-
-build CMakeFiles\render_libs.dir\src\rend\render_engine.cpp.obj: CXX_COMPILER__render_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend\render_engine.cpp || cmake_object_order_depends_target_render_libs
-  DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_libs.dir\src\rend
-  TARGET_COMPILE_PDB = CMakeFiles\render_libs.dir\render_libs.pdb
-  TARGET_PDB = render_libs.pdb
+  OBJECT_DIR = CMakeFiles\OBJLoader.dir
+  OBJECT_FILE_DIR = CMakeFiles\OBJLoader.dir\src\rend
+  TARGET_COMPILE_PDB = CMakeFiles\OBJLoader.dir\OBJLoader.pdb
+  TARGET_PDB = OBJLoader.pdb
 
 
 # =============================================================================
-# Link build statements for STATIC_LIBRARY target render_libs
+# Link build statements for STATIC_LIBRARY target OBJLoader
 
 
 #############################################
-# Link the static library render_libs.lib
+# Link the static library OBJLoader.lib
 
-build render_libs.lib: CXX_STATIC_LIBRARY_LINKER__render_libs_Debug CMakeFiles\render_libs.dir\src\rend\render.cpp.obj CMakeFiles\render_libs.dir\src\rend\render_engine.cpp.obj
+build OBJLoader.lib: CXX_STATIC_LIBRARY_LINKER__OBJLoader_Debug CMakeFiles\OBJLoader.dir\src\rend\objloader.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
-  OBJECT_DIR = CMakeFiles\render_libs.dir
+  OBJECT_DIR = CMakeFiles\OBJLoader.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\render_libs.dir\render_libs.pdb
-  TARGET_FILE = render_libs.lib
-  TARGET_PDB = render_libs.pdb
+  TARGET_COMPILE_PDB = CMakeFiles\OBJLoader.dir\OBJLoader.pdb
+  TARGET_FILE = OBJLoader.lib
+  TARGET_PDB = OBJLoader.pdb
 
 # =============================================================================
-# Object build statements for STATIC_LIBRARY target render_engine_libs
+# Object build statements for STATIC_LIBRARY target render_engine
 
 
 #############################################
-# Order-only phony target for render_engine_libs
+# Order-only phony target for render_engine
 
-build cmake_object_order_depends_target_render_engine_libs: phony || CMakeFiles\render_engine_libs.dir
+build cmake_object_order_depends_target_render_engine: phony || cmake_object_order_depends_target_GLEW_1130 cmake_object_order_depends_target_OBJLoader cmake_object_order_depends_target_glfw
 
-build CMakeFiles\render_engine_libs.dir\common\shader.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\shader.cpp || cmake_object_order_depends_target_render_engine_libs
+build CMakeFiles\render_engine.dir\common\shader.cpp.obj: CXX_COMPILER__render_engine_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\shader.cpp || cmake_object_order_depends_target_render_engine
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
+  OBJECT_DIR = CMakeFiles\render_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\render_engine.dir\common
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_PDB = render_engine.pdb
 
-build CMakeFiles\render_engine_libs.dir\common\controls.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\controls.cpp || cmake_object_order_depends_target_render_engine_libs
+build CMakeFiles\render_engine.dir\common\controls.cpp.obj: CXX_COMPILER__render_engine_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\controls.cpp || cmake_object_order_depends_target_render_engine
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
+  OBJECT_DIR = CMakeFiles\render_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\render_engine.dir\common
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_PDB = render_engine.pdb
 
-build CMakeFiles\render_engine_libs.dir\common\texture.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\texture.cpp || cmake_object_order_depends_target_render_engine_libs
+build CMakeFiles\render_engine.dir\common\texture.cpp.obj: CXX_COMPILER__render_engine_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\texture.cpp || cmake_object_order_depends_target_render_engine
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
+  OBJECT_DIR = CMakeFiles\render_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\render_engine.dir\common
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_PDB = render_engine.pdb
 
-build CMakeFiles\render_engine_libs.dir\common\objloader.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\objloader.cpp || cmake_object_order_depends_target_render_engine_libs
+build CMakeFiles\render_engine.dir\common\vboindexer.cpp.obj: CXX_COMPILER__render_engine_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\vboindexer.cpp || cmake_object_order_depends_target_render_engine
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
+  OBJECT_DIR = CMakeFiles\render_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\render_engine.dir\common
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_PDB = render_engine.pdb
 
-build CMakeFiles\render_engine_libs.dir\common\vboindexer.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\vboindexer.cpp || cmake_object_order_depends_target_render_engine_libs
+build CMakeFiles\render_engine.dir\common\quaternion_utils.cpp.obj: CXX_COMPILER__render_engine_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\quaternion_utils.cpp || cmake_object_order_depends_target_render_engine
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
-
-build CMakeFiles\render_engine_libs.dir\common\quaternion_utils.cpp.obj: CXX_COMPILER__render_engine_libs_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\common\quaternion_utils.cpp || cmake_object_order_depends_target_render_engine_libs
-  DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
-  OBJECT_FILE_DIR = CMakeFiles\render_engine_libs.dir\common
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_PDB = render_engine_libs.pdb
+  OBJECT_DIR = CMakeFiles\render_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\render_engine.dir\common
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_PDB = render_engine.pdb
 
 
 # =============================================================================
-# Link build statements for STATIC_LIBRARY target render_engine_libs
+# Link build statements for STATIC_LIBRARY target render_engine
 
 
 #############################################
-# Link the static library render_engine_libs.lib
+# Link the static library render_engine.lib
 
-build render_engine_libs.lib: CXX_STATIC_LIBRARY_LINKER__render_engine_libs_Debug CMakeFiles\render_engine_libs.dir\common\shader.cpp.obj CMakeFiles\render_engine_libs.dir\common\controls.cpp.obj CMakeFiles\render_engine_libs.dir\common\texture.cpp.obj CMakeFiles\render_engine_libs.dir\common\objloader.cpp.obj CMakeFiles\render_engine_libs.dir\common\vboindexer.cpp.obj CMakeFiles\render_engine_libs.dir\common\quaternion_utils.cpp.obj
+build render_engine.lib: CXX_STATIC_LIBRARY_LINKER__render_engine_Debug CMakeFiles\render_engine.dir\common\shader.cpp.obj CMakeFiles\render_engine.dir\common\controls.cpp.obj CMakeFiles\render_engine.dir\common\texture.cpp.obj CMakeFiles\render_engine.dir\common\vboindexer.cpp.obj CMakeFiles\render_engine.dir\common\quaternion_utils.cpp.obj || OBJLoader.lib external\GLEW_1130.lib external\glfw-3.1.2\src\glfw3.lib
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
-  OBJECT_DIR = CMakeFiles\render_engine_libs.dir
+  OBJECT_DIR = CMakeFiles\render_engine.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\render_engine_libs.dir\render_engine_libs.pdb
-  TARGET_FILE = render_engine_libs.lib
-  TARGET_PDB = render_engine_libs.pdb
+  TARGET_COMPILE_PDB = CMakeFiles\render_engine.dir\render_engine.pdb
+  TARGET_FILE = render_engine.lib
+  TARGET_PDB = render_engine.pdb
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target render
+
+
+#############################################
+# Order-only phony target for render
+
+build cmake_object_order_depends_target_render: phony || cmake_object_order_depends_target_GLEW_1130 cmake_object_order_depends_target_OBJLoader cmake_object_order_depends_target_glfw cmake_object_order_depends_target_render_engine
+
+build CMakeFiles\render.dir\src\rend\render.cpp.obj: CXX_COMPILER__render_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend\render.cpp || cmake_object_order_depends_target_render
+  DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
+  OBJECT_DIR = CMakeFiles\render.dir
+  OBJECT_FILE_DIR = CMakeFiles\render.dir\src\rend
+  TARGET_COMPILE_PDB = CMakeFiles\render.dir\render.pdb
+  TARGET_PDB = render.pdb
+
+build CMakeFiles\render.dir\src\rend\render_engine.cpp.obj: CXX_COMPILER__render_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend\render_engine.cpp || cmake_object_order_depends_target_render
+  DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\AntTweakBar-1.16\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glfw-3.1.2\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glm-0.9.7.1 -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\glew-1.13.0\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\assimp-3.0.1270\include -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\external\bullet-2.81-rev2613\src -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\rend -IC:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\.
+  OBJECT_DIR = CMakeFiles\render.dir
+  OBJECT_FILE_DIR = CMakeFiles\render.dir\src\rend
+  TARGET_COMPILE_PDB = CMakeFiles\render.dir\render.pdb
+  TARGET_PDB = render.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target render
+
+
+#############################################
+# Link the static library render.lib
+
+build render.lib: CXX_STATIC_LIBRARY_LINKER__render_Debug CMakeFiles\render.dir\src\rend\render.cpp.obj CMakeFiles\render.dir\src\rend\render_engine.cpp.obj || OBJLoader.lib external\GLEW_1130.lib external\glfw-3.1.2\src\glfw3.lib render_engine.lib
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = CMakeFiles\render.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\render.dir\render.pdb
+  TARGET_FILE = render.lib
+  TARGET_PDB = render.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target game_core
@@ -341,7 +368,7 @@ build render_engine_libs.lib: CXX_STATIC_LIBRARY_LINKER__render_engine_libs_Debu
 #############################################
 # Order-only phony target for game_core
 
-build cmake_object_order_depends_target_game_core: phony || cmake_object_order_depends_target_ANTTWEAKBAR_116_OGLCORE_GLFW cmake_object_order_depends_target_GLEW_1130 cmake_object_order_depends_target_glfw cmake_object_order_depends_target_render_engine_libs cmake_object_order_depends_target_render_libs
+build cmake_object_order_depends_target_game_core: phony || cmake_object_order_depends_target_ANTTWEAKBAR_116_OGLCORE_GLFW cmake_object_order_depends_target_GLEW_1130 cmake_object_order_depends_target_OBJLoader cmake_object_order_depends_target_glfw cmake_object_order_depends_target_render cmake_object_order_depends_target_render_engine
 
 build CMakeFiles\game_core.dir\src\game_core.cpp.obj: CXX_COMPILER__game_core_Debug C$:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\src\game_core.cpp || cmake_object_order_depends_target_game_core
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
@@ -360,10 +387,10 @@ build CMakeFiles\game_core.dir\src\game_core.cpp.obj: CXX_COMPILER__game_core_De
 #############################################
 # Link the executable game_core.exe
 
-build game_core.exe: CXX_EXECUTABLE_LINKER__game_core_Debug CMakeFiles\game_core.dir\src\game_core.cpp.obj | external\glfw-3.1.2\src\glfw3.lib external\GLEW_1130.lib external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib render_libs.lib render_engine_libs.lib || external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib external\GLEW_1130.lib external\glfw-3.1.2\src\glfw3.lib render_engine_libs.lib render_libs.lib
+build game_core.exe: CXX_EXECUTABLE_LINKER__game_core_Debug CMakeFiles\game_core.dir\src\game_core.cpp.obj | external\glfw-3.1.2\src\glfw3.lib external\GLEW_1130.lib external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib render.lib render_engine.lib external\glfw-3.1.2\src\glfw3.lib external\GLEW_1130.lib OBJLoader.lib || OBJLoader.lib external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib external\GLEW_1130.lib external\glfw-3.1.2\src\glfw3.lib render.lib render_engine.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = opengl32.lib  glu32.lib  external\glfw-3.1.2\src\glfw3.lib  external\GLEW_1130.lib  external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib  render_libs.lib  render_engine_libs.lib  opengl32.lib  glu32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = opengl32.lib  glu32.lib  external\glfw-3.1.2\src\glfw3.lib  external\GLEW_1130.lib  external\ANTTWEAKBAR_116_OGLCORE_GLFW.lib  render.lib  render_engine.lib  external\glfw-3.1.2\src\glfw3.lib  external\GLEW_1130.lib  opengl32.lib  glu32.lib  OBJLoader.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\game_core.dir
   POST_BUILD = cmd.exe /C "cd /D C:\Users\egrvr\Documents\proga\space_shooter\SpaceShooter\build && "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_directory C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/res C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/res"
   PRE_LINK = cd .
@@ -4177,6 +4204,8 @@ build LinearMath: phony external\bullet-2.81-rev2613\src\LinearMath\LinearMath.l
 
 build LinearMath.lib: phony external\bullet-2.81-rev2613\src\LinearMath\LinearMath.lib
 
+build OBJLoader: phony OBJLoader.lib
+
 build assimp: phony external\assimp-3.0.1270\code\assimp.lib
 
 build assimp.lib: phony external\assimp-3.0.1270\code\assimp.lib
@@ -4187,9 +4216,9 @@ build glfw: phony external\glfw-3.1.2\src\glfw3.lib
 
 build glfw3.lib: phony external\glfw-3.1.2\src\glfw3.lib
 
-build render_engine_libs: phony render_engine_libs.lib
+build render: phony render.lib
 
-build render_libs: phony render_libs.lib
+build render_engine: phony render_engine.lib
 
 build uninstall: phony external\glfw-3.1.2\uninstall
 
@@ -4205,7 +4234,7 @@ build zlibd.lib: phony external\assimp-3.0.1270\contrib\zlib\zlibd.lib
 #############################################
 # Folder: C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build
 
-build all: phony render_libs.lib render_engine_libs.lib game_core.exe external\all
+build all: phony OBJLoader.lib render_engine.lib render.lib game_core.exe external\all
 
 # =============================================================================
 

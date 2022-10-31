@@ -26,8 +26,9 @@ C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/Conti
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousCoverage.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousMemCheck.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/ContinuousSubmit.dir
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render_libs.dir
-C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render_engine_libs.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/OBJLoader.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render_engine.dir
+C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/render.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/game_core.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/test.dir
 C:/Users/egrvr/Documents/proga/space_shooter/SpaceShooter/build/CMakeFiles/edit_cache.dir
