@@ -497,9 +497,6 @@ configure_file("${GLFW_SOURCE_DIR}/src/glfw3.pc.in"
 # --------------------------------------------------------------------
 add_subdirectory(src)
 
-if(DOXYGEN_FOUND AND GLFW_BUILD_DOCS)
-    add_subdirectory(docs)
-endif()
 
 # --------------------------------------------------------------------
 # Install files other than the library
