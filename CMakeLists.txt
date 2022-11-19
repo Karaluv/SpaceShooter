@@ -46,9 +46,15 @@ src/addlibs/MyNum.cpp
 src/addlibs/MyNum.hpp
 )
 
+add_library(mydict
+src/addlibs/MyDict.cpp
+src/addlibs/MyDict.hpp
+)
+
 
 set(ADD_LIBS
 	mynum
+	mydict
 )
 # render engine
 

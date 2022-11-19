@@ -18,7 +18,7 @@
 #include <serg_main.cpp>
 
 #include <mynum.cpp>
-
+#include <MyDict.cpp>
 
 // if enabletesting defined
 //cassert
@@ -29,96 +29,22 @@
 
 
 
-// varient of dictionery where all keys are values and there are 4 int values in
-// total e.g. pairs: dict = {(1,12,434,52),(424,2748,23,9)} and if I call
-// dict[3][52] it will return (1,12,434,52)
-
-class Dict4X {
-private:
-  // vector of unsigned pointers
-  std::vector<unsigned *> dict;
-
-public:
-  // constructor
-  Dict4X() {
-    // create a new vector of unsigned pointers
-    dict = std::vector<unsigned *>();
-  }
-
-  // destructor
-  ~Dict4X() {
-    // delete all unsigned pointers in the vector
-    for (unsigned i = 0; i < dict.size(); i++) {
-      delete dict[i];
-    }
-  }
-  // add new key to the dictionary
-  void add(unsigned a, unsigned b, unsigned c, unsigned d) {
-    // create a new unsigned pointer
-    unsigned *newKey = new unsigned[4];
-    // set the values of the new key
-    newKey[0] = a;
-    newKey[1] = b;
-    newKey[2] = c;
-    newKey[3] = d;
-    // add the new key to the vector
-    dict.push_back(newKey);
-  }
-  // add using pointer
-  void add(unsigned *key) {
-    // create a new unsigned pointer
-    unsigned *newKey = new unsigned[4];
-    // set the values of the new key
-    newKey[0] = key[0];
-    newKey[1] = key[1];
-    newKey[2] = key[2];
-    newKey[3] = key[3];
-    // add the new key to the vector
-    dict.push_back(newKey);
-  }
-  // remove key using index in vector
-  void remove(unsigned index) {
-    // delete the unsigned pointer at the index
-    delete dict[index];
-    // remove the pointer from the vector
-    dict.erase(dict.begin() + index);
-  }
-  // search function which takes two arguments: which key to search for and its
-  // position in sub-arrays
-  unsigned search(unsigned key, unsigned pos) {
-    // loop through all keys in the vector
-    for (unsigned i = 0; i < dict.size(); i++) {
-      // if the key is found return the index
-      if (dict[i][pos] == key) {
-        return i;
-      }
-    }
-    // if the key is not found return -1
-    return -1;
-  }
-  // add operator []
-  unsigned *operator[](unsigned index) {
-    // return the unsigned pointer at the index
-    return dict[index];
-  }
-  // return the size of the vector
-  unsigned size() { return dict.size(); }
-};
-
 #ifdef enable_testing
 void Run_tests()
 {
-    test_my_num();
+    // test_my_num();
+	test_my_dict();
+
 }
 #endif
 
 int main() {
-  _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-#ifdef enable_testing
-  // run tests
-  Run_tests();
-#endif
+    #ifdef enable_testing
+    // run tests
+        Run_tests();
+    #endif
 
 
   srs::start_render();

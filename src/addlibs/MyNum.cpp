@@ -83,21 +83,21 @@ public:
 	  return HighResNum(f * num - int(f*num), i * num + int(f*num));
   }
   HighResNum operator*(float num) {
-	  return HighResNum(f * num - int(f * num + i * num), i * num + int(f * num + i*num));
+	  return HighResNum(f * num + i*num - int(f * num + i * num), int(f * num + i*num));
   }
   HighResNum operator*(HighResNum num) {
-	  return HighResNum(f * num.f - int(f * num.f + i * num.f), i * num.f + int(f * num.f + i * num.f));
+	  return HighResNum(f * num.f + f * num.i + f*num.i+i*num.f- int(f * num.f + f * num.i + i*num.f), i * num.i + int(f * num.f + i * num.f + f*num.i));
   }
   HighResNum operator/(int num) {
-	  return HighResNum(f / num - int(f / num), i / num + int(f / num));
+	  return HighResNum(f / num + float(i) / num  - int(f / num) - i/num, i / num + int(f / num));
   }
   HighResNum operator/(float num) {
-	  return HighResNum(f / num - int(f / num + i / num), i / num + int(f / num + i / num));
+	  return HighResNum(f / num + i / num - int(f / num + i / num), int(f / num + i / num));
   }
   HighResNum operator/(HighResNum num) {
-	  return HighResNum(f / num.f - int(f / num.f + i / num.f), i / num.f + int(f / num.f + i / num.f));
+	  return HighResNum(f / num.f + i / num.f + f / num.i +float(i)/num.i - int(f / num.f + i / num.f + f / num.i+float(i)/num.i), int(f / num.f + i / num.f + f / num.i + float(i)/num.i));
   }
-// unar -
+  // unar -
   HighResNum operator-() { return HighResNum(-f, -i); }
 
   bool operator==(HighResNum num) { return (f == num.f && i == num.i); }
@@ -340,13 +340,19 @@ void test_my_num() {
 			assert(num1 + float(2.1) < float(3.3));
 			assert(num1 + float(-4.5) > float(-3.7));
 
-			//assert(num1 - float(2.1) > float(-1.2));
-			//assert(num1 - float(2.1) < float(-0.9));
-			//assert(num1 - float(-4.5) > float(5.3));
+			assert(num1 - float(2.1) > float(-1.2));
+			assert(num1 - float(2.1) < float(-0.9));
+			assert(num1 - float(-4.5) > float(5.3));
 			
-			//assert(num1* float(2.1) >= float(2.0));
-			//assert(num1* float(2.1) < float(2.3));
-			//assert(num1* float(-4.5) > float(-4.7));
+			assert(num1* float(2.1) >= float(2.0));
+			assert(num1* float(2.1) < float(2.3));
+			assert(num1* float(-4.5) > float(-4.7));
+
+			//tests for / operator for ints and floats
+			assert(num1 / 2 >= float(0.4));
+			assert(num1 / 2 < float(0.6));
+			assert(num1 / -4 > float(-0.3));
+			
 			
 			
 			
@@ -354,18 +360,14 @@ void test_my_num() {
 
 			auto temp = num1 * num2;
 			
-			//assert(num1 * num2 > float(2.0));
-			//assert(num1 * num2 < float(2.3));
-			//assert(num1 * num3 > float(-4.4));
+			assert(num1 * num2 > float(2.0));
+			assert(num1 * num2 < float(2.3));
+			assert(num1 * num3 < float(-4.4));
 			
-			//assert(num1 / num2 > float(0.475));
-			//assert(num1 / num2 < float(0.478));
-			//assert(num1 / num3 > float(-0.221));
-			
-			//assert(num1 + 2 > float(3));
-			//assert(num1 + 2 < float(3.1));
-			//assert(num1 + (-4) > float(-3));
-			
+			assert(num1 / num2 > float(0.475));
+			assert(num1 / num2 < float(0.478));
+			assert(num1 / num3 > float(-0.221));
+						
 			
         }
 		catch (std::invalid_argument&) {
