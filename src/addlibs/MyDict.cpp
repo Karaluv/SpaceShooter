@@ -120,9 +120,4 @@ void test_my_dict()
 	// test size function
 	assert(dict.size() == 5);
 	
-	
-	
-	
-
-	
 }

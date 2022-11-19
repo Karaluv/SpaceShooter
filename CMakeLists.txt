@@ -51,10 +51,15 @@ src/addlibs/MyDict.cpp
 src/addlibs/MyDict.hpp
 )
 
+add_library(mycontrol
+src/addlibs/MyControl.cpp
+src/addlibs/MyControl.hpp
+)
 
 set(ADD_LIBS
 	mynum
 	mydict
+	mycontrol
 )
 # render engine
 

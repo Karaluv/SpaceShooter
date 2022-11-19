@@ -4,9 +4,6 @@
 
 #include <stdexcept>
 #include <limits>
-
-
-
 #include <crtdbg.h>
 #include <stdlib.h>
 
@@ -20,13 +17,7 @@
 #include <mynum.cpp>
 #include <MyDict.cpp>
 
-// if enabletesting defined
-//cassert
-#ifdef enable_testing
-#include <cassert>
-//#include <test.cpp>
-#endif
-
+#include "globals.hpp"
 
 
 #ifdef enable_testing
