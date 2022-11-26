@@ -23,7 +23,11 @@ include_directories(
 	external/bullet-2.81-rev2613/src/
 	src/rend/
 	src/serg/
+
 	src/andrei/
+
+	src/addlibs/
+
 	.
 )
 
@@ -41,13 +45,36 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
+add_library(mynum
+src/addlibs/MyNum.cpp
+src/addlibs/MyNum.hpp
+)
+
+add_library(mydict
+src/addlibs/MyDict.cpp
+src/addlibs/MyDict.hpp
+)
+
+add_library(mycontrol
+src/addlibs/MyControl.cpp
+src/addlibs/MyControl.hpp
+)
+
+set(ADD_LIBS
+	mynum
+	mydict
+	mycontrol
+)
 # render engine
 
 add_library(OBJLoader
-	src/rend/objloader.cpp)
+	src/rend/objloader.cpp
+)
 
 
 add_library(render_engine
+
+	src/rend/render_engine.cpp
 
 	common/shader.cpp
 	common/shader.hpp
@@ -70,7 +97,6 @@ add_library(render_engine
 
 add_library(render
 	src/rend/render.cpp
-	src/rend/render_engine.cpp
 )
 
 
@@ -103,9 +129,11 @@ add_executable(game_core
 
 target_link_libraries(game_core
 	${ALL_LIBS}
+	${ADD_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
 	render
 	render_engine
+	
 	
 	serg_libs
 	andrei_libs
