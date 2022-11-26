@@ -23,6 +23,7 @@ include_directories(
 	external/bullet-2.81-rev2613/src/
 	src/rend/
 	src/serg/
+	src/andrei/
 	.
 )
 
@@ -88,6 +89,13 @@ add_library(serg_libs
 	src/serg/serg_main.cpp
 )
 
+#andrei
+
+add_library(andrei_libs
+	src/andrei/andrei_main.cpp
+	src/andrei/matrix.cpp
+)
+
 # link libraries
 
 add_executable(game_core
@@ -100,6 +108,7 @@ target_link_libraries(game_core
 	render_engine
 	
 	serg_libs
+	andrei_libs
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")

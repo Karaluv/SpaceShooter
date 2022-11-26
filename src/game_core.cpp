@@ -8,6 +8,7 @@
 
 #include <render.cpp>
 #include <serg_main.cpp>
+#include <andrei_main.cpp>
 
 
 
@@ -108,6 +109,10 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	
+	//run tests from andrei
+	test_directed_segment();
+	test_matrix();
+
 	
 	srs::start_render();
 	{
