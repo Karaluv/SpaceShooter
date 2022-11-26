@@ -258,6 +258,8 @@ void test_my_num() {
 		}
 		catch (std::invalid_argument& e) {
 			std::cout << "Test 1 for == operator failed" << std::endl;
+			// do smth with e variable
+			std::cout << e.what() << std::endl;
         }
 		std::cout << "test 1 for operator == passed" << std::endl;
 		//test for move copy and ...
@@ -280,6 +282,8 @@ void test_my_num() {
         }
 		catch (std::invalid_argument& e) {
 			std::cout << "Test 2 for == operator failed" << std::endl;
+			// do smth with e variable
+			std::cout << e.what() << std::endl;
 		}
 		std::cout << "test 2 for operator = passed" << std::endl;
 		

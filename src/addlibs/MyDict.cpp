@@ -72,8 +72,8 @@ public:
     // return the unsigned pointer at the index
     return dict[index];
   }
-  // return the size of the vector
-  unsigned size() { return dict.size(); }
+  // return the size of the vector convert it unsinged
+  unsigned size() { return (unsigned)dict.size(); }
 };
 
 
