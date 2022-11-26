@@ -36,8 +36,18 @@
 
 class render_engine
 {
+// pattern Singletone
+private:
+	render_engine();
+    static render_engine* instance;
+	
+	
 public:
-    render_engine() {}
+
+    static render_engine* GetInstance();
+
+	
+	
     ~render_engine()
     {
         stop();
@@ -264,7 +274,7 @@ private:
         vertexUVID = glGetAttribLocation(programID, "vertexUV");
         vertexNormal_modelspaceID = glGetAttribLocation(programID, "vertexNormal_modelspace");
 
-        Texture = loadDDS("res/uvmap.DDS");
+        Texture = loadDDS("res/MyTest.DDS");
         TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
         Load_All();
@@ -345,3 +355,17 @@ private:
     std::vector<render_object *> RendObjs;
     std::vector<light *> Lights;
 };
+
+// singletone
+render_engine* render_engine::instance = nullptr;
+render_engine* render_engine::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new render_engine();
+	}
+	return instance;
+}
+
+render_engine::render_engine()
+{}
