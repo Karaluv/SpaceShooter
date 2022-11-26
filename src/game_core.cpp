@@ -13,6 +13,7 @@
 
 #include <render.cpp>
 #include <serg_main.cpp>
+#include <andrei_main.cpp>
 
 #include <mynum.cpp>
 #include <MyDict.cpp>
@@ -23,6 +24,7 @@
 #ifdef enable_testing
 void Run_tests()
 {
+
     // test_my_num();
 	test_my_dict();
 
@@ -69,4 +71,5 @@ int main() {
   srs::stop_render();
 
   return 0;
+
 }
