@@ -1,16 +1,30 @@
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
 
+#define enable_testing
+
+#include <stdexcept>
+#include <limits>
+#include <crtdbg.h>
+#include <stdlib.h>
+
+#include <chrono>
 #include <iostream>
 #include <thread>
-#include <chrono>
 
 #include <render.cpp>
 #include <serg_main.cpp>
+#include <andrei_main.cpp>
 
-int main()
+#include <mynum.cpp>
+#include <MyDict.cpp>
+
+#include "globals.hpp"
+
+
+#ifdef enable_testing
+void Run_tests()
 {
+
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
@@ -70,4 +84,5 @@ int main()
 	srs::stop_render();
 
 	return 0;
+
 }
