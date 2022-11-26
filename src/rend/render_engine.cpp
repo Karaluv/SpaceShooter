@@ -274,7 +274,7 @@ private:
         vertexUVID = glGetAttribLocation(programID, "vertexUV");
         vertexNormal_modelspaceID = glGetAttribLocation(programID, "vertexNormal_modelspace");
 
-        Texture = loadDDS("res/uvmap.DDS");
+        Texture = loadDDS("res/MyTest.DDS");
         TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
         Load_All();
