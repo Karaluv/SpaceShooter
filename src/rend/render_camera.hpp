@@ -11,12 +11,25 @@ private:
     int ViewMatrixID;
 
 public:
-    camera() = default;
+    camera()
+    {
+		Position = glm::vec3(0, 0, 0);
+		Angel = glm::vec3(0, 0, 0);
+		Rotation = glm::vec3(0, 0, 0);
+		ViewMatrix = glm::mat4(1.0f);
+		ProjectionMatrix = glm::mat4(1.0f);
+
+		MatrixID = 0;
+		ViewMatrixID = 0;
+    }
     camera(glm::vec3 pos, glm::vec3 angel, glm::vec3 rotation)
     {
         Position = pos;
         Angel = angel;
         Rotation = rotation;
+
+		ViewMatrix = glm::mat4(1.0f);
+		ProjectionMatrix = glm::mat4(1.0f);
     }
     ~camera() = default;
 

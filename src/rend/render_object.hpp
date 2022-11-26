@@ -1,7 +1,10 @@
 class Object2Render
 {
 public:
-    Object2Render() = default;
+    Object2Render()
+    {
+		
+    }
     ~Object2Render() = default;
 
     glm::vec3 getPosition() const { return position; }
@@ -30,7 +33,16 @@ protected:
 class render_object : public Object2Render
 {
 public:
-    render_object() = default;
+    render_object()
+    {
+		position = glm::vec3(0.0f, 0.0f, 0.0f);
+		rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+		orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+		MyID = 0;
+		TypeID = 0;
+		// camera
+		
+    }
     ~render_object() = default;
 
     void update_number_of_vertices(int num) { number_of_vertices = num; }

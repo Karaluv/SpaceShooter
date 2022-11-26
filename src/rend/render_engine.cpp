@@ -36,8 +36,18 @@
 
 class render_engine
 {
+// pattern Singletone
+private:
+	render_engine();
+    static render_engine* instance;
+	
+	
 public:
-    render_engine() {}
+
+    static render_engine* GetInstance();
+
+	
+	
     ~render_engine()
     {
         stop();
@@ -345,3 +355,17 @@ private:
     std::vector<render_object *> RendObjs;
     std::vector<light *> Lights;
 };
+
+// singletone
+render_engine* render_engine::instance = nullptr;
+render_engine* render_engine::GetInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new render_engine();
+	}
+	return instance;
+}
+
+render_engine::render_engine()
+{}

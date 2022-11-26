@@ -9,8 +9,13 @@
 namespace srs
 
 {
-	render_engine *RendEng = new render_engine();
+	// create class render_engine (singleton)
+	render_engine* RendEng = render_engine::GetInstance();
+	
 
+	
+	
+	
 	void start_render()
 	{
 		RendEng->start();
