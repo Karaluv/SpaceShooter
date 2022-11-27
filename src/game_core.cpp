@@ -33,6 +33,17 @@ int main()
 		double basic_speed = 1;
 		double basic_accel = 0;
 		double dt = 0.01;
+		
+		matrix<float, 3> tensor1(1, 0, 0, 0, 1, 0, 0, 0, 1);
+		directed_segment <float> r1(0, 0, 0);
+		directed_segment <float> v1(0, 0, 0);
+		directed_segment <float> angle1(0.001, 0.001, 0.001);
+		//std::cout << "\n" << angle1[0] << " " << angle1[1] << " " << angle1[2] << "\n";
+		directed_segment <float> w1(1, 1, 0);
+		float size1 = 1;
+		float m1 = 1;
+		Body<float> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
 		// test meanings of starting parametres
 
 		Object_Management Manager;
@@ -72,25 +83,12 @@ int main()
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
 
-			// read angles floats
-			float x_angle = 0;
-			float y_angle = 0;
-			float z_angle = 0;
+			//std::cout << body1_Monki.angle[0];
+			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
+			srs::update_object(0, 0, -1, -1, 0, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]);
+			body1_Monki.update_w(dt);
+			body1_Monki.update_angle(dt);
 			
-			std::cout << "Enter x angle: ";
-			std::cin >> x_angle;
-			std::cout << "Enter y angle: ";
-			std::cin >> y_angle;
-			std::cout << "Enter z angle: ";
-			std::cin >> z_angle;
-			
-			srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
-			srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
-			srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
-			
-
-			// rotate sphere by sin i around y axis
-			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
