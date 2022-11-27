@@ -67,7 +67,10 @@ int main()
 
 		// create monkey and cube and several lights in different positions and angels
 		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+		srs::create_object("monkey", 4, 0, -1, 0, 0, 0, 1);
+		srs::create_object("monkey", -4, 0, -1, 0, 0, 0, 1);
+		// for sphere
+		//srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -79,6 +82,7 @@ int main()
 			//Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
+
 			//std::cout << body1_Monki.angle[0];
 			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
 			srs::update_object(0, 0, -1, -1, 0, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]);
@@ -92,7 +96,7 @@ int main()
 			//srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
-			// srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
+			//srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
