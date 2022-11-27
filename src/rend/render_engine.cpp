@@ -113,7 +113,7 @@ public:
 		render_object* new_obj = new render_object;
 
 		new_obj->setPosition(glm::vec3(x, y, z));
-		new_obj->setOrientation(glm::quat(ax, ay, az, aw));
+		new_obj->setOrientation(glm::vec3(ax, ay, az));
 		new_obj->update_model(index, IndexBuffer[index]);
 
 		new_obj->update_camera(ViewCamera);
@@ -171,7 +171,7 @@ public:
 		if (index < RendObjs.size())
 		{
 			RendObjs[index]->setPosition(glm::vec3(x, y, z));
-			RendObjs[index]->setOrientation(glm::quat(ax, ay, az, aw));
+			RendObjs[index]->setOrientation(glm::vec3(ax, ay, az));
 			glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 			RendObjs[index]->update_matrix(ScaleMatrix, ModelMatrixID);
 		}
@@ -223,7 +223,7 @@ private:
 		access_light_.unlock();
 
 		access_object_.lock();
-		std::cout << "All right";
+		//std::cout << "All right";
 		for (int i = 0; i < RendObjs.size(); ++i)
 		{
 			int index = RendObjs[i]->getID();

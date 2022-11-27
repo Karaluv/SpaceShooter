@@ -9,11 +9,13 @@ public:
 
     glm::vec3 getPosition() const { return position; }
     glm::vec3 getRotation() const { return rotation; }
-    glm::quat getOrientation() const { return orientation; }
-
+    //glm::quat getOrientation() const { return orientation; }
+    glm::vec3 getOrientation() const { return orientation; }
+    
     void setPosition(glm::vec3 pos) { position = pos; }
     void setRotation(glm::vec3 rot) { rotation = rot; }
-    void setOrientation(glm::quat ori) { orientation = ori; }
+    //void setOrientation(glm::quat ori) { orientation = ori; }
+	void setOrientation(glm::vec3 ori) { orientation = ori; }
 
     int getID() const { return MyID; }
     void setID(int id) { MyID = id; }
@@ -24,8 +26,8 @@ public:
 protected:
     glm::vec3 position;
     glm::vec3 rotation;
-    glm::quat orientation;
-
+    //glm::quat orientation;
+    glm::vec3 orientation;
     unsigned int MyID;
     unsigned int TypeID;
 };
@@ -37,8 +39,9 @@ public:
     {
 		position = glm::vec3(0.0f, 0.0f, 0.0f);
 		rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-		orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-		MyID = 0;
+		//orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+        orientation = glm::vec3(0.0f, 0.0f, 0.0f);
+        MyID = 0;
 		TypeID = 0;
 		// camera
 		
@@ -60,7 +63,22 @@ public:
     }
     void draw_object()
     {
-        glm::mat4 RotationMatrix = glm::eulerAngleYXZ(orientation.x, orientation.y, orientation.z);
+        // euler angles matrixes 
+		glm::mat4 RotationMatrixX = glm::rotate(glm::mat4(1.0f), orientation.x, 
+            glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 RotationMatrixY = glm::rotate(glm::mat4(1.0f), orientation.y, 
+            glm::vec3(cos(orientation.x), sin(orientation.x), 0.0f));
+		glm::mat4 RotationMatrixZ = glm::rotate(glm::mat4(1.0f), orientation.z, 
+            glm::vec3(0.0f, -sin(orientation.y), cos(orientation.y) ));
+		
+        glm::mat4 RotationMatrix = RotationMatrixZ * RotationMatrixY * RotationMatrixX;
+
+
+
+        
+        //glm::mat4 RotationMatrix = glm::eulerAngleYXZ(orientation.x, orientation.y, orientation.z);
+        // Rotate quaternions
+        //glm::mat4 RotationMatrix = glm::toMat4(orientation);
         glm::mat4 TranslationMatrix = glm::translate(glm::mat4(), position); // A bit to the left
         glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
         glm::mat4 MVP = camera_->get_projection_matrix() * camera_->get_view_matrix() * ModelMatrix;
@@ -114,7 +132,7 @@ class RenderCockpit : render_object
 public:
 private:
 };
-
+/*
 class RenderCustomObj : render_object
 {
 public:
@@ -133,3 +151,4 @@ public:
 
 private:
 };
+*/

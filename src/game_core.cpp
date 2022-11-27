@@ -56,9 +56,10 @@ int main()
 
 		// create monkey and cube and several lights in different positions and angels
 		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+		srs::create_object("monkey", 4, 0, -1, 0, 0, 0, 1);
+		srs::create_object("monkey", -4, 0, -1, 0, 0, 0, 1);
 		// for sphere
-		srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
+		//srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -70,10 +71,26 @@ int main()
 			//Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
-			srs::update_object(0, 0, 0, -1, 0, pi/2, 0, pi/2);
+
+			// read angles floats
+			float x_angle = 0;
+			float y_angle = 0;
+			float z_angle = 0;
+			
+			std::cout << "Enter x angle: ";
+			std::cin >> x_angle;
+			std::cout << "Enter y angle: ";
+			std::cin >> y_angle;
+			std::cout << "Enter z angle: ";
+			std::cin >> z_angle;
+			
+			srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
+			srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
+			srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
+			
 
 			// rotate sphere by sin i around y axis
-			srs::update_object(2, 0, 0, -2, 0, float(i)/100, 0, 0);
+			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
@@ -81,7 +98,7 @@ int main()
 			//srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
-			// srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
+			//srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
