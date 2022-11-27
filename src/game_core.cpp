@@ -57,6 +57,8 @@ int main()
 		// create monkey and cube and several lights in different positions and angels
 		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
 		srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+		// for sphere
+		srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -69,6 +71,9 @@ int main()
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
 			srs::update_object(0, 0, 0, -1, 0, pi/2, 0, pi/2);
+
+			// rotate sphere by sin i around y axis
+			srs::update_object(2, 0, 0, -2, 0, float(i)/100, 0, 0);
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
