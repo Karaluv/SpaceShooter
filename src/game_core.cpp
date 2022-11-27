@@ -33,6 +33,17 @@ int main()
 		double basic_speed = 1;
 		double basic_accel = 0;
 		double dt = 0.01;
+		
+		matrix<float, 3> tensor1(1, 0, 0, 0, 1, 0, 0, 0, 1);
+		directed_segment <float> r1(0, 0, 0);
+		directed_segment <float> v1(0, 0, 0);
+		directed_segment <float> angle1(0.001, 0.001, 0.001);
+		//std::cout << "\n" << angle1[0] << " " << angle1[1] << " " << angle1[2] << "\n";
+		directed_segment <float> w1(1, 1, 0);
+		float size1 = 1;
+		float m1 = 1;
+		Body<float> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
 		// test meanings of starting parametres
 
 		Object_Management Manager;
@@ -68,7 +79,12 @@ int main()
 			//Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
-			srs::update_object(0, 0, 0, -1, 0, pi/2, 0, pi/2);
+			//std::cout << body1_Monki.angle[0];
+			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
+			srs::update_object(0, 0, -1, -1, 0, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]);
+			body1_Monki.update_w(dt);
+			body1_Monki.update_angle(dt);
+			
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 

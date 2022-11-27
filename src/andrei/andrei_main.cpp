@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <matrix.cpp>
+#include <valarray>
 
 
 
@@ -63,10 +64,10 @@ public:
 	
 	void update_angle(T time) {
 		directed_segment<T> angle_;
-		angle_[0] = (w[0] / cos(angle[2]) + w[1] / sin(angle[2])) / (sin(angle[1]) * (tg(angle[2]) + ctg(angle[2])));
-		angle_[1] = (w[0] / sin(angle[2]) - w[1] / cos(angle[2])) / (tg(angle[2]) + ctg(angle[2]));
+		angle_[0] = (w[0] / cos(angle[2]) + w[1] / sin(angle[2])) / (sin(angle[1]) * (tan(angle[2]) + 1/tan(angle[2])));
+		angle_[1] = (w[0] / sin(angle[2]) - w[1] / cos(angle[2])) / (tan(angle[2]) + 1/tan(angle[2]));
 		angle_[2] = w[2] - angle_[0]*cos(angle[1]);
-
+		
 		angle = angle + angle_ * time;
 	}
 
