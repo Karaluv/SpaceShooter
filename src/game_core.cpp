@@ -28,6 +28,19 @@ int main()
 	srs::start_render();
 	{
 
+		double x = 0;
+		double y = 0;
+		double z = 1;
+
+		double ax = 0;
+		double ay = 0;
+		double az = 0;
+
+		double pitch = 0;
+		double yaw = 1;
+		double roll = 0;
+		
+
 		//for simple test
 		double basic_coord = 0;
 		double basic_speed = 1;
@@ -55,9 +68,20 @@ int main()
 		//end of the code for the simple test
 
 		// create monkey and cube and several lights in different positions and angels
-		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		srs::create_object("monkey", 4, 0, -1, 0, 0, 0, 1);
-		srs::create_object("monkey", -4, 0, -1, 0, 0, 0, 1);
+		// 6 heads around 0,0,0 positon
+		//srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 0);
+		
+		
+		srs::create_object("monkey", 4, 0, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 4, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", -4, 0, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, -4, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 0, 4, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 0, -4, 0, 0, 0, 1);
+
+		
+		
+		
 		// for sphere
 		//srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
 
@@ -77,17 +101,58 @@ int main()
 			float y_angle = 0;
 			float z_angle = 0;
 			
-			std::cout << "Enter x angle: ";
-			std::cin >> x_angle;
-			std::cout << "Enter y angle: ";
-			std::cin >> y_angle;
-			std::cout << "Enter z angle: ";
-			std::cin >> z_angle;
+			//std::cout << "Enter x angle: ";
+			//std::cin >> x_angle;
+			//std::cout << "Enter y angle: ";
+			//std::cin >> y_angle;
+			//std::cout << "Enter z angle: ";
+			//std::cin >> z_angle;
 			
-			srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
-			srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
-			srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
+			//srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
+			//srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
+			//srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
+
+			// get inputs map from render
+			std::map<char, bool> inputs = srs::get_inputs();
 			
+			// update camera position
+			if (inputs['w'])
+				x += 0.1;
+			if (inputs['s'])
+				x -= 0.1;
+			if (inputs['a'])
+				z -= 0.1;
+			if (inputs['d'])
+				z += 0.1;
+			// ctrl space
+			if (inputs[' '])
+				y += 0.1;
+			if (inputs['c'])
+				y -= 0.1;
+
+			// e
+			if (inputs['e'])
+				roll += 0.1;
+			
+			// q
+			if (inputs['q'])
+				roll -= 0.1;
+
+			// get mouse position
+			std::pair<double, double> mouse_pos = srs::get_mouse();
+			
+			// update camera rotation
+			//yaw += mouse_pos.first;
+			//ax += mouse_pos.second;
+			
+			// mouse angle
+			az = mouse_pos.first/100;
+			ay = mouse_pos.second/100;
+
+			
+
+			// camera update
+			srs::update_camera(x, y, z, ax, ay, az, pitch, yaw, roll);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);

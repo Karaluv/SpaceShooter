@@ -69,8 +69,23 @@ public:
     }
     void update_matrixes()
     {
+	    // we have angle of view and camera position set ViewMatrix not to look at the same point
+
+		// i would like to look at Angle
+		// convert Angle into vector with cos, sin functions
+		glm::vec3 lookAt = glm::vec3(cos(Angel.x), sin(Angel.y), sin(Angel.z));
+		// add vector for roll pitch and yaw
+		glm::vec3 orient = glm::vec3(cos(Rotation.x), sin(Rotation.y), sin(Rotation.z));
+		
+		// create ViewMatrix
+		ViewMatrix = glm::lookAt(
+			Position, // Camera is here
+			Position + lookAt, // and looks here : at the same position, plus "lookAt" vector
+			// orientation
+			orient
+		);
         ProjectionMatrix = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-        ViewMatrix = glm::lookAt(Position, Angel, Rotation);
+        //ViewMatrix = glm::lookAt(Position, Angel, Rotation);
     }
     glm::mat4 get_view_matrix()
     {
