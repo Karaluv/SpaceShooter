@@ -49,6 +49,8 @@ public:
     void UpdateMesh()
     {
     }
+
+
     void LoadCustomMesh(std::string Path, int index, std::vector<GLuint> &ElementBuff,
                         std::vector<GLuint> &NormalBuff, std::vector<GLuint> &UvBuff,
                         std::vector<GLuint> &VertexBuff, std::vector<GLuint> &IndexBuff)
@@ -79,9 +81,14 @@ public:
         indexVBO(vertices, uvs, normals, indices, indexed_vertices, indexed_uvs, indexed_normals);
 
         // Load it into a VBO
+		
+        index_of_model = 1;
 
-        glGenBuffers(index_of_model, vertexbuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, *vertexbuffer);
+		// assigne 0 on temp
+		
+
+		glGenBuffers(index_of_model, vertexbuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, *vertexbuffer);
         glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0],
                      GL_STATIC_DRAW);
 
