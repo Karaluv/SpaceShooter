@@ -181,6 +181,20 @@ public:
 		}
 	}
 
+	//operator[] const
+	
+	const T& operator[](int index) const {
+		assert(index >= 0 && index < 3);
+		if (index == 0) {
+			return x;
+		}
+		else if (index == 1) {
+			return y;
+		}
+		else {
+			return z;
+		}
+	}
 
 };
 
@@ -321,7 +335,7 @@ public:
 		directed_segment<T> result;
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
-				result.data[i] += data[i][j] * other.data[j];
+				result[i] += data[i][j] * other[j];
 			}
 		}
 		return result;

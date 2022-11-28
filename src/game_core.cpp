@@ -21,6 +21,9 @@
 #include "globals.hpp"
 
 
+//define type of long long double for physics
+typedef long double lld;
+
 int main()
 {
 
@@ -29,20 +32,19 @@ int main()
 	{
 
 		//for simple test
-		double basic_coord = 0;
-		double basic_speed = 1;
-		double basic_accel = 0;
-		double dt = 0.01;
+		lld basic_coord = 0;
+		lld basic_speed = 1;
+		lld basic_accel = 0;
+		lld dt = 0.01;
 		
-		matrix<float, 3> tensor1(1, 0, 0, 0, 1, 0, 0, 0, 1);
-		directed_segment <float> r1(0, 0, 0);
-		directed_segment <float> v1(0, 0, 0);
-		directed_segment <float> angle1(0.001, 0.001, 0.001);
-		//std::cout << "\n" << angle1[0] << " " << angle1[1] << " " << angle1[2] << "\n";
-		directed_segment <float> w1(1, 1, 0);
-		float size1 = 1;
-		float m1 = 1;
-		Body<float> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+		directed_segment <lld> r1(0, 0, 0);
+		directed_segment <lld> v1(0, 0, 0);
+		directed_segment <lld> angle1(0.1, 0.1, 0.1);
+		directed_segment <lld> w1(3, 15, 0);
+		lld size1 = 1;
+		lld m1 = 1;
+		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
 		
 		// test meanings of starting parametres
 
@@ -85,15 +87,16 @@ int main()
 
 			//std::cout << body1_Monki.angle[0];
 			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
-			srs::update_object(0, 0, -1, -1, 0, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]);
-			body1_Monki.update_w(dt);
+			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
-			
+			body1_Monki.update_w(dt);
+			// print kinetic energy
+			std::cout << body1_Monki.get_kinetic_energy() << "\n";
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
 			// change light color by sin i
-			//srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
+			srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
 			//srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
