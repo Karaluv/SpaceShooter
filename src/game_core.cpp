@@ -21,6 +21,9 @@
 #include "globals.hpp"
 
 
+//define type of long long double for physics
+typedef long double lld;
+
 int main()
 {
 
@@ -28,11 +31,34 @@ int main()
 	srs::start_render();
 	{
 
+		double x = 0;
+		double y = 0;
+		double z = 1;
+
+		double ax = 0;
+		double ay = 0;
+		double az = 0;
+
+		double pitch = 0;
+		double yaw = 1;
+		double roll = 0;
+		
+
 		//for simple test
-		double basic_coord = 0;
-		double basic_speed = 1;
-		double basic_accel = 0;
-		double dt = 0.01;
+		lld basic_coord = 0;
+		lld basic_speed = 1;
+		lld basic_accel = 0;
+		lld dt = 0.01;
+		
+		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+		directed_segment <lld> r1(0, 0, 0);
+		directed_segment <lld> v1(0, 0, 0);
+		directed_segment <lld> angle1(0.1, 0.1, 0.1);
+		directed_segment <lld> w1(3, 15, 0);
+		lld size1 = 1;
+		lld m1 = 1;
+		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
 		// test meanings of starting parametres
 
 		Object_Management Manager;
@@ -55,8 +81,22 @@ int main()
 		//end of the code for the simple test
 
 		// create monkey and cube and several lights in different positions and angels
-		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+		// 6 heads around 0,0,0 positon
+		//srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 0);
+		
+		
+		srs::create_object("monkey", 4, 0, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 4, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", -4, 0, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, -4, 0, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 0, 4, 0, 0, 0, 1);
+		srs::create_object("monkey", 0, 0, -4, 0, 0, 0, 1);
+
+		
+		
+		
+		// for sphere
+		//srs::create_object("sphere", 0, 0, -1, 0, 0, 0, 1);
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -68,15 +108,75 @@ int main()
 			//Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 			float pi = 3.14159265359;
-			srs::update_object(0, 0, 0, -1, 0, pi/2, 0, pi/2);
+
+			// read angles floats
+			float x_angle = 0;
+			float y_angle = 0;
+			float z_angle = 0;
+			
+			//std::cout << "Enter x angle: ";
+			//std::cin >> x_angle;
+			//std::cout << "Enter y angle: ";
+			//std::cin >> y_angle;
+			//std::cout << "Enter z angle: ";
+			//std::cin >> z_angle;
+			
+			//srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
+			//srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
+			//srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
+
+			// get inputs map from render
+			std::map<char, bool> inputs = srs::get_inputs();
+			
+			// update camera position
+			if (inputs['w'])
+				x += 0.1;
+			if (inputs['s'])
+				x -= 0.1;
+			if (inputs['a'])
+				z -= 0.1;
+			if (inputs['d'])
+				z += 0.1;
+			// ctrl space
+			if (inputs[' '])
+				y += 0.1;
+			if (inputs['c'])
+				y -= 0.1;
+
+			// e
+			if (inputs['e'])
+				roll += 0.1;
+			
+			// q
+			if (inputs['q'])
+				roll -= 0.1;
+
+			// get mouse position
+			std::pair<double, double> mouse_pos = srs::get_mouse();
+			
+			// update camera rotation
+			//yaw += mouse_pos.first;
+			//ax += mouse_pos.second;
+			
+			// mouse angle
+			az = mouse_pos.first/100;
+			ay = mouse_pos.second/100;
+
+			
+
+			// camera update
+			srs::update_camera(x, y, z, ax, ay, az, pitch, yaw, roll);
+
+			// rotate sphere by sin i around y axis
+			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
 			// move cube by sin i around y axis
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
 			// change light color by sin i
-			//srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
+			srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
-			// srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
+			//srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}

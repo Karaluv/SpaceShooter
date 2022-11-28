@@ -26,10 +26,21 @@ namespace srs
 		}
 	}
 
-	// void which updates camera position, angel, rotation from doubles
-	void update_camera(float x, float y, float z, float pitch, float yaw, float roll)
+	// get inputs
+	std::map<char, bool> get_inputs()
 	{
-		RendEng->update_camera(x, y, z, pitch, yaw, roll, 0);
+		return RendEng->get_inputs();
+	}
+	// for mouse x and y
+	std::pair<int, int> get_mouse()
+	{
+		return RendEng->get_mouse();
+	}
+
+	// void which updates camera position, angel, rotation from doubles
+	void update_camera(float x, float y, float z, float ax, float ay, float az, float rx, float ry, float rz)
+	{
+		RendEng->update_camera(x, y, z, ax, ay, az, rx, ry, rz);
 	}
 	// void which updates object position and rotation using doubles and object id
 	void update_object(int id, float x, float y, float z, float rx, float ry, float rz, float rw)
