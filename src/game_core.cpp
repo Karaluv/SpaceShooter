@@ -21,6 +21,9 @@
 #include "globals.hpp"
 
 
+//define type of long long double for physics
+typedef long double lld;
+
 int main()
 {
 
@@ -42,10 +45,20 @@ int main()
 		
 
 		//for simple test
-		double basic_coord = 0;
-		double basic_speed = 1;
-		double basic_accel = 0;
-		double dt = 0.01;
+		lld basic_coord = 0;
+		lld basic_speed = 1;
+		lld basic_accel = 0;
+		lld dt = 0.01;
+		
+		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+		directed_segment <lld> r1(0, 0, 0);
+		directed_segment <lld> v1(0, 0, 0);
+		directed_segment <lld> angle1(0.1, 0.1, 0.1);
+		directed_segment <lld> w1(3, 15, 0);
+		lld size1 = 1;
+		lld m1 = 1;
+		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
 		// test meanings of starting parametres
 
 		Object_Management Manager;
@@ -160,7 +173,7 @@ int main()
 			//srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
 
 			// change light color by sin i
-			//srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
+			srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
 			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			//  cube move by 0.0001 in x direction
 			//srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
