@@ -33,7 +33,7 @@ int main()
 
 		double x = 0;
 		double y = 0;
-		double z = 1;
+		double z = 0;
 
 		double ax = 0;
 		double ay = 0;
@@ -159,13 +159,13 @@ int main()
 			//ax += mouse_pos.second;
 			
 			// mouse angle
-			az = mouse_pos.first/100;
-			ay = mouse_pos.second/100;
+			ax = mouse_pos.first/1000;
+			ay = mouse_pos.second/1000;
 
 			
 
 			// camera update
-			srs::update_camera(x, y, z, ax, ay, az, pitch, yaw, roll);
+			srs::update_camera(x, y, z, ax, ay, roll);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);

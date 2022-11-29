@@ -38,9 +38,9 @@ namespace srs
 	}
 
 	// void which updates camera position, angel, rotation from doubles
-	void update_camera(float x, float y, float z, float ax, float ay, float az, float rx, float ry, float rz)
+	void update_camera(float x, float y, float z, float mouse_x, float mouse_y, float roll) 
 	{
-		RendEng->update_camera(x, y, z, ax, ay, az, rx, ry, rz);
+		RendEng->update_camera(x, y, z, mouse_x, mouse_y, roll);
 	}
 	// void which updates object position and rotation using doubles and object id
 	void update_object(int id, float x, float y, float z, float rx, float ry, float rz, float rw)
