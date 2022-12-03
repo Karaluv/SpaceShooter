@@ -60,6 +60,10 @@ src/addlibs/MyControl.cpp
 src/addlibs/MyControl.hpp
 )
 
+add_library(mymatrix
+src/addlibs/matrix.cpp
+)
+
 set(ADD_LIBS
 	mynum
 	mydict
@@ -119,7 +123,6 @@ add_library(serg_libs
 
 add_library(andrei_libs
 	src/andrei/andrei_main.cpp
-	src/andrei/matrix.cpp
 )
 
 # link libraries

@@ -20,6 +20,8 @@
 
 #include "globals.hpp"
 
+//#include <matrix.cpp>
+
 
 int main()
 {
@@ -27,8 +29,8 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
-
 		//for simple test
+		/*** 
 		double basic_coord = 0;
 		double basic_speed = 1;
 		double basic_accel = 0;
@@ -36,6 +38,7 @@ int main()
 		// test meanings of starting parametres
 
 		Object_Management Manager;
+		
 		Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
 		for (unsigned k = 0; k < 3; ++ k)
@@ -52,6 +55,8 @@ int main()
 		data[1][0][1] = 0;
 		data[1][0][2] = 0;
 
+		***/
+
 		//end of the code for the simple test
 
 		// create monkey and cube and several lights in different positions and angels
@@ -65,7 +70,6 @@ int main()
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
 		for (int i = 0; i < 10000; i++)
 		{
-			Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 			srs::update_object(0, 0, 0, -1, 0, sin(float(i) / 100), 0, 1);
 			// move cube by sin i around y axis

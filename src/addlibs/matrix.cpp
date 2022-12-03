@@ -465,7 +465,7 @@ public:
 	}
 
 	// power operator 
-
+	
 	matrix operator^(const int& power) {
 		matrix result;
 		for (size_t i = 0; i < N; i++) {
@@ -482,11 +482,11 @@ public:
 		}
 		return result;
 	}
-
-
+	
 };
 
 
+/*
 
 //tests
 void test_directed_segment()
@@ -595,3 +595,4 @@ void test_matrix()
 	std::cout << "Test passed" << std::endl;
 
 }
+*/
