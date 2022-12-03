@@ -7,6 +7,12 @@ private:
     glm::mat4 ViewMatrix;
     glm::mat4 ProjectionMatrix;
 
+	// mouse_pos
+	float mouse_x = 0;
+	float mouse_y = 0;
+
+    float roll = 0;
+
     int MatrixID;
     int ViewMatrixID;
 
@@ -51,6 +57,15 @@ public:
     {
         Angel = angel;
     }
+    void set_camera_angle(float x, float y)
+    {
+		mouse_x = x;
+		mouse_y = y;
+    }
+	void set_roll(float r)
+	{
+		roll = r;
+	}
     void set_rotation(glm::vec3 rotation)
     {
         Rotation = rotation;
@@ -73,9 +88,28 @@ public:
 
 		// i would like to look at Angle
 		// convert Angle into vector with cos, sin functions
-		glm::vec3 lookAt = glm::vec3(cos(Angel.x), sin(Angel.y), sin(Angel.z));
-		// add vector for roll pitch and yaw
-		glm::vec3 orient = glm::vec3(cos(Rotation.x), sin(Rotation.y), sin(Rotation.z));
+		// lookAt vector from mouse angle 
+		// convert polar cordinates to decard
+		//glm::vec3 orient = glm::vec3(cos(Rotation.x), sin(Rotation.y), sin(Rotation.z));
+
+		// mouse_pos (x,y) are two angles
+		// convert them to a vector with such spherical cordinates
+		// mouse_y - theta, mouse_x - phi
+		glm::vec3 lookAt = glm::vec3(
+			cos(mouse_y) * sin(mouse_x),
+			sin(mouse_y),
+			cos(mouse_y) * cos(mouse_x)
+		);
+		
+		// now orient from roll
+        glm::vec3 orient = glm::vec3(0, 1, 0);
+
+		// change orieantation when camera switchs poll
+		if (mouse_y > 3.14f)
+		{
+			orient = glm::vec3(0, -1, 0);
+		}
+		
 		
 		// create ViewMatrix
 		ViewMatrix = glm::lookAt(
