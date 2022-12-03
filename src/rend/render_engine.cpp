@@ -182,13 +182,15 @@ public:
 		access_object_.unlock();
 	}
 
-	void update_camera(float x, float y, float z, float ax, float ay, float az, float rx, float ry, float rz)
+	void update_camera(float x, float y, float z, float mouse_x, float mouse_y,float roll)
 	{
 		access_camera_.lock();
 		ViewCamera->set_position(glm::vec3(x, y, z));
-		ViewCamera->set_angel(glm::vec3(ax, ay, az));
+		ViewCamera->set_camera_angle(mouse_x, mouse_y);
 		//ViewCamera->set_orientation(glm::vec3(ax, ay, az));
-		ViewCamera->set_rotation(glm::vec3(rx, ry, rz));
+		//ViewCamera->set_rotation(glm::vec3(rx, ry, rz));
+		// roll
+		ViewCamera->set_roll(roll);
 		access_camera_.unlock();
 	}
 
