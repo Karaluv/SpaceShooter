@@ -131,7 +131,70 @@ public:
 		return *this;
 	}
 
+	//operator*=
+	
+	directed_segment& operator*=(const T& scalar) {
+		x *= scalar;
+		y *= scalar;
+		z *= scalar;
+		return *this;
+	}
 
+	//operator^=
+
+	directed_segment& operator^=(const directed_segment& other) {
+		T x1 = x;
+		T y1 = y;
+		T z1 = z;
+		x = y1 * other.z - z1 * other.y;
+		y = z1 * other.x - x1 * other.z;
+		z = x1 * other.y - y1 * other.x;
+		return *this;
+	}
+
+	//operator<<
+
+	friend std::ostream& operator<<(std::ostream& os, const directed_segment& other) {
+		os << "(" << other.x << ", " << other.y << ", " << other.z << ")";
+		return os;
+	}
+
+	//operator>>
+
+	friend std::istream& operator>>(std::istream& is, directed_segment& other) {
+		is >> other.x >> other.y >> other.z;
+		return is;
+	}
+
+	//operator[]
+
+	T& operator[](int index) {
+		assert(index >= 0 && index < 3);
+		if (index == 0) {
+			return x;
+		}
+		else if (index == 1) {
+			return y;
+		}
+		else {
+			return z;
+		}
+	}
+
+	//operator[] const
+	
+	const T& operator[](int index) const {
+		assert(index >= 0 && index < 3);
+		if (index == 0) {
+			return x;
+		}
+		else if (index == 1) {
+			return y;
+		}
+		else {
+			return z;
+		}
+	}
 
 };
 
@@ -485,6 +548,7 @@ public:
 
 
 };
+
 
 /*
 
