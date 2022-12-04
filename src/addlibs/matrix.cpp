@@ -149,6 +149,7 @@ public:
 		z *= scalar;
 		return *this;
 	}
+
 		
 	//operator /=
 
@@ -158,6 +159,7 @@ public:
 		z /= scalar;
 		return *this;
 	}
+
 
 	//operator^=
 
@@ -180,6 +182,7 @@ public:
 
 	//operator>>
 
+
 	friend std::istream& operator>>(std::istream& is, directed_segment& other) {
 		is >> other.x >> other.y >> other.z;
 		return is;
@@ -199,6 +202,7 @@ public:
 			return z;
 		}
 	}
+
 
 	//operator[] const
 	
@@ -567,6 +571,7 @@ public:
 
 
 };
+
 
 
 
