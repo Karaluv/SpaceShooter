@@ -8,6 +8,7 @@
 using Type = double;
 Type const PI = 3.14159;
 
+
 Type get_square(Type number) {
 	return number * number;
 }
