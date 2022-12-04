@@ -20,6 +20,8 @@
 
 #include "globals.hpp"
 
+//#include <matrix.hpp>
+
 
 //define type of long long double for physics
 typedef long double lld;
@@ -41,7 +43,7 @@ int main()
 		directed_segment <lld> r1(0, 0, 0);
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
-		directed_segment <lld> w1(3, 15, 0);
+		directed_segment <lld> w1(0.1, 7, 0);
 		lld size1 = 1;
 		lld m1 = 1;
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
@@ -90,6 +92,7 @@ int main()
 			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
 			body1_Monki.update_w(dt);
+			//body1_Monki.update_rotation();
 			// print kinetic energy
 			std::cout << body1_Monki.get_kinetic_energy() << "\n";
 			// move cube by sin i around y axis

@@ -60,16 +60,23 @@ src/addlibs/MyControl.cpp
 src/addlibs/MyControl.hpp
 )
 
+add_library(mymatrix
+src/addlibs/matrix.cpp
+src/addlibs/matrix.hpp
+)
+
 set(ADD_LIBS
 	mynum
 	mydict
 	mycontrol
+	mymatrix
 )
 # render engine
 
 add_library(OBJLoader
 	src/rend/objloader.cpp
 )
+
 
 
 add_library(render_engine
@@ -119,7 +126,6 @@ add_library(serg_libs
 
 add_library(andrei_libs
 	src/andrei/andrei_main.cpp
-	src/andrei/matrix.cpp
 )
 
 # link libraries
