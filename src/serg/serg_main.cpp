@@ -5,7 +5,7 @@
 #include <time.h>
 //#include <matrix.cpp>
 
-using Type = double;
+using Type = long double;
 Type const PI = 3.14159;
 
 
@@ -679,7 +679,8 @@ public:
 		}
 	}
 	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
-		unsigned amount_collisions, unsigned* arr1, unsigned* arr2, unsigned* type_objects)
+		unsigned amount_collisions, unsigned* arr1, 
+		unsigned* arr2, unsigned* type_objects)
 	{
 		update_object(coords, speeds);
 		process_collisions(arr1, arr2, amount_collisions);
