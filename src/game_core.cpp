@@ -29,6 +29,9 @@
 int main()
 {
 
+	// define lld type as long long double
+	typedef long double lld;
+
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
@@ -66,10 +69,6 @@ int main()
 		
 
 
-		double basic_coord = 0;
-		double basic_speed = 1;
-		double basic_accel = 0;
-		double dt = 0.01;
 
 		// test meanings of starting parametres
 
@@ -91,7 +90,6 @@ int main()
 		data[1][0][1] = 0;
 		data[1][0][2] = 0;
 
-		***/
 
 		//end of the code for the simple test
 
