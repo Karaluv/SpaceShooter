@@ -20,7 +20,10 @@
 
 #include "globals.hpp"
 
-//#include <matrix.cpp>
+
+
+
+
 
 
 int main()
@@ -46,11 +49,28 @@ int main()
 
 
 		//for simple test
-		/*** 
+
+		lld basic_coord = 0;
+		lld basic_speed = 1;
+		lld basic_accel = 0;
+		lld dt = 0.01;
+		
+		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+		directed_segment <lld> r1(0, 0, 0);
+		directed_segment <lld> v1(0, 0, 0);
+		directed_segment <lld> angle1(0.1, 0.1, 0.1);
+		directed_segment <lld> w1(0.1, 7, 0);
+		lld size1 = 1;
+		lld m1 = 1;
+		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
+
+
 		double basic_coord = 0;
 		double basic_speed = 1;
 		double basic_accel = 0;
 		double dt = 0.01;
+
 		// test meanings of starting parametres
 
 		Object_Management Manager;
@@ -153,6 +173,15 @@ int main()
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
+
+			//std::cout << body1_Monki.angle[0];
+			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
+			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
+			body1_Monki.update_angle(dt);
+			body1_Monki.update_w(dt);
+			//body1_Monki.update_rotation();
+			// print kinetic energy
+			std::cout << body1_Monki.get_kinetic_energy() << "\n";
 
 			// move cube by sin i around y axis
 			srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);

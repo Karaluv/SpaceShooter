@@ -34,7 +34,7 @@ public:
 		return *this;
 	}
 
-	directed_segment(directed_segment&& other) {
+	directed_segment(directed_segment&& other){
 		x = other.x;
 		y = other.y;
 		z = other.z;
@@ -80,6 +80,16 @@ public:
 		result.x = x * scalar;
 		result.y = y * scalar;
 		result.z = z * scalar;
+		return result;
+	}
+
+	//operator /
+	
+	directed_segment operator/(const T& scalar) {
+		directed_segment result;
+		result.x = x / scalar;
+		result.y = y / scalar;
+		result.z = z / scalar;
 		return result;
 	}
 
@@ -140,6 +150,17 @@ public:
 		return *this;
 	}
 
+		
+	//operator /=
+
+	directed_segment& operator/=(const T& scalar) {
+		x /= scalar;
+		y /= scalar;
+		z /= scalar;
+		return *this;
+	}
+
+
 	//operator^=
 
 	directed_segment& operator^=(const directed_segment& other) {
@@ -161,6 +182,7 @@ public:
 
 	//operator>>
 
+
 	friend std::istream& operator>>(std::istream& is, directed_segment& other) {
 		is >> other.x >> other.y >> other.z;
 		return is;
@@ -180,6 +202,7 @@ public:
 			return z;
 		}
 	}
+
 
 	//operator[] const
 	
@@ -335,7 +358,7 @@ public:
 		directed_segment<T> result;
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
-				result.data[i] += data[i][j] * other.data[j];
+				result[i] += data[i][j] * other[j];
 			}
 		}
 		return result;
@@ -550,7 +573,7 @@ public:
 };
 
 
-/*
+
 
 //tests
 void test_directed_segment()
@@ -560,7 +583,11 @@ void test_directed_segment()
 	directed_segment<int> a(1, 2, 3);
 	directed_segment<int> b(4, 5, 6);
 	directed_segment<int> c(7, 8, 9);
-
+	//tests for copy and assigment
+	directed_segment<int> d(a);
+	directed_segment<int> e;
+	e = a;
+	assert(a == d);
 	assert(a == a);
 	assert(a != b);
 	assert(a + b == directed_segment<int>(5, 7, 9));
@@ -659,4 +686,3 @@ void test_matrix()
 	std::cout << "Test passed" << std::endl;
 
 }
-*/
