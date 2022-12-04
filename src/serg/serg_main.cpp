@@ -417,6 +417,12 @@ public:
 		return max_speed;
 	}
 
+	Type* get_list_power()
+	{
+		Type list_engine_power[3] = { this->engine_power.x, this->engine_power.y, this->engine_power.z };
+		return list_engine_power;
+	}
+
 	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment target, Directed_Segment target_speed) {
 		//arsenal[weapon_type] --;
 		Directed_Segment calculated_speed = calculate_start_weapon_speed(target, target_speed, bullet.get_start_speed());
@@ -481,7 +487,7 @@ private:
 	Space_Ship player_ship;
 	Space_Ship** ships;
 	bool* real_objects;
-	unsigned deleted_objects[10];
+	unsigned deleted_objects[50];
 	unsigned amount_deleted_obj;
 	Rocket** rockets;
 	//Math_Point** arr_objects[amount_types];
@@ -562,9 +568,10 @@ public:
 	void delete_object(unsigned number)
 	{
 		real_objects[number] = false;
+		deleted_objects[amount_deleted_obj++] = number;
 	}
 
-	void update_object(Type*** data, unsigned N)
+	void update_object(Type** coord, Type** speed)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
@@ -578,9 +585,8 @@ public:
 			{
 				Type_ptr current_arr = (Type_ptr)(ptr);
 				unsigned number = (current_arr)[current_object]->get_number();
-				current_arr[current_object]->set_coord(data[0][number]);
-				current_arr[current_object]->set_speed(data[1][number]);
-				current_arr[current_object]->set_accel(data[2][number]);
+				current_arr[current_object]->set_coord(coord[number]);
+				current_arr[current_object]->set_speed(speed[number]);
 			}
 		}
 	}
@@ -646,7 +652,7 @@ public:
 		}
 	}
 
-	void send_changes(Type*** data, bool* exist_data)
+	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned* type_objects)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
@@ -660,14 +666,28 @@ public:
 			{
 				Type_ptr current_arr = (Type_ptr)(ptr);
 				unsigned number = current_arr[current_object]->get_number();
-				data[0][number] = current_arr[current_object]->get_list_coord();
-				data[1][number] = current_arr[current_object]->get_list_speed();
-				data[2][number] = current_arr[current_object]->get_list_accel();
+				coords[number] = current_arr[current_object]->get_list_coord();
+				speeds[number] = current_arr[current_object]->get_list_speed();
+				if (current_arr == ships) {
+					engine_powers[number] = current_arr[current_object]->get_list_power();
+				}
 			}
 		}
+		for (unsigned k = 0; k < amount_deleted_obj; ++k)
+		{
+			type_objects[deleted_objects[k]] = 0;
+		}
 	}
-
+	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
+		unsigned amount_collisions, unsigned* arr1, unsigned* arr2, unsigned* type_objects)
+	{
+		update_object(coords, speeds);
+		process_collisions(arr1, arr2, amount_collisions);
+		process_events();
+		send_changes(coords, speeds, engine_power, type_objects);
+	}
 
 };
 
 
+ 
