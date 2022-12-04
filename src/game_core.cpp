@@ -22,7 +22,22 @@
 
 
 
+struct element {
+	unsigned int tip;
+	Type cord;
+	Type speed;
+	Type force;
 
+	element(unsigned int tip, Type cord, Type speed, Type force) : tip(tip), cord(cord), speed(speed), force(force) {}
+	element() : tip(0), cord(0), speed(0), force(0) {}
+
+	//rule of five
+	element(const element& other) : tip(other.tip), cord(other.cord), speed(other.speed), force(other.force) {}
+	element(element&& other) noexcept : tip(other.tip), cord(other.cord), speed(other.speed), force(other.force) {}
+	element& operator=(const element& other) { tip = other.tip; cord = other.cord; speed = other.speed; force = other.force; return *this; }
+	element& operator=(element&& other) noexcept { tip = other.tip; cord = other.cord; speed = other.speed; force = other.force; return *this; }
+	~element() {}
+};
 
 
 
@@ -32,6 +47,25 @@ int main()
 	// define lld type as long long double
 	typedef long double lld;
 
+	//Array of bodies, there always 10000 of them (some are living, other - dead)
+	lld** SPEED = new lld*[10000];
+	lld** FORCE = new lld*[10000];
+	lld** CORD = new lld*[10000];
+	unsigned int* TIP = new unsigned int[10000];
+	for (int i = 0; i < 10000; i++) {
+		SPEED[i] = new lld[3];
+		FORCE[i] = new lld[3];
+		CORD[i] = new lld[3];
+		TIP[i] = 0;
+		for (int j = 0; j < 3; j++) {
+			SPEED[i][j] = 0;
+			FORCE[i][j] = 0;
+			CORD[i][j] = 0;
+		}
+	}
+
+
+	
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
@@ -168,6 +202,7 @@ int main()
 
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
+			// proccessing every object
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
