@@ -88,6 +88,8 @@ public:
 
 		while (RenderTaskisRunning_)
 		{
+			// keys
+			update_input();
 			render_frame();
 			end = std::chrono::steady_clock::now();
 			auto render_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
@@ -180,13 +182,27 @@ public:
 		access_object_.unlock();
 	}
 
-	void update_camera(float x, float y, float z, float ax, float ay, float az, float aw)
+	void update_camera(float x, float y, float z, float ax, float ay, float az, float rx, float ry, float rz)
 	{
 		access_camera_.lock();
 		ViewCamera->set_position(glm::vec3(x, y, z));
 		ViewCamera->set_angel(glm::vec3(ax, ay, az));
-		ViewCamera->set_rotation(glm::vec3(aw, 0, 0));
+		//ViewCamera->set_orientation(glm::vec3(ax, ay, az));
+		ViewCamera->set_rotation(glm::vec3(rx, ry, rz));
 		access_camera_.unlock();
+	}
+
+	// get inputs map
+	std::map<char, bool> get_inputs()
+	{
+		return inputs;
+	}
+
+	// get mouse move in pair
+	std::pair<double, double> get_mouse()
+	{
+		// return cords in pair
+		return std::make_pair(mouse_x, mouse_y);
 	}
 
 private:
@@ -258,6 +274,11 @@ private:
 
 		glewInit();
 
+		glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		
+
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 		glEnable(GL_DEPTH_TEST);
@@ -287,7 +308,7 @@ private:
 		LightPowersID = glGetUniformLocation(programID, "LightPowers");
 		LightCountID = glGetUniformLocation(programID, "LightCount");
 
-		ViewCamera->set_position(glm::vec3(0, 0, 7));
+		ViewCamera->set_position(glm::vec3(0, 0, 1));
 		ViewCamera->set_angel(glm::vec3(0, 0, 0));
 		ViewCamera->set_rotation(glm::vec3(0, 1, 0));
 		Is_Initialized_ = true;
@@ -308,7 +329,65 @@ private:
 	{
 		ViewCamera->update_matrixes();
 		ViewCamera->PassMatrixesToShader();
-}
+	}
+	void update_input()
+	{
+		inputs_.lock();
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		{
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+		// write w,a,s,d, e,q,r,t to a special dictionary, and mouse move
+		
+		inputs['w'] = false;
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			inputs['w'] = true;
+		
+		inputs['a'] = false;
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			inputs['a'] = true;
+		
+		inputs['s'] = false;
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			inputs['s'] = true;
+
+		inputs['d'] = false;
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			inputs['d'] = true;
+
+		inputs['e'] = false;
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+			inputs['e'] = true;
+
+		inputs['q'] = false;
+		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+			inputs['q'] = true;
+
+		inputs['r'] = false;
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+			inputs['r'] = true;
+
+		inputs['t'] = false;
+		if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+			inputs['t'] = true;
+		
+		// space and ctrl
+		inputs[' '] = false;
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+			inputs[' '] = true;
+
+		inputs['c'] = false;
+		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+			inputs['c'] = true;
+
+		// mouse move
+		glfwGetCursorPos(window, &mouse_x, &mouse_y);
+		
+		inputs_.unlock();
+		
+	}
+	
+	
 
 private:
 	GLFWwindow* window;
@@ -351,10 +430,23 @@ private:
 	std::mutex access_camera_;
 	std::thread RenderTask_;
 
+	std::mutex inputs_;
+
 	MeshControl* MeshSpace = new MeshControl;
 	camera* ViewCamera = new camera;
 	std::vector<render_object*> RendObjs;
 	std::vector<light*> Lights;
+	
+	// create dictionary for char and bool
+	// with w a s d e q r t m n c s x y
+	std::map<char, bool> inputs{
+		{'w', false}, {'a', false}, {'s', false},
+		{'d', false}, {'e', false}, {'q', false},
+		{'r', false}, {'t', false}, {'m', false},
+		{'n', false}, {'c', false}, {'s', false},
+		{' ', false} };
+
+	double mouse_x, mouse_y;
 };
 
 // singletone
