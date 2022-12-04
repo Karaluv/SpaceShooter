@@ -12,6 +12,15 @@ Type get_square(Type number) {
 	return number * number;
 }
 
+template <typename T, unsigned N>
+void copy_arr(T* data, T* new_data)
+{
+	for (unsigned k = 0; k < N; ++k)
+	{
+		data[k] = new_data[k];
+	}
+}
+
 Type random_distribution(int min, int max)
 {
 	if (max <= min) {
@@ -96,9 +105,19 @@ struct Directed_Segment {
 	Type get_module() {
 		return sqrt(*this * *this);
 	}
+
+	Type define_distance(Directed_Segment other) {
+		return (*this - other).get_module();
+	}
+
 	Directed_Segment multy(Directed_Segment& other) {
 		return Directed_Segment(this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z,
 			this->x * other.y - this->y * other.x);
+	}
+
+	void print(std::string name)
+	{
+		std::cout << name << ":  " << x << ' ' << y << ' ' << z << std::endl;
 	}
 };
 
@@ -110,7 +129,7 @@ Directed_Segment set_random_starting_position(int min, int max)
 	}
 	unsigned sign = 0;
 	Type pos[3];
-	for (unsigned k = 0; k < 3; ++ k)
+	for (unsigned k = 0; k < 3; ++k)
 	{
 		pos[k] = random_distribution(min, max);
 		if (rand() % 2 != 0) pos[k] *= -1;
@@ -118,12 +137,21 @@ Directed_Segment set_random_starting_position(int min, int max)
 	return Directed_Segment(pos[0], pos[1], pos[2]);
 }
 
-Directed_Segment set_random_starting_speed(Type max_speed)
+Directed_Segment set_random_ball_point(Type R)
 {
-	Type ro = random_distribution(0, max_speed);
-	Type theta = random_distribution(0, PI);
-	Type fi = random_distribution(0, 2*PI);
-	return Directed_Segment(ro * sin(theta) * cos(fi), ro * sin(theta) * sin(fi), ro * cos(theta));
+	Type ro = random_distribution(0, R);
+	Type theta = random_distribution(0, 180);
+	Type fi = random_distribution(0, 2 * 360);
+	return Directed_Segment(ro * sin(theta * PI / 180) * cos(fi * PI / 180),
+		ro * sin(theta * PI / 180) * sin(fi * PI / 180), ro * cos(theta * PI / 180));
+}
+
+Directed_Segment set_random_sphere_point(Type R)
+{
+	Type theta = random_distribution(0, 180);
+	Type fi = random_distribution(0, 2 * 360);
+	return Directed_Segment(R * sin(theta * PI / 180) * cos(fi * PI / 180),
+		R * sin(theta * PI / 180) * sin(fi * PI / 180), R * cos(theta * PI / 180));
 }
 
 
@@ -213,7 +241,6 @@ public:
 	{
 		return accel;
 	}
-	virtual Type get_max_speed() = 0;
 };
 
 class Massive_Point : public Math_Point {
@@ -221,7 +248,7 @@ protected:
 	Type mass;
 	Type size;
 public:
-	Massive_Point() : Math_Point(), mass(0), size(0) {};
+	Massive_Point() : Math_Point(), mass(1), size(0) {};
 	/** Massive_Point(double mass, double x, double y, double z, double vx, double vy, double vz) :
 		Math_Point(x, y, z, vx, vy, vz), mass(mass), accel(nullptr) {}; **/
 
@@ -259,15 +286,18 @@ public:
 		this->start_speed = start_speed;
 		this->destructive_power = destructive_power;
 	}
-	//void cause_damage(Space_Ship* ship, double force) {
-		//ship->get_damage(force * destructive_power);
-	//}
-	Type get_max_speed() override {
+
+	unsigned get_destructive_power()
+	{
+		return destructive_power;
+	}
+
+	Type get_start_speed() {
 		return start_speed;
 	}
 };
 
-class Rocket final: public Weapon {
+class Rocket final : public Weapon {
 public:
 	Rocket() : Weapon() {
 		this->set_parametres(standart_rocket_speed, standart_destructive_power);
@@ -275,47 +305,122 @@ public:
 };
 
 class Space_Ship : public Massive_Point {
-private:
+protected:
 	Type const standart_ship_speed = 50;
-	Type const standart_ship_accel = 10;
+	Type const standart_ship_accel = 5;
 	Type const standart_ship_size = 50;
+	Type const detected_distance = 1500; // distance of detection of enemy
+	Type const fire_distance = 750; // distance of starting of shut
+	unsigned const standart_recharging_time = 100;
+	unsigned recharging_time;
+	unsigned recharging;
+	Type const free_length = 1000;
 	Type max_speed;
-	Type max_accel;
+	Type max_engine_power;
+	Directed_Segment engine_power;
+	Directed_Segment target;
+	int const standart_hp = 10;
 	int hp;
 	unsigned* arsenal;
 public:
-	Space_Ship() : Massive_Point(), max_speed(0), max_accel(0), hp(0), arsenal(nullptr) 
+	Space_Ship() : Massive_Point(), max_speed(0), max_engine_power(0), hp(0), arsenal(nullptr)
 	{
 		this->set_parametres();
 	};
 
 	Space_Ship(Type max_speed, Type max_accel, unsigned hp, Type size, unsigned* arsenal) : Massive_Point(),
-		max_speed(max_speed), max_accel(max_accel), hp(hp), arsenal(arsenal) {}
+		max_speed(max_speed), max_engine_power(max_accel), hp(hp), recharging(0), arsenal(arsenal) {	}
 
 	void virtual set_parametres()
 	{
 		this->max_speed = standart_ship_speed;
-		this->max_accel = standart_ship_accel;
+		this->max_engine_power = standart_ship_accel * mass;
 		this->size = standart_ship_size;
+		this->hp = standart_hp;
+		this->recharging_time = standart_recharging_time;
 	}
+
+	bool change_direction()
+	{
+		return coord.define_distance(target) < free_length / 2;
+	}
+
+	void define_direction()
+	{
+		if (this->change_direction()) this->set_target();
+	}
+
+	void do_recharging()
+	{
+		if (recharging > 0) recharging--;
+	}
+
+	void set_target()
+	{
+		target = set_random_sphere_point(this->free_length) + coord;
+	}
+
+	void set_target(Directed_Segment new_target)
+	{
+		target = new_target;
+	}
+
+	void set_engine_power()
+	{
+		engine_power = (target - coord) * (1 / (target - coord).get_module()) * max_engine_power;
+	}
+
+	void set_engine_power(Directed_Segment new_engine_power)
+	{
+		engine_power = new_engine_power;
+	}
+
+	Directed_Segment get_target()
+	{
+		return target;
+	}
+
+	Directed_Segment get_engine_power()
+	{
+		return engine_power;
+	}
+
+	Type get_detected_distance()
+	{
+		return detected_distance;
+	}
+
+	Type get_fire_distance()
+	{
+		return fire_distance;
+	}
+
 	void destroy()
 	{
 		return; // дописать
 	}
-	void get_damage(Type force) {
+
+	template<typename T>
+	bool get_damage(T force) {
 		hp -= (static_cast<int>(force));
-		if (hp <= 0) destroy();
+		if (hp <= 0)
+		{
+			return true;
+			destroy();
+		}
+		return false;
 	}
 
-	Type get_max_speed() override
+	Type get_max_speed()
 	{
 		return max_speed;
 	}
 
 	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment target, Directed_Segment target_speed) {
 		//arsenal[weapon_type] --;
-		Directed_Segment calculated_speed = calculate_start_weapon_speed(target, target_speed, bullet.get_max_speed());
+		Directed_Segment calculated_speed = calculate_start_weapon_speed(target, target_speed, bullet.get_start_speed());
 		bullet.set_speed(calculated_speed);
+		recharging = recharging_time;
 		//std::cout << bullet.get_speed().x << bullet.get_speed().y << bullet.get_speed().z << "  setting speed " << std::endl;
 	}
 	Directed_Segment& calculate_start_weapon_speed(Directed_Segment target, Directed_Segment target_speed,
@@ -354,34 +459,89 @@ public:
 	}
 };
 
+class Player_Ship : public Space_Ship {
+public:
+	Player_Ship() : Space_Ship() {};
+	void set_parametres() override
+	{
+		this->max_speed = standart_ship_speed;
+		this->max_engine_power = standart_ship_accel * mass;
+		this->size = standart_ship_size;
+	}
+};
 
 class Object_Management {
 private:
+	unsigned const max_objects_amount = 10000;
 	unsigned const min_start_distance = 2000;
 	unsigned const max_start_distance = 20000;
 	unsigned const start_ship_number = 20;
 	unsigned const amount_types = 4;
-	Math_Point** arr_objects;
+	Space_Ship player_ship;
+	Space_Ship** ships;
+	bool* real_objects;
+	unsigned deleted_objects[10];
+	unsigned amount_deleted_obj;
+	Rocket** rockets;
+	//Math_Point** arr_objects[amount_types];
 	unsigned* match_table;
 	unsigned* counter;
 	unsigned general_number;
-	Space_Ship player_ship;
 public:
 	Object_Management() {
 		srand(time(NULL));
 		general_number = 0;
-		arr_objects = new Math_Point * [1000];
-		match_table = new unsigned[10000];
+		ships = new Space_Ship * [100];
+		rockets = new Rocket * [100];
+		real_objects = new bool[max_objects_amount] { true };
+		amount_deleted_obj = 0;
+		match_table = new unsigned[max_objects_amount];
 		counter = new unsigned[amount_types];
 		for (unsigned i = 0; i < amount_types; ++i)
 			counter[i] = 0;
-		for (general_number; general_number < start_ship_number; ++ general_number) {
+		for (general_number; general_number < start_ship_number; ++general_number) {
 			create_object(0, general_number);
-			arr_objects[general_number]->set_coord(set_random_starting_position(min_start_distance, max_start_distance));
-			arr_objects[general_number]->set_speed(set_random_starting_speed(arr_objects[general_number]->get_max_speed()));
-			//arr_objects[general_number]->get_speed()
-		}
+			ships[general_number]->set_coord(set_random_starting_position(min_start_distance, max_start_distance));
+			ships[general_number]->set_speed(set_random_ball_point(ships[general_number]->get_max_speed()));
+			ships[general_number]->set_target();
+			ships[general_number]->set_engine_power();
+
+			//std::cout << arr_objects[general_number]->get_speed().x << "  "
+				//<< arr_objects[general_number]->get_speed().y << "  " << arr_objects[general_number]->get_speed().z << std::endl;
+		};
+
 	};
+	void print_objects()
+	{
+		for (unsigned k = 0; k < start_ship_number; ++k)
+		{
+			std::cout << "ship " << k << ':' << std::endl;
+			(ships[k]->get_coord()).print("coord");
+			(ships[k]->get_speed()).print("speed");
+			(ships[k]->get_target()).print("target");
+			std::cout << "target_distance:  " << (ships[k]->get_target() - ships[k]->get_coord()).get_module() << std::endl;
+			(ships[k]->get_engine_power()).print("engine_power");
+		}
+	}
+
+	Space_Ship* find_ship(unsigned number)
+	{
+		if (number >= general_number) {
+			std::cout << "Such object is not existed" << std::endl;
+			throw;
+		}
+		return ships[number % 100];
+	}
+
+	Rocket* find_rocket(unsigned number)
+	{
+		if (number >= general_number) {
+			std::cout << "Such object is not existed" << std::endl;
+			throw;
+		}
+		return rockets[number % 100];
+	}
+
 	void create_object(unsigned type, unsigned number)
 	{
 		if (type >= amount_types) {
@@ -390,56 +550,123 @@ public:
 		}
 		switch (type)
 		{
-		case 0: {arr_objects[counter[type] + 100 * type] = new Space_Ship();  break; }
-		case 1: {arr_objects[counter[type] + 100 * type] = new Rocket(); break; }
-		//case 2: {arr_objects[counter[type] + 100 * type] = new Weapon(); break; }
-		//case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
+		case 0: {ships[counter[type]] = new Space_Ship(); ships[counter[type]]->set_number(number); break; }
+		case 1: {rockets[counter[type]] = new Rocket(); rockets[counter[type]]->set_number(number); break; }
+			  //case 2: {arr_objects[counter[type] + 100 * type] = new Weapon(); break; }
+			  //case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
 		}
-		arr_objects[counter[type] + 100 * type]->set_number(number);
 		match_table[number] = (counter[type] ++) + 100 * type;
 	}
 
-	void update_object(double*** data, unsigned N)
+	void delete_object(unsigned number)
 	{
-		for (unsigned current_type = 0; current_type < amount_types; ++ current_type)
+		real_objects[number] = false;
+	}
+
+	void update_object(Type*** data, unsigned N)
+	{
+		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
+			uint8_t* ptr = (uint8_t*)(&ships);
+			using Type_ptr = Space_Ship**;
+			switch (current_type)
+			{
+			case 1: {using Type_ptr = Rocket**; uint8_t* ptr = (uint8_t*)(&rockets); }
+			}
 			for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
 			{
-				unsigned number = arr_objects[current_object + 100 * current_type]->get_number();
-				arr_objects[current_object + 100 * current_type]->set_coord(data[0][number]);
-				arr_objects[current_object + 100 * current_type]->set_speed(data[1][number]);
-				arr_objects[current_object + 100 * current_type]->set_accel(data[2][number]);
+				Type_ptr current_arr = (Type_ptr)(ptr);
+				unsigned number = (current_arr)[current_object]->get_number();
+				current_arr[current_object]->set_coord(data[0][number]);
+				current_arr[current_object]->set_speed(data[1][number]);
+				current_arr[current_object]->set_accel(data[2][number]);
 			}
 		}
 	}
+
+	void process_collisions(unsigned* arr1, unsigned* arr2, unsigned amount_collisions)
+	{
+		for (unsigned k = 0; k < amount_collisions; ++k)
+		{
+			if (arr1[k] / 100 == 0 && arr2[k] / 100 == 1)
+			{
+				if (find_ship(arr1[k])->get_damage((find_rocket(arr2[k]))->get_destructive_power()))
+					delete_object(arr1[k]);
+				real_objects[arr2[k]] = false;
+			}
+			if (arr1[k] / 100 == 1 && arr2[k] / 100 == 0)
+			{
+				real_objects[arr2[k] % 100] =
+					find_ship(arr2[k])->get_damage((find_rocket(arr1[k]))->get_destructive_power());
+				real_objects[arr1[k]] = false;
+			}
+		}
+	}
+
 	void process_events()
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
-			for (unsigned current_object = 0; current_object < counter[current_type]; ++ current_object)
+			for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
 			{
-				Directed_Segment speed = arr_objects[current_object + 100 * current_type]->get_speed();
-				Directed_Segment a(speed.x / 10, speed.y / 10, speed.z / 10);
-				arr_objects[current_object + 100 * current_type]->set_accel(a);
+				switch (current_type) {
+				case 0:
+				{
+					if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
+						ships[current_object]->get_detected_distance())
+					{
+						ships[current_object]->set_target(player_ship.get_coord());
+						if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
+							ships[current_object]->get_fire_distance())
+						{
+							create_object(1, general_number++);
+							ships[current_object]->shout(1, *(this->find_rocket(general_number - 1)),
+								player_ship.get_coord(), player_ship.get_speed());
+						}
+					}
+					else ships[current_object]->define_direction();
+					ships[current_object]->do_recharging();
+					ships[current_object]->set_engine_power();
+					if (ships[current_object]->get_speed().get_module() >= ships[current_object]->get_max_speed())
+					{
+						if (ships[current_object]->get_speed() * ships[current_object]->get_engine_power() > 0)
+						{
+							ships[current_object]->set_engine_power(ships[current_object]->get_engine_power() -
+								ships[current_object]->get_speed() *
+								(ships[current_object]->get_engine_power() *
+									ships[current_object]->get_speed() /
+									ships[current_object]->get_speed().get_module()));
+						}
+					}
+
+				}
+				}
 			}
 		}
 	}
 
-	void send_changes(Type*** data)
+	void send_changes(Type*** data, bool* exist_data)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
+			uint8_t* ptr = (uint8_t*)(&ships);
+			using Type_ptr = Space_Ship**;
+			switch (current_type)
+			{
+			case 1: {using Type_ptr = Rocket**; uint8_t* ptr = (uint8_t*)(&rockets); }
+			}
 			for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
 			{
-				unsigned number = arr_objects[current_object + 100 * current_type]->get_number();
-				//data[0][number]
-				//arr_objects[current_object + 100 * current_type]->set_coord(data[0][number]);
-				//arr_objects[current_object + 100 * current_type]->set_speed(data[1][number]);
-				//arr_objects[current_object + 100 * current_type]->set_accel(data[2][number]);
+				Type_ptr current_arr = (Type_ptr)(ptr);
+				unsigned number = current_arr[current_object]->get_number();
+				data[0][number] = current_arr[current_object]->get_list_coord();
+				data[1][number] = current_arr[current_object]->get_list_speed();
+				data[2][number] = current_arr[current_object]->get_list_accel();
 			}
 		}
 	}
 
 
 };
+
 

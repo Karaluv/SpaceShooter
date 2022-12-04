@@ -86,7 +86,7 @@ int main()
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
 		for (int i = 0; i < 10000; i++)
 		{
-			Manager.update_object(data, 1);
+			//Manager.update_object(data, 1);
 			// rotate monkey by sin i around y axis
 
 			srs::update_object(0, 0, 0, -1, 0, sin(float(i) / 100), 0, 1);
