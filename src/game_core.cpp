@@ -107,13 +107,14 @@ int main()
 		unsigned int collision_count = 12;
 		unsigned int* R1 = nullptr;
 		unsigned int* R2 = nullptr;
+		unsigned int current_number = 10;
 		
 
 
 
 		// test meanings of starting parametres
 
-		Object_Management Manager;
+		Object_Management Manager(TIP);
 		
 		Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
@@ -210,7 +211,7 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP);
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
