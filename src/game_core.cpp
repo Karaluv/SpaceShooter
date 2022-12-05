@@ -47,22 +47,7 @@ int main()
 	// define lld type as long long double
 	typedef long double lld;
 
-	//Array of bodies, there always 10000 of them (some are living, other - dead)
-	lld** SPEED = new lld*[10000];
-	lld** FORCE = new lld*[10000];
-	lld** CORD = new lld*[10000];
-	unsigned int* TIP = new unsigned int[10000];
-	for (int i = 0; i < 10000; i++) {
-		SPEED[i] = new lld[3];
-		FORCE[i] = new lld[3];
-		CORD[i] = new lld[3];
-		TIP[i] = 0;
-		for (int j = 0; j < 3; j++) {
-			SPEED[i][j] = 0;
-			FORCE[i][j] = 0;
-			CORD[i][j] = 0;
-		}
-	}
+	
 
 
 	
@@ -100,6 +85,28 @@ int main()
 		lld size1 = 1;
 		lld m1 = 1;
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+		
+
+
+		//Array of bodies, there always 10000 of them (some are living, other - dead)
+		lld** SPEED = new lld * [10000];
+		lld** FORCE = new lld * [10000];
+		lld** CORD = new lld * [10000];
+		unsigned int* TIP = new unsigned int[10000];
+		for (int i = 0; i < 10000; i++) {
+			SPEED[i] = new lld[3];
+			FORCE[i] = new lld[3];
+			CORD[i] = new lld[3];
+			TIP[i] = 0;
+			for (int j = 0; j < 3; j++) {
+				SPEED[i][j] = 0;
+				FORCE[i][j] = 0;
+				CORD[i][j] = 0;
+			}
+		}
+		unsigned int collision_count = 12;
+		unsigned int* R1 = nullptr;
+		unsigned int* R2 = nullptr;
 		
 
 
@@ -203,6 +210,7 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);

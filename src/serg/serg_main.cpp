@@ -5,7 +5,7 @@
 #include <time.h>
 //#include <matrix.cpp>
 
-using Type = double;
+using Type = long double;
 Type const PI = 3.14159;
 
 
