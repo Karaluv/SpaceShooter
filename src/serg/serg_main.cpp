@@ -533,7 +533,6 @@ public:
 			ships[general_number]->set_speed(set_random_ball_point(ships[general_number]->get_max_speed()));
 			ships[general_number]->set_target();
 			ships[general_number]->set_engine_power();
-			++ general_number;
 
 			//std::cout << arr_objects[general_number]->get_speed().x << "  "
 				//<< arr_objects[general_number]->get_speed().y << "  " << arr_objects[general_number]->get_speed().z << std::endl;
@@ -753,7 +752,7 @@ public:
 	{
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		process_collisions(arr1, arr2, amount_collisions);
+		//process_collisions(arr1, arr2, amount_collisions);
 		process_events(type_objects);
 		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
 	}

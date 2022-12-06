@@ -19,6 +19,7 @@
 #include <MyDict.cpp>
 
 #include "globals.hpp"
+#include "Player_Actions.h"
 
 struct Player {
 	unsigned int tip;
@@ -126,6 +127,7 @@ int main()
 
 		// test meanings of starting parametres
 
+		Player_Actions player_actions;
 		Object_Management Manager(TIP);
 		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
 		
@@ -224,7 +226,7 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
@@ -233,7 +235,7 @@ int main()
 			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
 			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
-			body1_Monki.update_w(dt, null_moment);
+			//body1_Monki.update_w(dt, null_moment); null_moment is not defined
 			//body1_Monki.update_rotation();
 			// print kinetic energy
 			std::cout << body1_Monki.get_kinetic_energy() << "\n";
