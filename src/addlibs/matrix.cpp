@@ -53,6 +53,12 @@ public:
 		z = 0;
 	}
 
+	//length of directed segment
+	
+	T length() {
+		return sqrt(x * x + y * y + z * z);
+	}
+
 	//operator+
 
 	directed_segment operator+(const directed_segment& other) {
