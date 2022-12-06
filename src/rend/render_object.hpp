@@ -23,6 +23,14 @@ public:
 	int getTypeId() const { return TypeID; }
 	void setTypeId(int id) { TypeID = id; }
 
+	float getScale()
+	{
+		return scale;
+	}
+
+	void setScale(float newScale) { scale = newScale;
+	}
+
 protected:
 	glm::vec3 position;
 	glm::vec3 rotation;
@@ -30,6 +38,7 @@ protected:
 	glm::vec3 orientation;
 	unsigned int MyID;
 	unsigned int TypeID;
+	float scale = 1;
 };
 
 class render_object : public Object2Render
@@ -51,9 +60,10 @@ public:
 	void update_number_of_vertices(int num) { number_of_vertices = num; }
 	void update_camera(camera *cam) { camera_ = cam; }
 
-	void update_matrix(glm::mat4 ScalingMatrixV, GLuint ModelMatrixIDV)
+	void update_matrix(GLuint ModelMatrixIDV)
 	{
-		ScalingMatrix = ScalingMatrixV;
+		
+		ScalingMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale, scale, scale));
 		ModelMatrixID = ModelMatrixIDV;
 	}
 	void update_model(int index, GLuint IndexBufferV)
@@ -93,7 +103,7 @@ protected:
 	camera *camera_;
 	GLuint number_of_vertices;
 
-	glm::mat4 ScalingMatrix = glm::scale(glm::mat4(), glm::vec3(1.0f, 1.0f, 1.0f));
+	glm::mat4 ScalingMatrix = glm::scale(glm::mat4(), glm::vec3(scale, scale, scale));
 	int ModelMatrixID;
 };
 
