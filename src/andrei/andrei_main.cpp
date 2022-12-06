@@ -197,17 +197,17 @@ public:
 		directed_segment<T> w2 = S * other.w;
 		//w1 = w1 / w1.length();
 		//w2 = w2 / w2.length();
-		directed_segment<T> w1_v = (w1 * direction) * direction;
+		directed_segment<T> w1_v = direction * (w1 * direction);
 		directed_segment<T> w1_h = w1 - w1_v;
-		directed_segment<T> w2_v = (w2 * direction) * direction;
+		directed_segment<T> w2_v = direction * (w2 * direction);
 		directed_segment<T> w2_h = w2 - w2_v;
 		
 		directed_segment<T> delta_w_h = ( - w1_h) - w2_h;
 		directed_segment<T> delta_w_v = ( - w1_v) + w2_v;
 		
-		directed_segment M21 = (delta_w_h + 0.1 * delta_w_v) * size * collision_measure_1;
-		directed_segment M12 = -(delta_w_h + 0.1 * delta_w_v) * other.size * collision_measure_2;
-		update_w(0.01, M21);
+		directed_segment<T> M21 = (delta_w_h + delta_w_v*0.1) * size * collision_measure_1;
+		directed_segment<T> M12 = -(delta_w_h + delta_w_v*0.1) * other.size * collision_measure_2;
+		this->update_w(0.01, M21);
 		other.update_w(0.01, M12);
 	}
 
