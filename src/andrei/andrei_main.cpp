@@ -136,12 +136,16 @@ public:
 	void update_position(T time) {
 		r = r + v * time;
 	}
+	
+	void update_velocity(T time, directed_segment<T> force) {
+		v = v + (force/m) * time;
+	}
 
-	void update_w(T time) {
+	void update_w(T time, directed_segment<T> M) {
 		directed_segment<T> w_;
-		w_[0] = w[1] * w[2] * (tensor[1][1] - tensor[2][2]) / tensor[0][0];
-		w_[1] = w[0] * w[2] * (tensor[2][2] - tensor[0][0]) / tensor[1][1];
-		w_[2] = w[0] * w[1] * (tensor[0][0] - tensor[1][1]) / tensor[2][2];
+		w_[0] = w[1] * w[2] * (tensor[1][1] - tensor[2][2]) / tensor[0][0] + M[0] / tensor[0][0];
+		w_[1] = w[0] * w[2] * (tensor[2][2] - tensor[0][0]) / tensor[1][1] + M[1] / tensor[1][1];
+		w_[2] = w[0] * w[1] * (tensor[0][0] - tensor[1][1]) / tensor[2][2] + M[2] / tensor[2][2];
 
 
 		
@@ -164,15 +168,47 @@ public:
 	}
 
 	// void collision with other body using vector of velocity
-	void collision(Body<T>& other, directed_segment<T> v) {
+	void collision(Body<T>& other) {
 		// calculate new velocity for this body
-		directed_segment<T> v1 = (v * (m - other.m) + 2 * other.m * other.v) / (m + other.m);
+		directed_segment<T> v1 = (v * (m - other.m) + other.v* (2 * other.m)) / (m + other.m);
 		// calculate new velocity for other body
-		directed_segment<T> v2 = (v * (other.m - m) + 2 * m * v) / (m + other.m);
+		directed_segment<T> v2 = (v * (other.m - m) + v*(2*m)) / (m + other.m);
+		//mearure of collision
+		T collision_measure_1 = m*(v1 - v).length();
+		T collision_measure_2 = other.m * (v2 - other.v).length();
+		
 		// update velocity for this body
 		v = v1;
 		// update velocity for other body
 		other.v = v2;
+		
+		directed_segment<T> direction = other.r - r;
+		direction = direction / direction.length();
+
+		matrix<T, 3> A1(cos(angle[0]), -sin(angle[0]), 0, sin(angle[0]), cos(angle[0]), 0, 0, 0, 1);
+		matrix<T, 3> A2(cos(angle[1]), 0, sin(angle[1]), 0, 1, 0, -sin(angle[1]), 0, cos(angle[1]));
+		matrix<T, 3> A3(cos(angle[2]), -sin(angle[2]), 0, sin(angle[2]), cos(angle[2]), 0, 0, 0, 1);
+		matrix<T, 3> A_1 = A1;
+		matrix<T, 3> A_2 = A1 * A2 * A1.inverse();
+		matrix<T, 3> A_3 = A1 * A2 * A3 * A2.inverse() * A1.inverse();
+		matrix<T, 3> S = A3 * A2 * A1;
+
+		directed_segment<T> w1 = S * w;
+		directed_segment<T> w2 = S * other.w;
+		//w1 = w1 / w1.length();
+		//w2 = w2 / w2.length();
+		directed_segment<T> w1_v = direction * (w1 * direction);
+		directed_segment<T> w1_h = w1 - w1_v;
+		directed_segment<T> w2_v = direction * (w2 * direction);
+		directed_segment<T> w2_h = w2 - w2_v;
+		
+		directed_segment<T> delta_w_h = ( - w1_h) - w2_h;
+		directed_segment<T> delta_w_v = ( - w1_v) + w2_v;
+		
+		directed_segment<T> M21 = (delta_w_h + delta_w_v*0.1) * size * collision_measure_1;
+		directed_segment<T> M12 = -(delta_w_h + delta_w_v*0.1) * other.size * collision_measure_2;
+		this->update_w(0.01, M21);
+		other.update_w(0.01, M12);
 	}
 
 	//get kinetic energy including rotation using tensor

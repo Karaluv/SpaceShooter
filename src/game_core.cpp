@@ -19,8 +19,16 @@
 #include <MyDict.cpp>
 
 #include "globals.hpp"
+#include "Player_Actions.h"
 
-// define type
+struct Player {
+	unsigned int tip;
+	Type cord;
+	Type speed;
+	Type force;
+	unsigned hp;
+};
+
 
 struct element {
 	unsigned int tip;
@@ -67,7 +75,7 @@ int main()
 		double pitch = 0;
 		double yaw = 1;
 		double roll = 0;
-		
+
 
 
 		//for simple test
@@ -76,16 +84,17 @@ int main()
 		lld basic_speed = 1;
 		lld basic_accel = 0;
 		lld dt = 0.01;
-		
+
 		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
 		directed_segment <lld> r1(0, 0, 0);
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
-		directed_segment <lld> w1(0.1, 7, 0);
+		directed_segment <lld> w1(0.1, 20, 0);
 		lld size1 = 1;
 		lld m1 = 1;
+		directed_segment <lld> nul(0, 0, 0);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
-		
+
 
 
 		//Array of bodies, there always 10000 of them (some are living, other - dead)
@@ -93,30 +102,56 @@ int main()
 		lld** FORCE = new lld * [10000];
 		lld** CORD = new lld * [10000];
 		unsigned int* TIP = new unsigned int[10000];
+		unsigned int* IS_COLLIDED = new unsigned int[10000];
 		for (int i = 0; i < 10000; i++) {
 			SPEED[i] = new lld[3];
 			FORCE[i] = new lld[3];
 			CORD[i] = new lld[3];
 			TIP[i] = 0;
+			IS_COLLIDED[i] = 0;
 			for (int j = 0; j < 3; j++) {
 				SPEED[i][j] = 0;
 				FORCE[i][j] = 0;
 				CORD[i][j] = 0;
 			}
 		}
-		unsigned int collision_count = 12;
-		unsigned int* R1 = nullptr;
-		unsigned int* R2 = nullptr;
-		unsigned int current_number = 10;
+		unsigned int collision_count = 0;
+		unsigned int* R1 = new unsigned int [10000];
+		unsigned int* R2 = new unsigned int [10000];
+		unsigned int current_number = 0;
+		directed_segment<lld> null_moment(0, 0, 0);
+
+		//Array of bodies
+		Body<lld>* bodies = new Body<lld>[10000];
+		directed_segment<lld> cord;
+		directed_segment<lld> speed;
+		directed_segment<lld> force;
+		for (int i = 0; i < 10000; i++) {
+			if (TIP[i] == 0) {
+				bodies[i] = Body<lld>(0, tensor1, nul, nul, nul, nul, 0);
+			}
+			else {
+				cord[0] = CORD[i][0];
+				cord[1] = CORD[i][1];
+				cord[2] = CORD[i][2];
+				speed[0] = SPEED[i][0];
+				speed[1] = SPEED[i][1];
+				speed[2] = SPEED[i][2];
+				bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+			}
+		}
+		
 		
 
 
 
 		// test meanings of starting parametres
 
+		Player_Actions player_actions;
 		Object_Management Manager(TIP);
+		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
 		
-		Manager.create_object(3, 1); //creation of spaceship
+		//Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
 		for (unsigned k = 0; k < 3; ++ k)
 		{
@@ -212,6 +247,48 @@ int main()
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
 			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			
+			for (int i1 = 0; i1 < 10000; ++i1) {
+				IS_COLLIDED[i1] = 0;
+				R1[i1] = 0;
+				R2[i1] = 0;
+				collision_count = 0;
+			}
+			for (int i1 = 0; i1 < 10000; ++i1) {
+				
+				if (TIP[i1] != 0) {
+					bodies[i1].update_angle(dt);
+					bodies[i1].update_w(dt, null_moment);
+					bodies[i1].update_velocity(dt, force);
+					bodies[i1].update_position(dt);
+
+					CORD[i1][0] = bodies[i1].r[0];
+					CORD[i1][1] = bodies[i1].r[1];
+					CORD[i1][2] = bodies[i1].r[2];
+					SPEED[i1][0] = bodies[i1].v[0];
+					SPEED[i1][1] = bodies[i1].v[1];
+					SPEED[i1][2] = bodies[i1].v[2];
+
+
+
+
+					for (int j = 0; j < 10000; j++) {
+						if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0) {
+							if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
+								IS_COLLIDED[i1] = 1;
+								IS_COLLIDED[j] = 1;
+								bodies[i1].collision(bodies[j]);
+								R1[collision_count] = i1;
+								R2[collision_count] = j;
+								collision_count++;
+							}
+						}
+					}
+				}
+				
+
+
+			}
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
@@ -220,7 +297,7 @@ int main()
 			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
 			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
-			body1_Monki.update_w(dt);
+			//body1_Monki.update_w(dt, null_moment); null_moment is not defined
 			//body1_Monki.update_rotation();
 			// print kinetic energy
 			std::cout << body1_Monki.get_kinetic_energy() << "\n";
