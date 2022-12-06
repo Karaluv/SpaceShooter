@@ -70,12 +70,14 @@ set(ADD_LIBS
 	mynum
 	mydict
 	mycontrol
+	mymatrix
 )
 # render engine
 
 add_library(OBJLoader
 	src/rend/objloader.cpp
 )
+
 
 
 add_library(render_engine
@@ -128,7 +130,6 @@ add_library(serg_libs
 
 add_library(andrei_libs
 	src/andrei/andrei_main.cpp
-	
 )
 
 # link libraries
@@ -146,8 +147,6 @@ target_link_libraries(game_core
 	
 	serg_libs
 	andrei_libs
-	
-	mymatrix
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")
