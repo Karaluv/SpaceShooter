@@ -49,22 +49,22 @@ add_definitions(
 add_library(mynum
 src/addlibs/MyNum.cpp
 src/addlibs/MyNum.hpp
-)
+ "src/serg/Player_Actions.h")
 
 add_library(mydict
 src/addlibs/MyDict.cpp
 src/addlibs/MyDict.hpp
-)
+ "src/serg/Player_Actions.h")
 
 add_library(mycontrol
 src/addlibs/MyControl.cpp
 src/addlibs/MyControl.hpp
-)
+ "src/serg/Player_Actions.h")
 
 add_library(mymatrix
 src/addlibs/matrix.cpp
 src/addlibs/matrix.hpp
-)
+ "src/serg/Player_Actions.h")
 
 set(ADD_LIBS
 	mynum
@@ -76,7 +76,7 @@ set(ADD_LIBS
 
 add_library(OBJLoader
 	src/rend/objloader.cpp
-)
+ "src/serg/Player_Actions.h")
 
 
 
@@ -101,14 +101,18 @@ add_library(render_engine
 	src/rend/render_object.hpp
 	src/rend/render_mesh.hpp
 	src/rend/render_camera.hpp
+
+ "src/serg/Player_Actions.h")
+
 	
 	src/rend/cube_map.cpp
 	src/rend/cub_map.hpp
 )
 
+
 add_library(render
 	src/rend/render.cpp
-)
+ "src/serg/Player_Actions.h")
 
 
 target_link_libraries(render_engine
@@ -124,18 +128,18 @@ target_link_libraries(render
 
 add_library(serg_libs
 	src/serg/serg_main.cpp
-)
+ "src/serg/Player_Actions.h")
 
 #andrei
 
 add_library(andrei_libs
 	src/andrei/andrei_main.cpp
-)
+ "src/serg/Player_Actions.h")
 
 # link libraries
 
 add_executable(game_core
-	src/game_core.cpp)
+	src/game_core.cpp "src/serg/Player_Actions.h")
 
 target_link_libraries(game_core
 	${ALL_LIBS}
