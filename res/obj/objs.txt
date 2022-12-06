@@ -1,0 +1,4 @@
+0 cubemap cubemap.obj
+1 monkey suzanne.obj
+2 cube scube.obj
+3 enemy_ship ship_enemy.obj

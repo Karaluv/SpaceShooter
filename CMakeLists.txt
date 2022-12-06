@@ -21,6 +21,7 @@ include_directories(
 	external/glew-1.13.0/include/
 	external/assimp-3.0.1270/include/
 	external/bullet-2.81-rev2613/src/
+	external/stb/
 	src/rend/
 	src/serg/
 
@@ -60,6 +61,11 @@ src/addlibs/MyControl.cpp
 src/addlibs/MyControl.hpp
 )
 
+add_library(mymatrix
+src/addlibs/matrix.cpp
+src/addlibs/matrix.hpp
+)
+
 set(ADD_LIBS
 	mynum
 	mydict
@@ -93,6 +99,9 @@ add_library(render_engine
 	src/rend/render_object.hpp
 	src/rend/render_mesh.hpp
 	src/rend/render_camera.hpp
+	
+	src/rend/cube_map.cpp
+	src/rend/cub_map.hpp
 )
 
 add_library(render
@@ -119,7 +128,7 @@ add_library(serg_libs
 
 add_library(andrei_libs
 	src/andrei/andrei_main.cpp
-	src/andrei/matrix.cpp
+	
 )
 
 # link libraries
@@ -137,6 +146,8 @@ target_link_libraries(game_core
 	
 	serg_libs
 	andrei_libs
+	
+	mymatrix
 )
 
 set_target_properties(game_core PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")

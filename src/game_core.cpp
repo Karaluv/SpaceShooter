@@ -85,12 +85,14 @@ int main()
 		//srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 0);
 		
 		
+		srs::create_object("cubemap", 0, 0, 0, 0, 0, 0, 1);
 		srs::create_object("monkey", 4, 0, 0, 0, 0, 0, 1);
 		srs::create_object("monkey", 0, 4, 0, 0, 0, 0, 1);
 		srs::create_object("monkey", -4, 0, 0, 0, 0, 0, 1);
 		srs::create_object("monkey", 0, -4, 0, 0, 0, 0, 1);
 		srs::create_object("monkey", 0, 0, 4, 0, 0, 0, 1);
 		srs::create_object("monkey", 0, 0, -4, 0, 0, 0, 1);
+		srs::create_object("enemy_ship", 0, 0, 0, 0, 0, 0, 1);
 
 		
 		
@@ -159,13 +161,14 @@ int main()
 			//ax += mouse_pos.second;
 			
 			// mouse angle
-			ax = mouse_pos.first/1000;
-			ay = mouse_pos.second/1000;
+			ax = -mouse_pos.first/1000;
+			ay = -mouse_pos.second/1000;
 
 			
 
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
+			srs::update_object(0, x, y, z, 0, 0, 0, 0);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);

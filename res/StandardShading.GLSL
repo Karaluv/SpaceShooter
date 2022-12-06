@@ -9,8 +9,12 @@ in vec3 LightDirection_cameraspace[10];
 
 // Ouput data
 out vec3 color;
+//out vec4 CubeMapColor;
 
 // Values that stay constant for the whole mesh.
+
+//uniform samplerCube skybox;
+
 uniform sampler2D myTextureSampler;
 uniform mat4 MV;
 //uniform vec3 LightPosition_worldspace;
@@ -18,6 +22,9 @@ uniform vec3  LightPosits[10];
 uniform vec3  LightColors[10];
 uniform float LightPowers[10];
 uniform int   LightCount;
+uniform float scale;
+uniform int type_light;
+
 
 void main(){
 
@@ -26,7 +33,7 @@ void main(){
 	vec3 LightColor = vec3(1,1,1);
 	
 	// Material properties
-	vec3 MaterialDiffuseColor = texture( myTextureSampler, UV ).rgb;
+	vec3 MaterialDiffuseColor = texture( myTextureSampler, UV/scale ).rgb;
 	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
 	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
 
@@ -54,21 +61,35 @@ void main(){
 	float cosTheta;
 	float cosAlpha;
 	
-	color =MaterialAmbientColor; 
+	color = MaterialAmbientColor; 
 	float distance;
-		// Ambient : simulates indirect lighting
-			
-		for (int i=0; i<LightCount;++i)
-		{
-			l = normalize( LightDirection_cameraspace[i] );
-			R = reflect(-l,n);
-			cosTheta = clamp( dot( n,l ), 0,1 );
-			cosAlpha = clamp( dot( E,R ), 0,1 );
-			distance = length(LightPosits[i]-Position_worldspace);
+	
+	//CubeMapColor = texture(skybox, Position_worldspace);
+	
+	
+	// Ambient : simulates indirect lighting
+
+	if (type_light == 0)
+	{
+	color = MaterialDiffuseColor;
+	}
+	else
+	{
+	for (int i=0; i<LightCount;++i)
+	{
+		l = normalize( LightDirection_cameraspace[i] );
+		R = reflect(-l,n);
+		cosTheta = clamp( dot( n,l ), 0,1 );
+		cosAlpha = clamp( dot( E,R ), 0,1 );
+		distance = length(LightPosits[i]-Position_worldspace);
 		color +=
 		// Diffuse : "color" of the object
 		MaterialDiffuseColor * LightColors[i] *LightPowers[i] * cosTheta / (distance*distance) +
 		// Specular : reflective highlight, like a mirror
 		MaterialSpecularColor * LightColors[i] *  LightPowers[i] * pow(cosAlpha,5) / (distance*distance);
-		}
+	}
+	}
+	//color = vec3(1,1,1);
+
+	
 }

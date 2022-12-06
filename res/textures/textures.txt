@@ -1,0 +1,4 @@
+0 skybox skybox/skybox.DDS
+1 uvmap uvmap.DDS
+2 mytest MyTest.DDS
+3 enemy_ship ship_enemy.dds

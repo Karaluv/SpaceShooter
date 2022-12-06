@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include <matrix.cpp>
+#include <matrix.hpp>
 
 // super accurate sin, tan, cos functions
 #include <cmath>

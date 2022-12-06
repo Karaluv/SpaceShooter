@@ -27,8 +27,9 @@ std::string get_file_contents(const char *filename)
 //               2 cube res/obj/scube.obj res/textures/cube.png
 //               ...
 
-int read_obj_list(std::string file, std::map<int, std::string> &NameDict, std::map<int, std::string> &PathObjDict,
-                  std::map<int, std::string> &PathTextureDict)
+
+
+int read_list_of_3(std::string file, std::map<int, std::string> &NameDict, std::map<int, std::string> &PathDict)
 {
     try
     {
@@ -53,11 +54,7 @@ int read_obj_list(std::string file, std::map<int, std::string> &NameDict, std::m
                 }
                 else if (i == 2)
                 {
-                    PathObjDict[index] = word;
-                }
-                else if (i == 3)
-                {
-                    PathTextureDict[index] = word;
+                    PathDict[index] = word;
                 }
                 i++;
             }
@@ -69,4 +66,86 @@ int read_obj_list(std::string file, std::map<int, std::string> &NameDict, std::m
         std::cout << "Error: reading object list from " << file << " failed!" << std::endl;
         return -1;
     }
+	
+}
+
+
+// template function which takes n dictionaries std::map<int, std::string> &
+// which takes path to a file and writes to n dictionaries its contents 
+// each line of the file is a key-value pair separated by a space
+
+// write to i dictionary the key-value pair from the line with help of recursion
+template <typename... Args>
+void write_to_dict(unsigned target_index, unsigned current_index,
+	int int_to_write, std::string string_to_write,
+	std::map<int, std::string>& dict, Args&... args)
+{
+	if (target_index == current_index)
+	{
+		dict[int_to_write] = string_to_write;
+	}
+	else
+	{
+		write_to_dict(target_index, current_index + 1, int_to_write, string_to_write, args...);
+	}
+}
+
+// for last dictonary cut last symbol from strng
+void write_to_dict(unsigned target_index, unsigned current_index,
+	int int_to_write, std::string string_to_write,
+	std::map<int, std::string>& dict)
+{
+	if (target_index == current_index)
+	{
+		// check if it end on a new line
+		if (string_to_write[string_to_write.size() - 1] == '\n' || 
+			string_to_write[string_to_write.size() - 1] == '\r')
+		{
+			string_to_write = string_to_write.substr(0, string_to_write.size() - 1);
+		}
+		dict[int_to_write] = string_to_write;
+	}
+	else
+	{
+		// cout error
+		std::cout << "Error: write_to_dict failed!" << std::endl;
+		// throw
+		throw;
+	}
+}
+
+template <typename... Args>
+int read_list_of_n(std::string file, Args&... args)
+{
+    try
+    {
+        std::string content = get_file_contents(file.c_str());
+        std::istringstream iss(content);
+        std::string line;
+        int index = 0;
+        while (std::getline(iss, line))
+        {
+            std::istringstream iss2(line);
+            std::string word;
+            int i = 0;
+            while (std::getline(iss2, word, ' '))
+            {
+                if (i == 0)
+                {
+                    index = std::stoi(word);
+                }
+                else
+                {
+                    write_to_dict(i - 1, 0, index, word, args...);
+                }
+                i++;
+            }
+        }
+        return index;
+    }
+	catch (...)
+	{
+		std::cout << "Error: reading object list from " << file << " failed!" << std::endl;
+		return -1;
+	}
 }
