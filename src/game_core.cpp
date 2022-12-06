@@ -20,6 +20,13 @@
 
 #include "globals.hpp"
 
+struct Player {
+	unsigned int tip;
+	Type cord;
+	Type speed;
+	Type force;
+	unsigned hp;
+};
 
 
 struct element {
@@ -104,7 +111,7 @@ int main()
 				CORD[i][j] = 0;
 			}
 		}
-		unsigned int collision_count = 12;
+		unsigned int collision_count = 0;
 		unsigned int* R1 = nullptr;
 		unsigned int* R2 = nullptr;
 		unsigned int current_number = 10;
@@ -115,8 +122,9 @@ int main()
 		// test meanings of starting parametres
 
 		Object_Management Manager(TIP);
+		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
 		
-		Manager.create_object(3, 1); //creation of spaceship
+		//Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
 		for (unsigned k = 0; k < 3; ++ k)
 		{
@@ -211,7 +219,7 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			//Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
