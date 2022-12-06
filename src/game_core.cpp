@@ -115,13 +115,33 @@ int main()
 				CORD[i][j] = 0;
 			}
 		}
-		unsigned int collision_count = 12;
-		unsigned int* R1 = nullptr;
-		unsigned int* R2 = nullptr;
-		unsigned int current_number = 10;
+		unsigned int collision_count = 0;
+		unsigned int* R1 = new unsigned int [10000];
+		unsigned int* R2 = new unsigned int [10000];
+		unsigned int current_number = 0;
+		directed_segment<lld> null_moment(0, 0, 0);
+
+		//Array of bodies
+		Body<lld>* bodies = new Body<lld>[10000];
+		directed_segment<lld> cord;
+		directed_segment<lld> speed;
+		directed_segment<lld> force;
+		for (int i = 0; i < 10000; i++) {
+			if (TIP[i] == 0) {
+				bodies[i] = Body<lld>(0, tensor1, nul, nul, nul, nul, 0);
+			}
+			else {
+				cord[0] = CORD[i][0];
+				cord[1] = CORD[i][1];
+				cord[2] = CORD[i][2];
+				speed[0] = SPEED[i][0];
+				speed[1] = SPEED[i][1];
+				speed[2] = SPEED[i][2];
+				bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+			}
+		}
 		
-
-
+		
 
 
 
@@ -226,7 +246,49 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			
+			for (int i1 = 0; i1 < 10000; ++i1) {
+				IS_COLLIDED[i1] = 0;
+				R1[i1] = 0;
+				R2[i1] = 0;
+				collision_count = 0;
+			}
+			for (int i1 = 0; i1 < 10000; ++i1) {
+				
+				if (TIP[i1] != 0) {
+					bodies[i1].update_angle(dt);
+					bodies[i1].update_w(dt, null_moment);
+					bodies[i1].update_velocity(dt, force);
+					bodies[i1].update_position(dt);
+
+					CORD[i1][0] = bodies[i1].r[0];
+					CORD[i1][1] = bodies[i1].r[1];
+					CORD[i1][2] = bodies[i1].r[2];
+					SPEED[i1][0] = bodies[i1].v[0];
+					SPEED[i1][1] = bodies[i1].v[1];
+					SPEED[i1][2] = bodies[i1].v[2];
+
+
+
+
+					for (int j = 0; j < 10000; j++) {
+						if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0) {
+							if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
+								IS_COLLIDED[i1] = 1;
+								IS_COLLIDED[j] = 1;
+								bodies[i1].collision(bodies[j]);
+								R1[collision_count] = i1;
+								R2[collision_count] = j;
+								collision_count++;
+							}
+						}
+					}
+				}
+				
+
+
+			}
 
 			// rotate sphere by sin i around y axis
 			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);

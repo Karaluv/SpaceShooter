@@ -224,6 +224,16 @@ public:
 			return z;
 		}
 	}
+	
+	//operator - (unary)
+	
+	directed_segment operator-() {
+		directed_segment result;
+		result.x = -x;
+		result.y = -y;
+		result.z = -z;
+		return result;
+	}
 
 };
 
