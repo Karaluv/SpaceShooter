@@ -20,7 +20,8 @@
 
 #include "globals.hpp"
 
-
+// define type
+typedef double Type;
 
 struct element {
 	unsigned int tip;
