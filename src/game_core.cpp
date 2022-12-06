@@ -19,7 +19,15 @@
 #include <MyDict.cpp>
 
 #include "globals.hpp"
+#include "Player_Actions.h"
 
+struct Player {
+	unsigned int tip;
+	Type cord;
+	Type speed;
+	Type force;
+	unsigned hp;
+};
 
 
 struct element {
@@ -139,7 +147,9 @@ int main()
 
 		// test meanings of starting parametres
 
+		Player_Actions player_actions;
 		Object_Management Manager(TIP);
+		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
 		
 		//Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
@@ -287,7 +297,7 @@ int main()
 			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
 			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
-			body1_Monki.update_w(dt, null_moment);
+			//body1_Monki.update_w(dt, null_moment); null_moment is not defined
 			//body1_Monki.update_rotation();
 			// print kinetic energy
 			std::cout << body1_Monki.get_kinetic_energy() << "\n";
