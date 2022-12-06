@@ -246,7 +246,7 @@ int main()
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);
 			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 			
 			for (int i1 = 0; i1 < 10000; ++i1) {
 				IS_COLLIDED[i1] = 0;

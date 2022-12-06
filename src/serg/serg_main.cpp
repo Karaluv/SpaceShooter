@@ -752,7 +752,7 @@ public:
 	{
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		//process_collisions(arr1, arr2, amount_collisions);
+		process_collisions(arr1, arr2, amount_collisions);
 		process_events(type_objects);
 		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
 	}
