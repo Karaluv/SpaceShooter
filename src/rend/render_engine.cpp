@@ -197,7 +197,7 @@ public:
 		//ViewCamera->set_orientation(glm::vec3(ax, ay, az));
 		//ViewCamera->set_rotation(glm::vec3(rx, ry, rz));
 		// roll
-		ViewCamera->set_roll(roll);
+		ViewCamera->set_roll(roll); 
 		access_camera_.unlock();
 	}
 
