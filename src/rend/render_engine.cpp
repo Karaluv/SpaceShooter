@@ -32,6 +32,7 @@
 #include <load.hpp>
 #include <render_camera.hpp>
 #include <render_object.hpp>
+#include <cub_map.hpp>
 #include <render_mesh.hpp>
 
 class render_engine
@@ -116,11 +117,12 @@ public:
 
 		new_obj->setPosition(glm::vec3(x, y, z));
 		new_obj->setOrientation(glm::vec3(ax, ay, az));
+		new_obj->setScale(ModelScale[index]);
 		new_obj->update_model(index, IndexBuffer[index]);
 
 		new_obj->update_camera(ViewCamera);
 		glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-		new_obj->update_matrix(ScaleMatrix, ModelMatrixID);
+		new_obj->update_matrix(ModelMatrixID);
 
 		RendObjs.push_back(new_obj);
 		access_object_.unlock();
@@ -175,7 +177,7 @@ public:
 			RendObjs[index]->setPosition(glm::vec3(x, y, z));
 			RendObjs[index]->setOrientation(glm::vec3(ax, ay, az));
 			glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-			RendObjs[index]->update_matrix(ScaleMatrix, ModelMatrixID);
+			RendObjs[index]->update_matrix(ModelMatrixID);
 		}
 		else
 			std::cout << "NO such object exicts!";
@@ -209,16 +211,14 @@ public:
 
 private:
 
+	
+
 	void render_frame()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_matrixes();
 
 		glUseProgram(programID);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture);
-		glUniform1i(TextureID, 0);
 
 		glm::vec3* LightPositions = new glm::vec3[Lights.size()];
 		glm::vec3* LightColors = new glm::vec3[Lights.size()];
@@ -241,14 +241,59 @@ private:
 		glUniform1fv(LightPowersID, 3, LightPowers);
 		access_light_.unlock();
 
+/*
+		glBegin(GL_QUADS);
+		glColor3d(1, 0, 0);
+		glVertex3f(-1, -1, -10);
+		glColor3d(1, 1, 0);
+		glVertex3f(1, -1, -10);
+		glColor3d(1, 1, 1);
+		glVertex3f(1, 1, -10);
+		glColor3d(0, 1, 1);
+		glVertex3f(-1, 1, -10);
+		glEnd();
+*/
+			
 		access_object_.lock();
 		//std::cout << "All right";
 		for (int i = 0; i < RendObjs.size(); ++i)
 		{
+
+			if (i == 0)
+				glUniform1i(TypeOfLightningId, 0);
+			else
+				glUniform1i(TypeOfLightningId, 1);
+
 			int index = RendObjs[i]->getID();
-			MeshSpace->switch_render_mesh(VertexBuffers[index], UvBuffers[index], NormalBuffers[index],
-				ElementBuffers[index], vertexPosition_modelspaceID, vertexUVID,
+
+			// get scale 
+			float scale = RendObjs[i]->getScale();
+			glUniform1f(ScaleId, 1);
+			
+			std::string mesh_name = NamesMesh[index];
+			std::string texture_name = NamesTexture[index];
+			
+			int mesh_index = MeshesId[mesh_name];
+			int texture_index = TexturesId[texture_name];
+			GLuint Gltexture_index = TexturesGl[texture_index];
+
+			glActiveTexture(GL_TEXTURE0);
+		
+			glBindTexture(GL_TEXTURE_2D, Gltexture_index);
+			//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 100.0f);
+			glUniform1i(TextureID, 0);
+
+			// scale texture
+			
+			
+			MeshSpace->switch_render_mesh(VertexBuffers[mesh_index], UvBuffers[mesh_index], NormalBuffers[mesh_index],
+				ElementBuffers[mesh_index], vertexPosition_modelspaceID, vertexUVID,
 				vertexNormal_modelspaceID);
+			
+			
+
+			
+			
 			RendObjs[i]->draw_object();
 		}
 		access_object_.unlock();
@@ -257,8 +302,25 @@ private:
 		glDisableVertexAttribArray(vertexUVID);
 		glDisableVertexAttribArray(vertexNormal_modelspaceID);
 
+		
+		
+		glFlush();
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+	}
+	void Load_All_textures()
+	{
+		// you have dictionary with all pathes
+		
+		for (auto it = TexturesId.begin(); it != TexturesId.end(); ++it)
+		{
+			int index = it->second;
+			std::string path = PathTextures[index];
+
+			GLuint texture = loadDDS(("res/textures/"+path).c_str());
+			TexturesGl[index] = texture;
+		}
 	}
 
 	void initialize()
@@ -281,7 +343,10 @@ private:
 
 		
 
-		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+		//glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+		// black
+		glClearColor(65.0f/255, 60.0f/255, 81.0f/255,0.0f);
+		
 
 		glEnable(GL_DEPTH_TEST);
 
@@ -300,15 +365,27 @@ private:
 
 		Texture = loadDDS("res/textures/MyTest.DDS");
 		TextureID = glGetUniformLocation(programID, "myTextureSampler");
-
+		
 		Load_All();
-		MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, IdMeshes);
+		Load_All_textures();
+
+		
+			
+		
+		MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, PathMeshes);
+		
 
 		glUseProgram(programID);
 		LightPositsID = glGetUniformLocation(programID, "LightPosits");
 		LightColorsID = glGetUniformLocation(programID, "LightColors");
 		LightPowersID = glGetUniformLocation(programID, "LightPowers");
 		LightCountID = glGetUniformLocation(programID, "LightCount");
+		ScaleId = glGetUniformLocation(programID, "scale");
+		TypeOfLightningId = glGetUniformLocation(programID, "type_light");
+
+		glUniform1i(TypeOfLightningId, 1);
+
+		
 
 		ViewCamera->set_position(glm::vec3(0, 0, 1));
 		ViewCamera->set_angel(glm::vec3(0, 0, 0));
@@ -316,16 +393,40 @@ private:
 		Is_Initialized_ = true;
 		RenderTaskisTerminated_ = false;
 	}
+
 	void Load_All()
 	{
-		std::string FatherFile = "res/render_objects.txt";
+		std::string path = "res/obj/objs.txt";
 		int number_of_objects = 0;
-		number_of_objects = read_obj_list(FatherFile, IdNames, IdMeshes, IdTextures);
-
+		number_of_objects = read_list_of_n(path, IdMeshes, PathMeshes);
+		for (auto it = IdMeshes.begin(); it != IdMeshes.end(); ++it)
+		{
+			MeshesId[it->second] = it->first;
+		}
+		// for textures
+		std::string path_textures = "res/textures/textures.txt";
+		int number_of_textures = 0;
+		number_of_textures = read_list_of_n(path_textures, IdTextures, PathTextures);
+		for (auto it = IdTextures.begin(); it != IdTextures.end(); ++it)
+		{
+			TexturesId[it->second] = it->first;
+		}
+		// for names
+		std::string path_names = "res/types.txt";
+		int number_of_names = 0;
+		std::map<int, std::string> temp_scale;
+		number_of_names = read_list_of_n(path_names, IdNames, NamesMesh, NamesTexture, temp_scale);
+		
 		for (auto it = IdNames.begin(); it != IdNames.end(); ++it)
 		{
 			NamesId[it->second] = it->first;
 		}
+		// for scale
+		for (auto it = IdNames.begin(); it != IdNames.end(); ++it)
+		{
+			ModelScale[it->first] = stof(temp_scale[it->first]);
+		}
+		
 	}
 	void update_matrixes()
 	{
@@ -400,6 +501,8 @@ private:
 	GLuint LightPowersID;
 	GLuint LightColorsID;
 	GLuint LightCountID;
+	
+	GLuint TypeOfLightningId;
 
 	GLuint ModelMatrixID;
 
@@ -409,6 +512,11 @@ private:
 
 	GLuint Texture;
 	GLuint TextureID;
+	
+	GLuint CubeMapTexture;
+	GLuint CubeMapTextureID;
+	
+	GLuint ScaleId;
 
 	std::vector<GLuint> ElementBuffers;
 	std::vector<GLuint> NormalBuffers;
@@ -417,9 +525,24 @@ private:
 	std::vector<GLuint> IndexBuffer;
 
 	std::map<int, std::string> IdMeshes;
+	std::map<int, std::string> PathMeshes;
+	std::map<std::string, int> MeshesId;
+	
+	
 	std::map<int, std::string> IdTextures;
+	std::map<int, std::string> PathTextures;
+	std::map<std::string, int> TexturesId;
+	std::map<int, GLuint> TexturesGl;
+	std::map<int, GLuint> TexturesGlId;
+	
+	
 	std::map<int, std::string> IdNames;
 	std::map<std::string, int> NamesId;
+	std::map<int, std::string> NamesMesh;
+	std::map<int, std::string> NamesTexture;
+
+	std::map<int, float> ModelScale;
+	
 
 	bool Is_Initialized_ = false;
 
@@ -449,6 +572,11 @@ private:
 		{' ', false} };
 
 	double mouse_x, mouse_y;
+
+
+	
+
+	
 };
 
 // singletone

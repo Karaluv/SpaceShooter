@@ -263,8 +263,8 @@ int main()
 			//ax += mouse_pos.second;
 			
 			// mouse angle
-			ax = mouse_pos.first/1000;
-			ay = mouse_pos.second/1000;
+			ax = -mouse_pos.first/1000;
+			ay = -mouse_pos.second/1000;
 
 			
 
