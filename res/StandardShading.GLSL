@@ -5,7 +5,7 @@ in vec2 UV;
 in vec3 Position_worldspace;
 in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
-in vec3 LightDirection_cameraspace[25];
+in vec3 LightDirection_cameraspace[5];
 
 // Ouput data
 out vec3 color;
@@ -18,9 +18,9 @@ out vec3 color;
 uniform sampler2D myTextureSampler;
 uniform mat4 MV;
 //uniform vec3 LightPosition_worldspace;
-uniform vec3  LightPosits[25];
-uniform vec3  LightColors[25];
-uniform float LightPowers[25];
+uniform vec3  LightPosits[5];
+uniform vec3  LightColors[5];
+uniform float LightPowers[5];
 uniform int   LightCount;
 uniform float scale;
 uniform int type_light;
