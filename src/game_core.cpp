@@ -249,13 +249,13 @@ int main()
 
 
 		// now I need to create a light
-		srs::create_light(8, 3, -2, 1, 1, 1, 50);
-		srs::create_light(-8, -3, -2, 1, 1, 1, 50);
+		srs::create_light(1000, 1000, 1000, 1, 0.7, 0.1, 5000000);
+		//srs::create_light(-8, -3, -2, 1, 1, 1, 50);
 
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
-		for (int i = 0; i < 10000; i++)
+		for (int cycle = 0; cycle < 10000; cycle++)
 		{
-
+			if (cycle < 10) {
 				for (int i = 0; i < 10000; i++) {
 					if (TIP[i] == 0) {
 						bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
@@ -274,9 +274,9 @@ int main()
 				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
 				// testing code (please not delete)
-				if (i % 10 == 0) {
-					print_arr<Type>(CORD, "coords", current_number, fin, i);
-					print_arr<Type>(SPEED, "speeds", current_number, fin, i);
+				if (cycle % 100 == 0) {
+					print_arr<Type>(CORD, "coords", current_number, fin, cycle);
+					print_arr<Type>(SPEED, "speeds", current_number, fin, cycle);
 				}
 				// end of the testing code
 
@@ -324,21 +324,21 @@ int main()
 				}
 				body1_Monki.update_angle(dt);
 
-			// copy from bodies to arrays
-			for (int i = 1; i < 500; ++i)
-			{
-				x_coords[i-1] = bodies[i].r[0];
-				y_coords[i-1] = bodies[i].r[1];
-				z_coords[i-1] = bodies[i].r[2];
-	
-				ps[i-1] = bodies[i].angle[0];
-				qs[i-1] = bodies[i].angle[1];
-				rs[i-1] = bodies[i].angle[2];
-			
-				types[i-1] = TIP[i];
+				// copy from bodies to arrays
+				for (int i = 1; i < 500; ++i)
+				{
+					x_coords[i - 1] = bodies[i].r[0];
+					y_coords[i - 1] = bodies[i].r[1];
+					z_coords[i - 1] = bodies[i].r[2];
+
+					ps[i - 1] = bodies[i].angle[0];
+					qs[i - 1] = bodies[i].angle[1];
+					rs[i - 1] = bodies[i].angle[2];
+
+					types[i - 1] = TIP[i];
+				}
+
 			}
-		
-		
 
 		
 			

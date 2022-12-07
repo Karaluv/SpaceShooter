@@ -9,7 +9,6 @@ in vec3 LightDirection_cameraspace[5];
 
 // Ouput data
 out vec3 color;
-//out vec4 CubeMapColor;
 
 // Values that stay constant for the whole mesh.
 
