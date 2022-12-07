@@ -13,6 +13,8 @@ Type get_square(Type number) {
 	return number * number;
 }
 
+void print_current_state(Type** coords, Type** speeds, Type** powers, unsigned* types, unsigned N);
+
 template <typename T, unsigned N>
 void copy_arr(T* data, T* new_data)
 {
@@ -20,6 +22,39 @@ void copy_arr(T* data, T* new_data)
 	{
 		data[k] = new_data[k];
 	}
+}
+
+template <typename T>
+void print_arr(T** arr, std::string name, unsigned N, std::ofstream& fin, unsigned time)
+{
+	if (N > 5) N = 5;
+	fin << "Moment of time: " << time << std::endl;
+	fin << "Start of output of " << name <<  std::endl;
+	for (unsigned k = 0; k < N; ++k)
+	{
+		fin << k << ": ";
+		for (unsigned i = 0; i < 3; ++i)
+		{
+			fin << arr[k][i] << "  ";
+		}
+		fin << std::endl;
+	}
+	fin << "End of output of " << name << std::endl;
+}
+
+template <typename T>
+void print_arr(T* arr, std::string name, unsigned N, std::ofstream& fin, unsigned time)
+{
+	if (N > 5) N = 5;
+	fin << "Moment of time: " << time << std::endl;
+	fin << "Start of output of " << name << std::endl;
+	for (unsigned k = 0; k < N; ++k)
+	{
+		fin << k << " ";
+		fin << arr[k] << "  ";
+		fin << std::endl;
+	}
+	fin << "End of output of " << name << std::endl;
 }
 
 Type random_distribution(int min, int max)
@@ -329,7 +364,7 @@ protected:
 	int hp;
 	unsigned* arsenal;
 public:
-	Space_Ship() : Massive_Point(), max_speed(0), max_engine_power(0), hp(0), arsenal(nullptr)
+	Space_Ship() : Massive_Point(), max_speed(0), max_engine_power(0), recharging(0), hp(0), arsenal(nullptr)
 	{
 		this->set_parametres();
 	};
@@ -498,9 +533,9 @@ private:
 	unsigned const max_start_distance = 20000;
 	unsigned const start_ship_number = 20;
 	unsigned const amount_types = 4;
-	unsigned const player_ship_type = 0;
 	unsigned const ship_type = 1;
 	unsigned const rocket_type = 2;
+	unsigned const player_ship_type = 3;
 	Player_Ship player_ship;
 	Space_Ship** ships;
 	bool* real_objects;
@@ -516,6 +551,7 @@ public:
 		srand(time(NULL));
 		general_number = 1;
 		player_ship.set_number(0);
+		types[0] = 3;
 		ships = new Space_Ship * [100];
 		rockets = new Rocket * [100];
 		real_objects = new bool[max_objects_amount] { true };
@@ -597,7 +633,7 @@ public:
 
 	void update_object(Type** coord, Type** speed)
 	{
-		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
+		for (unsigned current_type = 0; current_type < amount_types; ++ current_type)
 		{
 			switch (current_type)
 			{
@@ -694,7 +730,7 @@ public:
 		}
 	}
 
-	void do_player_actions(Player_Actions player_actions, unsigned* objects_types)
+	void do_player_actions(Player_Actions &player_actions, unsigned* objects_types)
 	{
 		if (player_actions.shout)
 		{
@@ -748,13 +784,20 @@ public:
 
 	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
 		unsigned amount_collisions, unsigned* arr1, unsigned* arr2,
-		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions player_actions)
+		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions &player_actions)
 	{
+		//print_current_state(coords, speeds, engine_power, type_objects, current_objects_amount);
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		//process_collisions(arr1, arr2, amount_collisions);
+		//std::ofstream fout("cords.txt", std::ios::app);
+		//if (fout.is_open()) print_arr<Type>(coords, "cords", current_objects_amount, fout, 0);
+		//fout.close();
+		process_collisions(arr1, arr2, amount_collisions);
 		process_events(type_objects);
 		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
+		//fout.open("cords.txt", std::ios::app);
+		//if (fout.is_open()) print_arr<Type>(engine_power, "forces", current_objects_amount, fout, 0);
+		//fout.close();
 	}
 
 };
@@ -762,35 +805,36 @@ public:
 
 void print_current_state(Type** coords, Type** speeds, Type** powers, unsigned* types, unsigned N)
 {
+	std::ofstream fin("test.txt", std::ios::app);
 	for (unsigned k = 0; k < N; ++k)
 	{
-		std::cout << "Object k:" << std::endl;
+		fin << "Object k:" << std::endl;
 		switch (types[k])
 		{
 		case 0: {std::cout << "This is not existing object" << std::endl; break; }
 		case 1: {std::cout << "Type: Space_Ship" << std::endl; break; }
 		case 2: {std::cout << "Type: Rocket" << std::endl; break; }
 		}
-		std::cout << "coords:  ";
+		fin << "coords:  ";
 		for (unsigned i = 0; i < 3; ++i)
 		{
 			std::cout << coords[k][i] << " ";
 		}
-		std::cout << std::endl;
-		std::cout << "speeds:  ";
+		fin << std::endl;
+		fin << "speeds:  ";
 		for (unsigned i = 0; i < 3; ++i)
 		{
-			std::cout << speeds[k][i] << " ";
+			fin << speeds[k][i] << " ";
 		}
-		std::cout << std::endl;
-		std::cout << "engine_powers:  ";
+		fin << std::endl;
+		fin << "engine_powers:  ";
 		for (unsigned i = 0; i < 3; ++i)
 		{
-			std::cout << powers[k][i] << " ";
+			fin << powers[k][i] << " ";
 		}
-		std::cout << std::endl;
-
+		fin << std::endl;
 	}
+	fin.close();
 }
 
 

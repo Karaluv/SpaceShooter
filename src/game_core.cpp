@@ -20,6 +20,7 @@
 
 #include "globals.hpp"
 #include "Player_Actions.h"
+#include <fstream>
 
 struct Player {
 	unsigned int tip;
@@ -28,7 +29,6 @@ struct Player {
 	Type force;
 	unsigned hp;
 };
-
 
 struct element {
 	unsigned int tip;
@@ -52,10 +52,73 @@ struct element {
 int main()
 {
 
+
+
 	// define lld type as long long double
 	typedef long double lld;
 
-	
+
+	matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+	directed_segment <lld> r1(0, 0, 0);
+	directed_segment <lld> v1(0, 0, 0);
+	directed_segment <lld> angle1(0.1, 0.1, 0.1);
+	directed_segment <lld> w1(0.1, 20, 0);
+	lld size1 = 1;
+	lld m1 = 1;
+	directed_segment <lld> nul(0.001, 0.001, 0.001);
+	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+
+
+
+	//Array of bodies, there always 10000 of them (some are living, other - dead)
+	lld** SPEED = new lld * [10000];
+	lld** FORCE = new lld * [10000];
+	lld** CORD = new lld * [10000];
+	unsigned int* TIP = new unsigned int[10000];
+	unsigned int* IS_COLLIDED = new unsigned int[10000];
+	for (int i = 0; i < 10000; i++) {
+		SPEED[i] = new lld[3];
+		FORCE[i] = new lld[3];
+		CORD[i] = new lld[3];
+		TIP[i] = 0;
+		IS_COLLIDED[i] = 0;
+		for (int j = 0; j < 3; j++) {
+			SPEED[i][j] = 0;
+			FORCE[i][j] = 0;
+			CORD[i][j] = 0;
+		}
+	}
+	unsigned int collision_count = 0;
+	unsigned int* R1 = new unsigned int[10000];
+	unsigned int* R2 = new unsigned int[10000];
+	unsigned int current_number = 0;
+	directed_segment<lld> null_moment(0, 0, 0);
+
+	//Array of bodies
+	Body<lld>* bodies = new Body<lld>[10000];
+	directed_segment<lld> cord;
+	directed_segment<lld> speed;
+	directed_segment<lld> force;
+	for (int i = 0; i < 10000; i++) {
+		if (TIP[i] == 0) {
+			bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+		}
+		else {
+			cord[0] = CORD[i][0];
+			cord[1] = CORD[i][1];
+			cord[2] = CORD[i][2];
+			speed[0] = SPEED[i][0];
+			speed[1] = SPEED[i][1];
+			speed[2] = SPEED[i][2];
+			bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+		}
+	}
+
+
+	std::ofstream fout0("cords.txt");
+	fout0.close();
+	std::ofstream fin;
+	fin.open("arrays.txt");
 
 
 	
@@ -157,12 +220,13 @@ int main()
 
 
 		// test meanings of starting parametres
-
 		Player_Actions player_actions;
 		Object_Management Manager(TIP);
 		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
+
+		//print_arr<Type>(CORD, "coords", current_number, fin, 0);
+		//print_arr<Type>(SPEED, "coords", current_number, fin, 0);
 		
-		//Manager.create_object(3, 1); //creation of spaceship
 		double*** data = new double**[3];
 		for (unsigned k = 0; k < 3; ++ k)
 		{
@@ -183,8 +247,7 @@ int main()
 
 		// create monkey and cube and several lights in different positions and angels
 		srs::create_object("skybox", 0, 0, 0, 0, 0, 0, 1);
-		//srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		//srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -194,13 +257,23 @@ int main()
 		for (int i = 0; i < 10000; i++)
 		{
 
+			for (int i = 0; i < 10000; i++) {
+				if (TIP[i] == 0) {
+					bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+				}
+				else {
+					cord[0] = CORD[i][0];
+					cord[1] = CORD[i][1];
+					cord[2] = CORD[i][2];
+					speed[0] = SPEED[i][0];
+					speed[1] = SPEED[i][1];
+					speed[2] = SPEED[i][2];
+					bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+				}
+			}
 
-			float pi = 3.14159265359;
 
-			float x_angle = 0;
-			float y_angle = 0;
-			float z_angle = 0;
-			
+
 			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 			
 			for (int i1 = 0; i1 < 10000; ++i1) {
@@ -212,6 +285,9 @@ int main()
 			for (int i1 = 0; i1 < 10000; ++i1) {
 				
 				if (TIP[i1] != 0) {
+					force[0] = FORCE[i1][0];
+					force[1] = FORCE[i1][1];
+					force[2] = FORCE[i1][2];
 					bodies[i1].update_angle(dt);
 					bodies[i1].update_w(dt, null_moment);
 					bodies[i1].update_velocity(dt, force);
@@ -298,6 +374,7 @@ int main()
 		}
 	}
 	srs::stop_render();
+	fin.close();
 
 	return 0;
 
