@@ -320,15 +320,15 @@ int main()
 			body1_Monki.update_angle(dt);
 
 			// copy from bodies to arrays
-			for (int i = 0; i < 500; ++i)
+			for (int i = 1; i < 500; ++i)
 			{
-				x_coords[i] = bodies[i].r[0];
-				y_coords[i] = bodies[i].r[1];
-				z_coords[i] = bodies[i].r[2];
+				x_coords[i-1] = bodies[i].r[0];
+				y_coords[i-1] = bodies[i].r[1];
+				z_coords[i-1] = bodies[i].r[2];
 	
-				ps[i] = bodies[i].angle[0];
-				qs[i] = bodies[i].angle[1];
-				rs[i] = bodies[i].angle[2];
+				ps[i-1] = bodies[i].angle[0];
+				qs[i-1] = bodies[i].angle[1];
+				rs[i-1] = bodies[i].angle[2];
 			
 				types[i] = TIP[i];
 			}
