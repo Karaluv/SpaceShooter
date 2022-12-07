@@ -62,7 +62,8 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
-
+		
+		srs::init();
 
 		double x = 0;
 		double y = 0;
@@ -94,6 +95,18 @@ int main()
 		lld m1 = 1;
 		directed_segment <lld> nul(0, 0, 0);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+
+
+		
+		float* x_coords = new float[500];
+		float* y_coords = new float[500];
+		float* z_coords = new float[500];
+
+		float* ps = new float[500];
+		float* qs = new float[500];
+		float* rs = new float[500];
+
+		unsigned int* types = new unsigned int[500];
 
 
 
@@ -140,8 +153,6 @@ int main()
 				bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
 			}
 		}
-		
-		
 
 
 
@@ -171,8 +182,9 @@ int main()
 		//end of the code for the simple test
 
 		// create monkey and cube and several lights in different positions and angels
-		srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
-		srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
+		srs::create_object("skybox", 0, 0, 0, 0, 0, 0, 1);
+		//srs::create_object("monkey", 0, 0, -1, 0, 0, 0, 1);
+		//srs::create_object("cube", 4, 0, -1, 0, 0, 0, 1);
 
 		// now I need to create a light
 		srs::create_light(8, 3, -2, 1, 1, 1, 50);
@@ -181,72 +193,15 @@ int main()
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
 		for (int i = 0; i < 10000; i++)
 		{
-			//Manager.update_object(data, 1);
-			// rotate monkey by sin i around y axis
 
-			srs::update_object(0, 0, 0, -1, 0, sin(float(i) / 100), 0, 1);
 
 			float pi = 3.14159265359;
 
-			// read angles floats
 			float x_angle = 0;
 			float y_angle = 0;
 			float z_angle = 0;
 			
-			//std::cout << "Enter x angle: ";
-			//std::cin >> x_angle;
-			//std::cout << "Enter y angle: ";
-			//std::cin >> y_angle;
-			//std::cout << "Enter z angle: ";
-			//std::cin >> z_angle;
-			
-			//srs::update_object(1, 0, 0, -1, x_angle*pi/180, y_angle*pi/180, z_angle*pi/180, 0);
-			//srs::update_object(2, 4, 0, -1, x_angle * pi / 180, y_angle * pi / 180, 0, 0);
-			//srs::update_object(0, -4, 0, -1, x_angle * pi / 180, 0, 0, 0);
-
-			// get inputs map from render
-			std::map<char, bool> inputs = srs::get_inputs();
-			
-			// update camera position
-			if (inputs['w'])
-				x += 0.1;
-			if (inputs['s'])
-				x -= 0.1;
-			if (inputs['a'])
-				z -= 0.1;
-			if (inputs['d'])
-				z += 0.1;
-			// ctrl space
-			if (inputs[' '])
-				y += 0.1;
-			if (inputs['c'])
-				y -= 0.1;
-
-			// e
-			if (inputs['e'])
-				roll += 0.1;
-			
-			// q
-			if (inputs['q'])
-				roll -= 0.1;
-
-			// get mouse position
-			std::pair<double, double> mouse_pos = srs::get_mouse();
-			
-			// update camera rotation
-			//yaw += mouse_pos.first;
-			//ax += mouse_pos.second;
-			
-			// mouse angle
-			ax = -mouse_pos.first/1000;
-			ay = -mouse_pos.second/1000;
-
-			
-
-			// camera update
-			srs::update_camera(x, y, z, ax, ay, roll);
-			// proccessing every object
-			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number);
+			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 			
 			for (int i1 = 0; i1 < 10000; ++i1) {
 				IS_COLLIDED[i1] = 0;
@@ -285,32 +240,60 @@ int main()
 						}
 					}
 				}
-				
-
-
 			}
-
-			// rotate sphere by sin i around y axis
-			//srs::update_object(2, 0, 0, -2, 0, pi/2, 0, 0);
-
-			//std::cout << body1_Monki.angle[0];
-			//body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2]
-			srs::update_object(0, 0, -1, -1, body1_Monki.angle[0], body1_Monki.angle[1], body1_Monki.angle[2], 0);
 			body1_Monki.update_angle(dt);
-			//body1_Monki.update_w(dt, null_moment); null_moment is not defined
-			//body1_Monki.update_rotation();
-			// print kinetic energy
-			std::cout << body1_Monki.get_kinetic_energy() << "\n";
 
-			// move cube by sin i around y axis
-			srs::update_object(1, 4 + sin(float(i) / 100), 0, -1, 0, 0, 0, 1);
+			// copy from bodies to arrays
+			for (int i = 0; i < 500; ++i)
+			{
+				x_coords[i] = bodies[i].r[0];
+				y_coords[i] = bodies[i].r[1];
+				z_coords[i] = bodies[i].r[2];
+	
+				ps[i] = bodies[i].angle[0];
+				qs[i] = bodies[i].angle[1];
+				rs[i] = bodies[i].angle[2];
+			
+				types[i] = TIP[i];
+			}
+		
+		
 
-			// change light color by sin i
-			srs::update_light(0, 8, 3, -2, sin(float(i) / 100), 0, 0, 100);
-			// srs::update_camera(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-			//  cube move by 0.0001 in x direction
-			// srs::update_object(0, 0, 0, -1, 0.0, 0.0, 0.0, 1.0);
+		
+			
+			std::map<char, bool> inputs = srs::get_inputs();
+			
+			if (inputs['w'])
+				x += 0.1;
+			if (inputs['s'])
+				x -= 0.1;
+			if (inputs['a'])
+				z -= 0.1;
+			if (inputs['d'])
+				z += 0.1;
+			if (inputs[' '])
+				y += 0.1;
+			if (inputs['c'])
+				y -= 0.1;
+			if (inputs['e'])
+				roll += 0.1;
+			if (inputs['q'])
+				roll -= 0.1;
 
+			std::pair<double, double> mouse_pos = srs::get_mouse();
+			
+			ax = -mouse_pos.first/1000;
+			ay = -mouse_pos.second/1000;
+
+			
+
+			// camera update
+			srs::update_camera(x, y, z, ax, ay, roll);
+
+			// update objects
+			srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
+			
+			srs::update_object(0, x, y, z,0,0,0,0);
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	}

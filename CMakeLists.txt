@@ -102,7 +102,7 @@ add_library(render_engine
 	src/rend/render_mesh.hpp
 	src/rend/render_camera.hpp
 
- "src/serg/Player_Actions.h")
+ "src/serg/Player_Actions.h"
 
 	
 	src/rend/cube_map.cpp

@@ -103,6 +103,11 @@ public:
 		stop();
 	}
 
+	unsigned get_number_of_objects()
+	{
+		return RendObjs.size();
+	}
+
 	bool GetInitialize()
 	{
 		return Is_Initialized_;
