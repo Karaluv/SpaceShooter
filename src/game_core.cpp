@@ -272,9 +272,15 @@ int main()
 				}
 			}
 
-
-
 			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+			
+			// testing code (please not delete)
+			if (i % 10 == 0) {
+				print_arr<Type>(CORD, "coords", current_number, fin, i);
+				print_arr<Type>(SPEED, "speeds", current_number, fin, i);
+			}
+			// end of the testing code
+			
 			
 			for (int i1 = 0; i1 < 10000; ++i1) {
 				IS_COLLIDED[i1] = 0;
