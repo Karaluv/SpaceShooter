@@ -316,11 +316,13 @@ class Weapon : public Massive_Point {
 protected:
 	Type const standart_rocket_speed = 200;
 	Type const standart_destructive_power = 10;
+	unsigned const time_of_life = 200;
 	Type start_speed;
+	unsigned current_time_of_life;
 	unsigned destructive_power;
 public:
 	Weapon(Type start_speed, unsigned destructive_power) : Massive_Point(), start_speed(start_speed),
-		destructive_power(destructive_power) {};
+		destructive_power(destructive_power), current_time_of_life(0) {};
 	Weapon() : Massive_Point(), start_speed(0), destructive_power(0) {};
 	void set_parametres(Type start_speed, unsigned destructive_power) {
 		this->start_speed = start_speed;
@@ -334,6 +336,11 @@ public:
 
 	Type get_start_speed() {
 		return start_speed;
+	}
+
+	bool check_time_of_life()
+	{
+		return ( (++current_time_of_life) < time_of_life);
 	}
 };
 
@@ -742,8 +749,13 @@ public:
 									ships[current_object]->get_speed().get_module()));
 						}
 					}
-
+					break;
 				}
+				case 1:
+					if (! rockets[current_object]->check_time_of_life())
+					{
+						delete_object(rockets[current_object]->get_number());
+					}
 				}
 			}
 		}
