@@ -357,8 +357,8 @@ protected:
 	Type const standart_ship_accel = 5;
 	Type const standart_ship_size = 50;
 	Type const detected_distance = 10000; // distance of detection of enemy
-	Type const fire_distance = 5000; // distance of starting of shut
-	unsigned const standart_recharging_time = 100;
+	Type const fire_distance = 2000; // distance of starting of shut
+	unsigned const standart_recharging_time = 1000;
 	unsigned recharging_time;
 	unsigned recharging;
 	Type const free_length = 1000;
@@ -558,8 +558,8 @@ public:
 		general_number = 1;
 		player_ship.set_number(0);
 		types[0] = 3;
-		ships = new Space_Ship * [100];
-		rockets = new Rocket * [100];
+		ships = new Space_Ship * [100]{nullptr};
+		rockets = new Rocket * [100]{nullptr};
 		real_objects = new bool[max_objects_amount] { true };
 		amount_deleted_obj = 0;
 		match_table = new unsigned[max_objects_amount];
@@ -628,6 +628,10 @@ public:
 			  //case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
 		}
 		match_table[number] = (counter[type] ++) + 100 * type;
+		if (counter[type] >= 100) {
+			std::cout << "Too many rockets create";
+			throw;
+		}
 		real_objects[number] = true;
 		types[number] = type + 1;
 	}
@@ -635,7 +639,70 @@ public:
 	void delete_object(unsigned number)
 	{
 		real_objects[number] = false;
-		deleted_objects[amount_deleted_obj++] = number;
+		if (amount_deleted_obj < 50)
+		{
+			deleted_objects[amount_deleted_obj++] = number;
+		}
+	}
+
+	void update_object_list(unsigned* objects_types)
+		{
+		unsigned* buffer_table = new unsigned[max_objects_amount] {0};
+		unsigned* buffer_counter = new unsigned[amount_types] {0};
+		Space_Ship** buffer_ships = new Space_Ship* [100]{nullptr};
+		Rocket** buffer_rockets = new Rocket* [100]{nullptr};
+		unsigned current_number = 0;
+			for (unsigned current_type = 0; current_type < amount_types; ++current_type)
+			{
+				for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
+				{
+					if (current_type == 0)
+					{
+						if (real_objects[ships[current_object]->get_number()])
+						{
+							buffer_table[current_number] = current_type * 100 + (buffer_counter[current_type]);
+							ships[current_object]->set_number(current_number);
+							objects_types[current_number++] = (current_object == 0) ? 3 : 1;
+							std::swap(ships[current_object], buffer_ships[buffer_counter[current_type] ++]);
+						}
+					}
+					if (current_type == 1)
+					{
+						if (real_objects[rockets[current_object]->get_number()])
+						{
+							buffer_table[current_number] = current_type * 100 + (buffer_counter[current_type] ++);
+							rockets[current_object]->set_number(current_number);
+							objects_types[current_number++] = 2;
+							std::swap(rockets[current_object], buffer_rockets[buffer_counter[current_type] ++]);
+						}
+					}
+				}
+			}
+			std::swap(buffer_table, match_table);
+			std::swap(buffer_counter, counter);
+			std::swap(buffer_ships, ships);
+			std::swap(buffer_rockets, rockets);
+			for (unsigned k = 0; k < 100; ++k)
+			{
+				if (buffer_rockets[k] != nullptr) delete buffer_rockets[k];
+				if (buffer_ships[k] != nullptr) delete buffer_ships[k];
+			}
+			delete[] buffer_rockets;
+			delete[] buffer_ships;
+			delete[] buffer_counter;
+			for (unsigned current_obj = 0; current_obj < max_objects_amount; ++current_obj)
+			{
+				real_objects[current_obj] = true;
+			}
+		}
+
+	bool check_necessary_updating_objects_list()
+	{
+		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
+		{
+			if (counter[current_type] > 80) return true;
+		}
+		return false;
 	}
 
 	void update_object(Type** coord, Type** speed)
@@ -820,6 +887,10 @@ public:
 		//print_current_state(coords, speeds, engine_power, type_objects, current_objects_amount);
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
+		if (check_necessary_updating_objects_list())
+		{
+			update_object_list(type_objects);
+		}
 		std::ofstream fout("cords.txt", std::ios::app);
 		//if (fout.is_open()) print_arr<Type>(coords, "cords", current_objects_amount, fout, 0);
 		//fout.close();
