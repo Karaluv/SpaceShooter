@@ -6,6 +6,7 @@
 
 #include <render_engine.cpp>
 
+
 namespace srs
 
 {
@@ -13,7 +14,74 @@ namespace srs
 	render_engine* RendEng = render_engine::GetInstance();
 	
 
+	// because in other classes normal arrays are used and vectors in render
+	// i got to map indeces
+
+	unsigned* is_alive_previous = new unsigned[500];
+	// fill with 0
 	
+	void init()
+	{
+	for (int i = 0; i < 500; i++)
+	{
+		is_alive_previous[i] = 0;
+	}
+
+	}
+	// map int int
+	std::map<int, int> indeces;
+	
+	std::map<int, std::string> int_to_name{ 
+		{1,"monkey"},
+		{2,"cube"}};
+
+	void sync_changes(unsigned * is_alive,
+		float * x_coords, float *y_coords, float *z_coords, 
+		float *p, float *q, float *r)
+	{
+		
+		for (int i = 0; i < 30; ++i)
+		{
+			//std::cout << i << ' ' << is_alive[i] << ' ' << is_alive_previous[i]<< ' ' << indeces[i] << std::endl;
+			if (is_alive_previous[i] != 0 && is_alive_previous[i] != is_alive[i])
+			{
+				// delete object
+				RendEng->delete_object(indeces[i]);
+				
+				// move indeces
+				for (int j = i; j < 500; ++j)
+				{
+					indeces[j] = indeces[j]-1;
+				}
+				
+				if (is_alive != 0)
+				{
+					// add object
+					RendEng->create_object(int_to_name[is_alive[i]], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+					indeces[i] = RendEng->get_number_of_objects()-1;
+				}
+			}
+			else if (is_alive_previous[i] == 0 && is_alive[i] != 0)
+			{
+				// add object
+				RendEng->create_object(int_to_name[is_alive[i]], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+				indeces[i] = RendEng->get_number_of_objects()-1;
+			}
+			else if (is_alive_previous[i] != 0 && is_alive[i] != 0)
+			{
+				// update object
+				RendEng->update_object(indeces[i], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+			}
+
+			
+		}
+
+		for (int i = 0; i < 500; ++i)
+		{
+			is_alive_previous[i] = is_alive[i];
+		}
+		
+	}
 	
 	
 	void start_render()
