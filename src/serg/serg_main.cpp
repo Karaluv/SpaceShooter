@@ -8,6 +8,9 @@
 
 using Type = long double;
 Type const PI = 3.14159;
+Type const Kc = 500;
+Type const Ks = 20;
+Type const Kf = 20;
 
 Type get_square(Type number) {
 	return number * number;
@@ -220,14 +223,10 @@ public:
 	Math_Point() : number(0) {};
 
 	void set_coord(Type* arr) {
-		coord = Directed_Segment(arr[0], arr[1], arr[2]);
+		coord = Directed_Segment(arr[0] * Kc, arr[1] * Kc, arr[2] * Kc);
 	}
 	void set_speed(Type* v) {
-		speed = Directed_Segment(v[0], v[1], v[2]);
-	}
-
-	void set_accel(Type* a) {
-		speed = Directed_Segment(a[0], a[1], a[2]);
+		speed = Directed_Segment(v[0] * Ks, v[1] * Ks, v[2] * Ks);
 	}
 
 	void set_number(unsigned n)
@@ -253,18 +252,18 @@ public:
 	Type* get_list_speed()
 	{
 		Type* list_speed = new Type[3];
-		list_speed[0] = this->speed.x;
-		list_speed[1] = this->speed.y;
-		list_speed[2] = this->speed.z;
+		list_speed[0] = this->speed.x / Ks;
+		list_speed[1] = this->speed.y / Ks;
+		list_speed[2] = this->speed.z / Ks;
 		return list_speed;
 	}
 
 	Type* get_list_coord()
 	{
 		Type* list_coord = new Type[3];
-		list_coord[0] = this->coord.x;
-		list_coord[1] = this->coord.y;
-		list_coord[2] = this->coord.z;
+		list_coord[0] = this->coord.x / Kc;
+		list_coord[1] = this->coord.y / Kc;
+		list_coord[2] = this->coord.z / Kc;
 		return list_coord;
 	}
 
@@ -350,8 +349,8 @@ protected:
 	Type const standart_ship_speed = 50;
 	Type const standart_ship_accel = 5;
 	Type const standart_ship_size = 50;
-	Type const detected_distance = 1500; // distance of detection of enemy
-	Type const fire_distance = 750; // distance of starting of shut
+	Type const detected_distance = 10000; // distance of detection of enemy
+	Type const fire_distance = 5000; // distance of starting of shut
 	unsigned const standart_recharging_time = 100;
 	unsigned recharging_time;
 	unsigned recharging;
@@ -460,9 +459,9 @@ public:
 	Type* get_list_power()
 	{
 		Type* list_power = new Type[3];
-		list_power[0] = this->engine_power.x;
-		list_power[1] = this->engine_power.y;
-		list_power[2] = this->engine_power.z;
+		list_power[0] = this->engine_power.x / Kf;
+		list_power[1] = this->engine_power.y / Kf;
+		list_power[2] = this->engine_power.z / Kf;
 		return list_power;
 	}
 
@@ -529,8 +528,8 @@ public:
 class Object_Management {
 private:
 	unsigned const max_objects_amount = 10000;
-	unsigned const min_start_distance = 2000;
-	unsigned const max_start_distance = 20000;
+	unsigned const min_start_distance = 1000;
+	unsigned const max_start_distance = 10000;
 	unsigned const start_ship_number = 20;
 	unsigned const amount_types = 4;
 	unsigned const ship_type = 1;
@@ -604,7 +603,7 @@ public:
 			std::cout << "Such object is not existed" << std::endl;
 			throw;
 		}
-		return rockets[number % 100];
+		return rockets[match_table[number] % 100];
 	}
 
 	void create_object(unsigned type, unsigned number, unsigned* types)
@@ -622,6 +621,7 @@ public:
 			  //case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
 		}
 		match_table[number] = (counter[type] ++) + 100 * type;
+		real_objects[number] = true;
 		types[number] = type + 1;
 	}
 
@@ -663,7 +663,7 @@ public:
 
 	void process_collisions(unsigned* arr1, unsigned* arr2, unsigned amount_collisions)
 	{
-		for (unsigned k = 0; k < amount_collisions; ++k)
+		for (unsigned k = 0; k < amount_collisions; ++ k)
 		{
 			unsigned number1 = match_table[arr1[k]];
 			unsigned number2 = match_table[arr2[k]];
@@ -682,29 +682,48 @@ public:
 		}
 	}
 
-	void process_events(unsigned* types)
+	void process_events(unsigned* types, std::ofstream &fout)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
 			for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
 			{
-				if (!real_objects[current_object + current_type * 100]) continue;
 				switch (current_type) {
-				case 1:
+				case 0:
 				{
+					if (! real_objects[ships[current_object]->get_number()])
+					{
+						//fout << "Error: the object number " << ships[current_object]->get_number() << " not exist" << std::endl;
+						break;
+					}
+
 					if (current_object == 0)
 					{
 						ships[current_object]->do_recharging();
 						continue;
 					}
+					fout << "The ship number " << current_object << ":" << std::endl;
+					fout << "Distance to player_ship " << player_ship.get_coord().define_distance(ships[current_object]->get_coord())
+						<< ":" << std::endl;
 					if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 						ships[current_object]->get_detected_distance())
 					{
+						fout << "The ship number " << current_object << " detected player ship" << std::endl;
 						ships[current_object]->set_target(player_ship.get_coord());
 						if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 							ships[current_object]->get_fire_distance())
 						{
+							fout << "The ship number " << current_object << " attack player ship" << std::endl;
 							create_object(1, general_number ++, types - 1);
+
+							//for tecting
+							/*** 
+							Rocket* new_rocket = this->find_rocket(general_number - 1);
+							Directed_Segment target_coord = player_ship.get_coord();
+							Directed_Segment target_speed = player_ship.get_speed();
+							***/
+							//end of the code for testing
+
 							ships[current_object]->shout(1, *(this->find_rocket(general_number - 1)),
 								player_ship.get_coord(), player_ship.get_speed());
 						}
@@ -789,15 +808,22 @@ public:
 		//print_current_state(coords, speeds, engine_power, type_objects, current_objects_amount);
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		//std::ofstream fout("cords.txt", std::ios::app);
+		std::ofstream fout("cords.txt", std::ios::app);
 		//if (fout.is_open()) print_arr<Type>(coords, "cords", current_objects_amount, fout, 0);
 		//fout.close();
+		//for testing
+		fout << "collisions:" << std::endl;
+		for (unsigned k = 0; k < amount_collisions; ++k)
+		{
+			fout << arr1[k] << "  " << arr2[k] << std::endl;
+		}
+		//end the code for testing
 		process_collisions(arr1, arr2, amount_collisions);
-		process_events(type_objects);
+		process_events(type_objects, fout);
 		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
 		//fout.open("cords.txt", std::ios::app);
 		//if (fout.is_open()) print_arr<Type>(engine_power, "forces", current_objects_amount, fout, 0);
-		//fout.close();
+		fout.close();
 	}
 
 };
