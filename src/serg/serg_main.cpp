@@ -756,6 +756,7 @@ public:
 			general_number = current_number;
 
 			//for testing
+			/***
 			for (unsigned k = 0; k < amount_types; ++k)
 			{
 				std::cout << counter[k] << " General number of objects with type  " << k << std::endl;
@@ -766,6 +767,7 @@ public:
 				if (real_objects[k]) ++ real_objects_number;
 			}
 			std::cout << "All " << real_objects_number << " live objects" << std::endl;
+			***/
 			//end of testing coord
 		}
 	}
