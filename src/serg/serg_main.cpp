@@ -405,13 +405,6 @@ public:
 		this->recharging_time = standart_recharging_time;
 	}
 
-	// destructor
-	~Space_Ship() {
-		delete[] arsenal;
-		// cout I was called
-		std::cout << "heh";
-	}
-
 	bool change_direction()
 	{
 		return coord.define_distance(target) < free_length / 2;
