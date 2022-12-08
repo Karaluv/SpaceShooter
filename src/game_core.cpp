@@ -257,10 +257,15 @@ int main()
 			for (int i1 = 0; i1 < 10000; ++i1) {
 				
 				if (TIP[i1] != 0) {
-					bodies[i1].update_angle(dt);
-					bodies[i1].update_w(dt, null_moment);
-					bodies[i1].update_velocity(dt, force);
-					bodies[i1].update_position(dt);
+					//try {
+						bodies[i1].update_angle(dt);
+						bodies[i1].update_w(dt, null_moment);
+						bodies[i1].update_velocity(dt, force);
+						bodies[i1].update_position(dt);
+					//}
+					//catch (std::invalid_argument) {
+						//std::cout << " some data is incorrect \n";
+					//}
 
 					CORD[i1][0] = bodies[i1].r[0];
 					CORD[i1][1] = bodies[i1].r[1];
@@ -277,7 +282,12 @@ int main()
 							if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 								IS_COLLIDED[i1] = 1;
 								IS_COLLIDED[j] = 1;
-								bodies[i1].collision(bodies[j]);
+								//try { 
+									bodies[i1].collision(bodies[j]); 
+								//}
+								//catch (std::invalid_argument) {
+									//std::cout << " some data is incorrect \n";
+								//}
 								R1[collision_count] = i1;
 								R2[collision_count] = j;
 								collision_count++;

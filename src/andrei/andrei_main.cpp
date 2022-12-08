@@ -138,15 +138,23 @@ public:
 	}
 	
 	void update_velocity(T time, directed_segment<T> force) {
-		v = v + (force/m) * time;
+		if (m != 0)
+			v = v + force / m * time;
+		else {
+			//throw std::invalid_argument("Mass of body is 0");
+		}
 	}
 
 	void update_w(T time, directed_segment<T> M) {
 		directed_segment<T> w_;
-		w_[0] = w[1] * w[2] * (tensor[1][1] - tensor[2][2]) / tensor[0][0] + M[0] / tensor[0][0];
-		w_[1] = w[0] * w[2] * (tensor[2][2] - tensor[0][0]) / tensor[1][1] + M[1] / tensor[1][1];
-		w_[2] = w[0] * w[1] * (tensor[0][0] - tensor[1][1]) / tensor[2][2] + M[2] / tensor[2][2];
-
+		if (tensor[0][0] == 0 || tensor[1][1] == 0 || tensor[2][2] == 0) {
+			//throw std::invalid_argument("Tensor of inertia is not full");
+		}
+		else {
+			w_[0] = w[1] * w[2] * (tensor[1][1] - tensor[2][2]) / tensor[0][0] + M[0] / tensor[0][0];
+			w_[1] = w[0] * w[2] * (tensor[2][2] - tensor[0][0]) / tensor[1][1] + M[1] / tensor[1][1];
+			w_[2] = w[0] * w[1] * (tensor[0][0] - tensor[1][1]) / tensor[2][2] + M[2] / tensor[2][2];
+		}
 
 		
 		w[0] = w[0] + time * w_[0];
@@ -160,7 +168,14 @@ public:
 	
 	void update_angle(T time) {
 		directed_segment<T> angle_;
-
+		//exception
+		if (angle[1] == 0) {
+			angle[1] = 0.000000001;
+		}
+		if (angle[2] == 0) {
+			angle[2] = 0.000000001;
+		}
+		
 		angle_[0] = (w[0] / cos(angle[2]) + w[1] / sin(angle[2])) * sin(2 * angle[2]) / (2 * sin(angle[1]));
 		angle_[1] = (w[0] / sin(angle[2]) - w[1] / cos(angle[2])) * sin(2*angle[2]) / (2);
 		angle_[2] = w[2] - angle_[0]*cos(angle[1]);
@@ -169,6 +184,10 @@ public:
 
 	// void collision with other body using vector of velocity
 	void collision(Body<T>& other) {
+		//exception
+		if (m == 0 || other.m == 0) {
+			//throw std::invalid_argument("Mass of body is 0");
+		}
 		// calculate new velocity for this body
 		directed_segment<T> v1 = (v * (m - other.m) + other.v* (2 * other.m)) / (m + other.m);
 		// calculate new velocity for other body
@@ -244,6 +263,10 @@ public:
 	//operator / for body
 	Body operator/(const T& other) {
 		Body result;
+		//exception
+		if (other == 0) {0
+>?			throw std::invalid_argument("Divide by zero");
+		}
 		result.r = r / other;
 		result.v = v / other;
 		result.angle = angle / other;
