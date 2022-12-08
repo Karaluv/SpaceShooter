@@ -33,14 +33,15 @@ namespace srs
 	
 	std::map<int, std::string> int_to_name{ 
 		{1,"monkey"},
-		{2,"cube"}};
+		{2,"cube"},
+		{3,"enemy_ship"}};
 
 	void sync_changes(unsigned * is_alive,
 		float * x_coords, float *y_coords, float *z_coords, 
 		float *p, float *q, float *r)
 	{
 		
-		for (int i = 0; i < 30; ++i)
+		for (int i = 0; i < 500; ++i)
 		{
 			//std::cout << i << ' ' << is_alive[i] << ' ' << is_alive_previous[i]<< ' ' << indeces[i] << std::endl;
 			if (is_alive_previous[i] != 0 && is_alive_previous[i] != is_alive[i])

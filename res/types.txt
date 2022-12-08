@@ -1,4 +1,4 @@
 0 cubemap cubemap skybox 20
-1 monkey monkey uvmap 1
-2 cube cube uvmap 1
-3 enemy_ship enemy_ship enemy_ship 1
+1 monkey monkey uvmap 0.1
+2 cube cube uvmap 0.1
+3 enemy_ship enemy_ship enemy_ship 0.1

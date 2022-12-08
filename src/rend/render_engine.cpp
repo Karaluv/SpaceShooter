@@ -94,9 +94,9 @@ public:
 			render_frame();
 			end = std::chrono::steady_clock::now();
 			auto render_time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
-			if (render_time > target_fps)
-				std::cout << "Your PC is too slow, render fps is less than 60fps.\n So render auto shuts down\n";
-			else
+			//if (render_time > target_fps)
+				//std::cout << "Your PC is too slow, render fps is less than 60fps.\n So render auto shuts down\n";
+			//else
 				std::this_thread::sleep_for(std::chrono::nanoseconds(render_time));
 			begin = std::chrono::steady_clock::now();
 		}
