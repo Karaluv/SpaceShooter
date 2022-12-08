@@ -34,7 +34,7 @@ namespace srs
 	std::map<int, std::string> int_to_name{ 
 		{1,"monkey"},
 		{2,"cube"},
-		{3,"enemy_ship"}};
+		{4,"enemy_ship"}};
 
 	void sync_changes(unsigned * is_alive,
 		float * x_coords, float *y_coords, float *z_coords, 

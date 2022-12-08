@@ -132,9 +132,17 @@ public:
 	
 		//glBindTexture(GL_TEXTURE_2D, m_textureId);
 		//glUniform1i(m_textureUniformId, 0);
-		glUniform1f(m_scaleUniformId, m_scale);
+		glUniform1f(m_scaleUniformId, 1);
 			
 		glUniform1i(m_lightningTypeUniformId, 1);
+
+		glActiveTexture(GL_TEXTURE0);
+		
+		glBindTexture(GL_TEXTURE_2D, m_textureType);
+			//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 100.0f);
+		glUniform1i(m_textureUniformId, 0);
+
+
 
 	
 		glm::mat4 RotationMatrixX = glm::rotate(glm::mat4(1.0f), m_orientation.x, 
@@ -186,8 +194,16 @@ public:
 	
 		//glBindTexture(GL_TEXTURE_2D, m_textureId);
 		//glUniform1i(m_textureUniformId, 0);
+			glActiveTexture(GL_TEXTURE0);
+		
+			glBindTexture(GL_TEXTURE_2D, m_textureType);
+			//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 100.0f);
+			glUniform1i(m_textureUniformId, 0);
 
-	
+
+		
+
+		
 		glUniform1i(m_lightningTypeUniformId, 0);
 		
 		glm::mat4 RotationMatrixX = glm::rotate(glm::mat4(1.0f), m_orientation.x, 

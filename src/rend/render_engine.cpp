@@ -176,9 +176,9 @@ public:
 		// conditional
 		
 		if (name == "skybox")
-			add_object<Skybox>(Type,texture_index,x,  y,z, ax, ay, az, aw);
+			add_object<Skybox>(Type,Gltexture_index,x,  y,z, ax, ay, az, aw);
 		else
-			add_object<ConstMeshObject>(Type,texture_index,x, y, z, ax, ay, az, aw);
+			add_object<ConstMeshObject>(Type,Gltexture_index,x, y, z, ax, ay, az, aw);
 		access_object_.unlock();
 			
 	}
@@ -335,17 +335,8 @@ private:
 
 			// get scale 
 			std::string mesh_name = NamesMesh[index];
-			std::string texture_name = NamesTexture[index];
 			
 			int mesh_index = MeshesId[mesh_name];
-			int texture_index = TexturesId[texture_name];
-			GLuint Gltexture_index = TexturesGl[texture_index];
-
-			glActiveTexture(GL_TEXTURE0);
-		
-			glBindTexture(GL_TEXTURE_2D, Gltexture_index);
-			//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 100.0f);
-			glUniform1i(TextureID, 0);
 
 			// scale texture
 			
@@ -571,6 +562,15 @@ private:
 		inputs['c'] = false;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 			inputs['c'] = true;
+		// mouse left click
+		inputs['l'] = false;
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+			inputs['l'] = true;
+		// mouse right click
+		inputs['o'] = false;
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+			inputs['o'] = true;
+		
 
 		// mouse move
 		glfwGetCursorPos(window, &mouse_x, &mouse_y);
@@ -661,7 +661,8 @@ private:
 		{'d', false}, {'e', false}, {'q', false},
 		{'r', false}, {'t', false}, {'m', false},
 		{'n', false}, {'c', false}, {'s', false},
-		{' ', false} };
+		{' ', false}, {'x', false}, {'y', false},
+		{'l', false}, {'o', false} };
 
 	double mouse_x, mouse_y;
 

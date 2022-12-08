@@ -161,6 +161,7 @@ int main()
 
 
 		
+		
 		float* x_coords = new float[500];
 		float* y_coords = new float[500];
 		float* z_coords = new float[500];
@@ -364,11 +365,25 @@ int main()
 				roll += 0.1;
 			if (inputs['q'])
 				roll -= 0.1;
+			player_actions.shout = false;
+			if (inputs['l'])
+				player_actions.shout = true;
 
 			std::pair<double, double> mouse_pos = srs::get_mouse();
+
 			
 			ax = -mouse_pos.first/1000;
 			ay = -mouse_pos.second/1000;
+
+			bodies[0].r[0] = x;
+			bodies[0].r[1] = y;
+			bodies[0].r[2] = z;
+
+			bodies[0].angle[0] = ax;
+			bodies[0].angle[1] = ay;
+			bodies[0].angle[2] = az;
+
+
 
 			
 			//srs::update_object(0, x, y, z,0,0,0,0);
