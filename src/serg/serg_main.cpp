@@ -331,6 +331,11 @@ public:
 		this->destructive_power = destructive_power;
 	}
 
+	// deatructor
+	~Weapon() {
+		std::cout << "heh";
+	};
+
 	unsigned get_destructive_power()
 	{
 		return destructive_power;
@@ -400,6 +405,13 @@ public:
 		this->recharging_time = standart_recharging_time;
 	}
 
+	// destructor
+	~Space_Ship() {
+		delete[] arsenal;
+		// cout I was called
+		std::cout << "heh";
+	}
+
 	bool change_direction()
 	{
 		return coord.define_distance(target) < free_length / 2;
@@ -457,7 +469,7 @@ public:
 
 	void destroy()
 	{
-		return; // äîïèñàòü
+		return; // Ã¤Ã®Ã¯Ã¨Ã±Ã Ã²Ã¼
 	}
 
 	template<typename T>
@@ -642,8 +654,16 @@ public:
 
 		switch (type)
 		{
-		case 0: {ships[counter[type]] = new Space_Ship(); ships[counter[type]]->set_number(number); break; }
-		case 1: {rockets[counter[type]] = new Rocket(); rockets[counter[type]]->set_number(number); break; }
+		case 0: {
+			ships[counter[type]] = new Space_Ship(); 
+			ships[counter[type]]->set_number(number); 
+			break; 
+		}
+		case 1: {
+			rockets[counter[type]] = new Rocket(); 
+			rockets[counter[type]]->set_number(number); 
+			break; 
+		}
 			  //case 2: {arr_objects[counter[type] + 100 * type] = new Weapon(); break; }
 			  //case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
 		}
@@ -666,8 +686,10 @@ public:
 	}
 
 	void update_object_list(unsigned* objects_types)
+	{
+		if (true)
 		{
-
+ 
 		//for testing
 		/***
 		for (unsigned k = 0; k < amount_types; ++k) 
@@ -684,6 +706,7 @@ public:
 		//end of testing coord
 
 		unsigned current_number = 0;
+ 
 			for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 			{
 				for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
@@ -726,6 +749,7 @@ public:
 			std::swap(buffer_ships, ships);
 			std::swap(buffer_rockets, rockets);
 			for (unsigned current_obj = 0; current_obj < current_number; ++current_obj)
+
 			{
 				real_objects[current_obj] = true;
 			}
@@ -744,6 +768,7 @@ public:
 			std::cout << "All " << real_objects_number << " live objects" << std::endl;
 			//end of testing coord
 		}
+	}
 
 	bool check_necessary_updating_objects_list()
 	{
