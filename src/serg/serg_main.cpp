@@ -329,6 +329,11 @@ public:
 		this->destructive_power = destructive_power;
 	}
 
+	// deatructor
+	~Weapon() {
+		std::cout << "heh";
+	};
+
 	unsigned get_destructive_power()
 	{
 		return destructive_power;
@@ -385,6 +390,13 @@ public:
 		this->size = standart_ship_size;
 		this->hp = standart_hp;
 		this->recharging_time = standart_recharging_time;
+	}
+
+	// destructor
+	~Space_Ship() {
+		delete[] arsenal;
+		// cout I was called
+		std::cout << "heh";
 	}
 
 	bool change_direction()
@@ -622,8 +634,16 @@ public:
 
 		switch (type)
 		{
-		case 0: {ships[counter[type]] = new Space_Ship(); ships[counter[type]]->set_number(number); break; }
-		case 1: {rockets[counter[type]] = new Rocket(); rockets[counter[type]]->set_number(number); break; }
+		case 0: {
+			ships[counter[type]] = new Space_Ship(); 
+			ships[counter[type]]->set_number(number); 
+			break; 
+		}
+		case 1: {
+			rockets[counter[type]] = new Rocket(); 
+			rockets[counter[type]]->set_number(number); 
+			break; 
+		}
 			  //case 2: {arr_objects[counter[type] + 100 * type] = new Weapon(); break; }
 			  //case 3: {arr_objects[counter[type] + 100 * type] = new Space_Ship(); break; }
 		}
@@ -646,12 +666,14 @@ public:
 	}
 
 	void update_object_list(unsigned* objects_types)
+	{
+		if (true)
 		{
-		unsigned* buffer_table = new unsigned[max_objects_amount] {0};
-		unsigned* buffer_counter = new unsigned[amount_types] {0};
-		Space_Ship** buffer_ships = new Space_Ship* [100]{nullptr};
-		Rocket** buffer_rockets = new Rocket* [100]{nullptr};
-		unsigned current_number = 0;
+			unsigned* buffer_table = new unsigned[max_objects_amount] {0};
+			unsigned* buffer_counter = new unsigned[amount_types] {0};
+			Space_Ship** buffer_ships = new Space_Ship * [100] {nullptr};
+			Rocket** buffer_rockets = new Rocket * [100] {nullptr};
+			unsigned current_number = 0;
 			for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 			{
 				for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
@@ -682,6 +704,7 @@ public:
 			std::swap(buffer_counter, counter);
 			std::swap(buffer_ships, ships);
 			std::swap(buffer_rockets, rockets);
+
 			for (unsigned k = 0; k < 100; ++k)
 			{
 				if (buffer_rockets[k] != nullptr) delete buffer_rockets[k];
@@ -695,6 +718,7 @@ public:
 				real_objects[current_obj] = true;
 			}
 		}
+	}
 
 	bool check_necessary_updating_objects_list()
 	{
@@ -776,18 +800,18 @@ public:
 						ships[current_object]->do_recharging();
 						continue;
 					}
-					fout << "The ship number " << current_object << ":" << std::endl;
-					fout << "Distance to player_ship " << player_ship.get_coord().define_distance(ships[current_object]->get_coord())
-						<< ":" << std::endl;
+					//fout << "The ship number " << current_object << ":" << std::endl;
+					//fout << "Distance to player_ship " << player_ship.get_coord().define_distance(ships[current_object]->get_coord())
+						//<< ":" << std::endl;
 					if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 						ships[current_object]->get_detected_distance())
 					{
-						fout << "The ship number " << current_object << " detected player ship" << std::endl;
+						//fout << "The ship number " << current_object << " detected player ship" << std::endl;
 						ships[current_object]->set_target(player_ship.get_coord());
 						if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 							ships[current_object]->get_fire_distance())
 						{
-							fout << "The ship number " << current_object << " attack player ship" << std::endl;
+							//fout << "The ship number " << current_object << " attack player ship" << std::endl;
 							create_object(1, general_number ++, types - 1);
 
 							//for tecting
