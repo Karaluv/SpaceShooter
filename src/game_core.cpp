@@ -370,7 +370,7 @@ int main()
 			ay = -mouse_pos.second/1000;
 
 			
-			srs::update_object(0, x, y, z,0,0,0,0);
+			//srs::update_object(0, x, y, z,0,0,0,0);
 
 			// camera update
 			srs::update_camera(x, y, z, ax, ay, roll);

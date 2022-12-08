@@ -41,14 +41,19 @@ namespace srs
 		float *p, float *q, float *r)
 	{
 		
-		for (int i = 0; i < 500; ++i)
+		for (int i = 0; i < 500-1; ++i)
 		{
 			//std::cout << i << ' ' << is_alive[i] << ' ' << is_alive_previous[i]<< ' ' << indeces[i] << std::endl;
 			if (is_alive_previous[i] != 0 && is_alive_previous[i] != is_alive[i])
 			{
 				// delete object
-				RendEng->delete_object(indeces[i]);
-				
+				try {
+					RendEng->delete_object(indeces[i]);
+				}
+				catch (const std::exception& e)
+				{
+					std::cout << e.what() << std::endl;
+				}
 				// move indeces
 				for (int j = i; j < 500; ++j)
 				{
@@ -65,15 +70,27 @@ namespace srs
 			else if (is_alive_previous[i] == 0 && is_alive[i] != 0)
 			{
 				// add object
-				RendEng->create_object(int_to_name[is_alive[i]], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
-				indeces[i] = RendEng->get_number_of_objects()-1;
+
+				try {
+					RendEng->create_object(int_to_name[is_alive[i]], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+					indeces[i] = RendEng->get_number_of_objects() - 1;
+				}
+				catch (const std::exception& e)
+				{
+					std::cout << e.what() << std::endl;
+				}
 			}
 			else if (is_alive_previous[i] != 0 && is_alive[i] != 0)
 			{
 				// update object
-				RendEng->update_object(indeces[i], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+				try {
+					RendEng->update_object(indeces[i], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
+				}
+				catch (const std::exception& e)
+				{
+					std::cout << e.what() << std::endl;
+				}
 			}
-
 			
 		}
 
