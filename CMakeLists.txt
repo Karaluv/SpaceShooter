@@ -21,6 +21,7 @@ include_directories(
 	external/glew-1.13.0/include/
 	external/assimp-3.0.1270/include/
 	external/bullet-2.81-rev2613/src/
+	external/stb/
 	src/rend/
 	src/serg/
 
@@ -100,7 +101,13 @@ add_library(render_engine
 	src/rend/render_object.hpp
 	src/rend/render_mesh.hpp
 	src/rend/render_camera.hpp
+
  "src/serg/Player_Actions.h")
+
+	
+	src/rend/cube_map.cpp
+	src/rend/cub_map.hpp
+)
 
 add_library(render
 	src/rend/render.cpp

@@ -41,7 +41,7 @@ public:
             UvBuff.push_back(GLuint(0));
             VertexBuff.push_back(GLuint(0));
             IndexBuff.push_back(GLuint(0));
-            IndexBuff.back() = load_mesh(PathDict[i], i + 1, &ElementBuff.back(), &NormalBuff.back(),
+            IndexBuff.back() = load_mesh("res/obj/" + PathDict[i], i + 1, &ElementBuff.back(), &NormalBuff.back(),
                                          &UvBuff.back(), &VertexBuff.back());
         }
     }
