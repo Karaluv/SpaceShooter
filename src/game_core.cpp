@@ -275,6 +275,7 @@ int main()
 				}
 				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
+
 				// testing code (please not delete)
 				if (cycle % 100 == 0) {
 					//print_arr<Type>(CORD, "coords", current_number, fin, cycle);
