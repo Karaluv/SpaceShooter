@@ -6,6 +6,8 @@
 #include "Player_Actions.h"
 //#include <matrix.cpp>
 
+unsigned general_rockets_number = 0;
+
 using Type = long double;
 Type const PI = 3.14159;
 Type const Kc = 500;
@@ -348,6 +350,12 @@ class Rocket final : public Weapon {
 public:
 	Rocket() : Weapon() {
 		this->set_parametres(standart_rocket_speed, standart_destructive_power);
+		++general_rockets_number;
+	}
+
+	~ Rocket()
+	{
+		--general_rockets_number;
 	}
 };
 
@@ -374,6 +382,11 @@ public:
 	{
 		this->set_parametres();
 	};
+
+	~Space_Ship()
+	{
+		if (arsenal != nullptr) delete[] arsenal;
+	}
 
 	Space_Ship(Type max_speed, Type max_accel, unsigned hp, Type size, unsigned* arsenal) : Massive_Point(),
 		max_speed(max_speed), max_engine_power(max_accel), hp(hp), recharging(0), arsenal(arsenal) {	}
@@ -543,31 +556,38 @@ private:
 	unsigned const rocket_type = 2;
 	unsigned const player_ship_type = 3;
 	Player_Ship player_ship;
+	Space_Ship** buffer_ships;
 	Space_Ship** ships;
+	Rocket** buffer_rockets;
 	bool* real_objects;
 	unsigned deleted_objects[50];
 	unsigned amount_deleted_obj;
 	Rocket** rockets;
 	//Math_Point** arr_objects[amount_types];
 	unsigned* match_table;
+	unsigned* buffer_table;
 	unsigned* counter;
+	unsigned* buffer_counter;
 	unsigned general_number;
 public:
 	Object_Management(unsigned* types) {
+		general_rockets_number = 0;
+
 		srand(time(NULL));
 		general_number = 1;
 		player_ship.set_number(0);
 		types[0] = 3;
 		ships = new Space_Ship * [100]{nullptr};
+		buffer_ships = new Space_Ship * [100]{ nullptr };
 		rockets = new Rocket * [100]{nullptr};
+		buffer_rockets = new Rocket * [100]{ nullptr };
 		real_objects = new bool[max_objects_amount] { true };
 		amount_deleted_obj = 0;
-		match_table = new unsigned[max_objects_amount];
-		match_table[0] = 0;
+		match_table = new unsigned[max_objects_amount]{0};
+		buffer_table = new unsigned[max_objects_amount]{0};
 		ships[0] = &player_ship;
-		counter = new unsigned[amount_types];
-		for (unsigned i = 0; i < amount_types; ++i)
-			counter[i] = 0;
+		counter = new unsigned[amount_types]{0};
+		buffer_counter = new unsigned[amount_types] {0};
 		counter[0] = 1;
 		for (general_number = 1; general_number <= start_ship_number; ++ general_number) {
 			create_object(0, general_number, types);
@@ -647,10 +667,22 @@ public:
 
 	void update_object_list(unsigned* objects_types)
 		{
-		unsigned* buffer_table = new unsigned[max_objects_amount] {0};
-		unsigned* buffer_counter = new unsigned[amount_types] {0};
-		Space_Ship** buffer_ships = new Space_Ship* [100]{nullptr};
-		Rocket** buffer_rockets = new Rocket* [100]{nullptr};
+
+		//for testing
+		/***
+		for (unsigned k = 0; k < amount_types; ++k) 
+		{
+			std::cout << counter[k] << " General number of objects with type  " << k << std::endl;
+		}
+		unsigned real_objects_number = 0;
+		for (unsigned k = 0; k < max_objects_amount; ++k)
+		{
+			if (real_objects[k]) ++ real_objects_number;
+		}
+		std::cout << "All " << real_objects_number << " live objects" << std::endl;
+		***/
+		//end of testing coord
+
 		unsigned current_number = 0;
 			for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 			{
@@ -660,10 +692,15 @@ public:
 					{
 						if (real_objects[ships[current_object]->get_number()])
 						{
-							buffer_table[current_number] = current_type * 100 + (buffer_counter[current_type]);
+							buffer_table[current_number] = current_type * 100 + buffer_counter[current_type];
 							ships[current_object]->set_number(current_number);
-							objects_types[current_number++] = (current_object == 0) ? 3 : 1;
-							std::swap(ships[current_object], buffer_ships[buffer_counter[current_type] ++]);
+							objects_types[current_number ++] = (current_object == 0) ? 3 : 1;
+							std::swap(ships[current_object], buffer_ships[(buffer_counter[current_type]) ++]);
+						}
+						else
+						{
+							delete ships[current_object];
+							ships[current_object] = nullptr;
 						}
 					}
 					if (current_type == 1)
@@ -673,27 +710,39 @@ public:
 							buffer_table[current_number] = current_type * 100 + (buffer_counter[current_type] ++);
 							rockets[current_object]->set_number(current_number);
 							objects_types[current_number++] = 2;
-							std::swap(rockets[current_object], buffer_rockets[buffer_counter[current_type] ++]);
+							std::swap(rockets[current_object], buffer_rockets[(buffer_counter[current_type]) ++]);
+						}
+						else
+						{
+							delete rockets[current_object];
+							rockets[current_object] = nullptr;
 						}
 					}
 				}
+				counter[current_type] = 0;
 			}
 			std::swap(buffer_table, match_table);
 			std::swap(buffer_counter, counter);
 			std::swap(buffer_ships, ships);
 			std::swap(buffer_rockets, rockets);
-			for (unsigned k = 0; k < 100; ++k)
-			{
-				if (buffer_rockets[k] != nullptr) delete buffer_rockets[k];
-				if (buffer_ships[k] != nullptr) delete buffer_ships[k];
-			}
-			delete[] buffer_rockets;
-			delete[] buffer_ships;
-			delete[] buffer_counter;
-			for (unsigned current_obj = 0; current_obj < max_objects_amount; ++current_obj)
+			for (unsigned current_obj = 0; current_obj < current_number; ++current_obj)
 			{
 				real_objects[current_obj] = true;
 			}
+			general_number = current_number;
+
+			//for testing
+			for (unsigned k = 0; k < amount_types; ++k)
+			{
+				std::cout << counter[k] << " General number of objects with type  " << k << std::endl;
+			}
+			real_objects_number = 0;
+			for (unsigned k = 0; k < max_objects_amount; ++k)
+			{
+				if (real_objects[k]) ++ real_objects_number;
+			}
+			std::cout << "All " << real_objects_number << " live objects" << std::endl;
+			//end of testing coord
 		}
 
 	bool check_necessary_updating_objects_list()
@@ -776,18 +825,18 @@ public:
 						ships[current_object]->do_recharging();
 						continue;
 					}
-					fout << "The ship number " << current_object << ":" << std::endl;
-					fout << "Distance to player_ship " << player_ship.get_coord().define_distance(ships[current_object]->get_coord())
-						<< ":" << std::endl;
+					//fout << "The ship number " << current_object << ":" << std::endl;
+					//fout << "Distance to player_ship " << player_ship.get_coord().define_distance(ships[current_object]->get_coord())
+						//<< ":" << std::endl;
 					if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 						ships[current_object]->get_detected_distance())
 					{
-						fout << "The ship number " << current_object << " detected player ship" << std::endl;
+						//fout << "The ship number " << current_object << " detected player ship" << std::endl;
 						ships[current_object]->set_target(player_ship.get_coord());
 						if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
 							ships[current_object]->get_fire_distance())
 						{
-							fout << "The ship number " << current_object << " attack player ship" << std::endl;
+							//fout << "The ship number " << current_object << " attack player ship" << std::endl;
 							create_object(1, general_number ++, types - 1);
 
 							//for tecting
@@ -884,24 +933,29 @@ public:
 		unsigned amount_collisions, unsigned* arr1, unsigned* arr2,
 		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions &player_actions)
 	{
+		if (counter[1] != general_rockets_number) 
+		{
+			std::cout << "Unmatching of the decklaredand fact rockets number " << std::endl;
+			throw;
+		}
 		//print_current_state(coords, speeds, engine_power, type_objects, current_objects_amount);
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		if (check_necessary_updating_objects_list())
-		{
-			update_object_list(type_objects);
-		}
 		std::ofstream fout("cords.txt", std::ios::app);
 		//if (fout.is_open()) print_arr<Type>(coords, "cords", current_objects_amount, fout, 0);
 		//fout.close();
 		//for testing
-		fout << "collisions:" << std::endl;
-		for (unsigned k = 0; k < amount_collisions; ++k)
-		{
-			fout << arr1[k] << "  " << arr2[k] << std::endl;
-		}
+		//fout << "collisions:" << std::endl;
+		//for (unsigned k = 0; k < amount_collisions; ++k)
+		//{
+			//fout << arr1[k] << "  " << arr2[k] << std::endl;
+		//}
 		//end the code for testing
 		process_collisions(arr1, arr2, amount_collisions);
+		if (check_necessary_updating_objects_list())
+		{
+			update_object_list(type_objects);
+		}
 		process_events(type_objects, fout);
 		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
 		//fout.open("cords.txt", std::ios::app);
