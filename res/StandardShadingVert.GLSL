@@ -10,7 +10,7 @@ out vec2 UV;
 out vec3 Position_worldspace;
 out vec3 Normal_cameraspace;
 out vec3 EyeDirection_cameraspace;
-out vec3 LightDirection_cameraspace[10];
+out vec3 LightDirection_cameraspace[5];
 
 // out vec3 TexCoords;
 
@@ -19,7 +19,7 @@ out vec3 LightDirection_cameraspace[10];
 uniform mat4 MVP;
 uniform mat4 V;
 uniform mat4 M;
-uniform vec3 LightPosits[10];
+uniform vec3 LightPosits[5];
 uniform int LightCount;
 
 void main(){

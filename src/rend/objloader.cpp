@@ -20,6 +20,12 @@ bool loadOBJ(
 	std::vector<glm::vec3> temp_normals;
 
 	std::ifstream file(path);
+
+	if (!file.is_open())
+	{
+		throw std::runtime_error("Failed to open file " + std::string(path));
+		return false;
+	}
 	
 	char lineHeader[128];
 
