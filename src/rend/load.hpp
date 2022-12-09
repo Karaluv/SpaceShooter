@@ -108,7 +108,6 @@ void write_to_dict(unsigned target_index, unsigned current_index,
 	else
 	{
 		// cout error
-		std::cout << "Error: write_to_dict failed!" << std::endl;
 		// throw
 		throw;
 	}
@@ -117,10 +116,15 @@ void write_to_dict(unsigned target_index, unsigned current_index,
 template <typename... Args>
 int read_list_of_n(std::string file, Args&... args)
 {
-    try
-    {
         std::string content = get_file_contents(file.c_str());
         std::istringstream iss(content);
+
+        // check if file is opened throw exception
+		if (iss.fail())
+		{
+			throw;
+		}
+        
         std::string line;
         int index = 0;
         while (std::getline(iss, line))
@@ -142,10 +146,4 @@ int read_list_of_n(std::string file, Args&... args)
             }
         }
         return index;
-    }
-	catch (...)
-	{
-		std::cout << "Error: reading object list from " << file << " failed!" << std::endl;
-		return -1;
-	}
 }

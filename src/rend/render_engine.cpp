@@ -64,11 +64,10 @@ public:
 		this->RenderTaskisRunning_ = false;
 		RenderTask_.join();
 
-		delete MeshSpace;
 
 		for (int i = 0; i < VertexBuffers.size(); i++)
 		{
-			MeshSpace->DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
+			MeshSpace.DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
 		}
 		glDeleteTextures(1, &TextureID);
 		TwTerminate();
@@ -113,24 +112,75 @@ public:
 		return Is_Initialized_;
 	}
 
-	void create_object(std::string name, float x, float y, float z, float ax, float ay, float az, float aw)
+	template <typename T>
+	void add_object(int Type,int texture_index,float x, float y, float z, float ax, float ay, float az, float aw)
 	{
-		access_object_.lock();
-		int index = NamesId[name];
+		T* new_obj = new T;
 
-		render_object* new_obj = new render_object;
+		new_obj->setCamera(&ViewCamera);
 
 		new_obj->setPosition(glm::vec3(x, y, z));
 		new_obj->setOrientation(glm::vec3(ax, ay, az));
-		new_obj->setScale(ModelScale[index]);
-		new_obj->update_model(index, IndexBuffer[index]);
 
-		new_obj->update_camera(ViewCamera);
-		glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-		new_obj->update_matrix(ModelMatrixID);
+		new_obj->setScale(ModelScale[Type]);
+		new_obj->setScaleUniformId(ScaleId);
 
-		RendObjs.push_back(new_obj);
+		new_obj->setType(Type);
+
+		new_obj->setNumVertices(IndexBuffer[Type]);
+		new_obj->setModelMatrixUniformId(ModelMatrixID);
+
+
+		new_obj->setTextureId(texture_index);
+		new_obj->setTextureUniformId(TextureID);
+
+
+		new_obj->setLightningTypeUniformId( TypeOfLightningId);
+		auto* new_rendarable = new Renderable;
+		new_rendarable->setStrategy(new_obj);
+		
+		RendObjs.push_back(new_rendarable);
+	}
+
+	void create_object(std::string name, float x, float y, float z, float ax, float ay, float az, float aw)
+	{
+
+		// check if stringin NamesId
+		if (NamesId.count(name) !=0)
+		{
+		}
+		else
+		{
+			// throw exception
+			//std::cout << "Error: object with name " << name << " not found\n";
+			throw std::exception("Error: object with name not found\n");
+			return;
+		}
+		access_object_.lock();
+		
+		int Type = NamesId[name];
+
+
+		std::string mesh_name = NamesMesh[Type];
+		std::string texture_name = NamesTexture[Type];
+			
+		int mesh_index = MeshesId[mesh_name];
+		int texture_index = TexturesId[texture_name];
+		GLuint Gltexture_index = TexturesGl[texture_index];
+		
+		
+		// conditional
+		// new_obj has type of Skybox if name skybox
+		// new_obj has type of ConstMeshObject if name not skybox
+		
+		// conditional
+		
+		if (name == "skybox")
+			add_object<Skybox>(Type,Gltexture_index,x,  y,z, ax, ay, az, aw);
+		else
+			add_object<ConstMeshObject>(Type,Gltexture_index,x, y, z, ax, ay, az, aw);
 		access_object_.unlock();
+			
 	}
 	void create_light(std::string name, float x, float y, float z, float r, float g, float b, float power)
 	{
@@ -170,9 +220,13 @@ public:
 		// print error message
 		else
 		{
-			std::cout << "Error: index out of range\n";
-		}
+		
+		// trow "Error: index out of range\n";
 		access_light_.unlock();
+			throw std::exception("Error: index out of range");
+			return;
+		 
+		}
 	}
 	void update_object(int index, float x, float y, float z, float ax, float ay, float az, float aw)
 	{
@@ -181,23 +235,29 @@ public:
 		{
 			RendObjs[index]->setPosition(glm::vec3(x, y, z));
 			RendObjs[index]->setOrientation(glm::vec3(ax, ay, az));
-			glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-			RendObjs[index]->update_matrix(ModelMatrixID);
+			//glm::mat4 ScaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+			//RendObjs[index]->update_matrix(ModelMatrixID);
+		access_object_.unlock();
 		}
 		else
-			std::cout << "NO such object exicts!";
+		{
 		access_object_.unlock();
+			// trow "Error: index out of range\n";
+		throw std::exception("Error: index out of range");
+		return;
+		}
+			//std::cout << "NO such object exicts!";
 	}
 
 	void update_camera(float x, float y, float z, float mouse_x, float mouse_y,float roll)
 	{
 		access_camera_.lock();
-		ViewCamera->set_position(glm::vec3(x, y, z));
-		ViewCamera->set_camera_angle(mouse_x, mouse_y);
+		ViewCamera.set_position(glm::vec3(x, y, z));
+		ViewCamera.set_camera_angle(mouse_x, mouse_y);
 		//ViewCamera->set_orientation(glm::vec3(ax, ay, az));
 		//ViewCamera->set_rotation(glm::vec3(rx, ry, rz));
 		// roll
-		ViewCamera->set_roll(roll); 
+		ViewCamera.set_roll(roll); 
 		access_camera_.unlock();
 	}
 
@@ -263,35 +323,26 @@ private:
 		//std::cout << "All right";
 		for (int i = 0; i < RendObjs.size(); ++i)
 		{
+			
+			RendObjs[i]->update();
+			
+			//if (i == 0)
+			//	glUniform1i(TypeOfLightningId, 0);
+			//else
+			//	glUniform1i(TypeOfLightningId, 1);
 
-			if (i == 0)
-				glUniform1i(TypeOfLightningId, 0);
-			else
-				glUniform1i(TypeOfLightningId, 1);
-
-			int index = RendObjs[i]->getID();
+			int index = RendObjs[i]->getType();
 
 			// get scale 
-			float scale = RendObjs[i]->getScale();
-			glUniform1f(ScaleId, 1);
-			
 			std::string mesh_name = NamesMesh[index];
-			std::string texture_name = NamesTexture[index];
 			
 			int mesh_index = MeshesId[mesh_name];
-			int texture_index = TexturesId[texture_name];
-			GLuint Gltexture_index = TexturesGl[texture_index];
-
-			glActiveTexture(GL_TEXTURE0);
-		
-			glBindTexture(GL_TEXTURE_2D, Gltexture_index);
-			//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 100.0f);
-			glUniform1i(TextureID, 0);
 
 			// scale texture
 			
 			
-			MeshSpace->switch_render_mesh(VertexBuffers[mesh_index], UvBuffers[mesh_index], NormalBuffers[mesh_index],
+			
+			MeshSpace.switch_render_mesh(VertexBuffers[mesh_index], UvBuffers[mesh_index], NormalBuffers[mesh_index],
 				ElementBuffers[mesh_index], vertexPosition_modelspaceID, vertexUVID,
 				vertexNormal_modelspaceID);
 			
@@ -299,7 +350,7 @@ private:
 
 			
 			
-			RendObjs[i]->draw_object();
+			RendObjs[i]->render();
 		}
 		access_object_.unlock();
 
@@ -322,9 +373,15 @@ private:
 		{
 			int index = it->second;
 			std::string path = PathTextures[index];
-
-			GLuint texture = loadDDS(("res/textures/"+path).c_str());
+			
+			try {
+				GLuint texture = loadDDS(("res/textures/" + path).c_str());
 			TexturesGl[index] = texture;
+			}
+			catch(...)
+			{
+				std::cout << "Error: can't load texture " << path << std::endl;
+			}
 		}
 	}
 
@@ -361,7 +418,7 @@ private:
 
 		programID = LoadShaders("res/StandardShadingVert.GLSL", "res/StandardShading.GLSL");
 
-		ViewCamera->AutoSetID(programID);
+		ViewCamera.AutoSetID(programID);
 		ModelMatrixID = glGetUniformLocation(programID, "M");
 
 		vertexPosition_modelspaceID = glGetAttribLocation(programID, "vertexPosition_modelspace");
@@ -377,7 +434,7 @@ private:
 		
 			
 		
-		MeshSpace->LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, PathMeshes);
+		MeshSpace.LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, PathMeshes);
 		
 
 		glUseProgram(programID);
@@ -392,9 +449,9 @@ private:
 
 		
 
-		ViewCamera->set_position(glm::vec3(0, 0, 1));
-		ViewCamera->set_angel(glm::vec3(0, 0, 0));
-		ViewCamera->set_rotation(glm::vec3(0, 1, 0));
+		ViewCamera.set_position(glm::vec3(0, 0, 1));
+		ViewCamera.set_angel(glm::vec3(0, 0, 0));
+		ViewCamera.set_rotation(glm::vec3(0, 1, 0));
 		Is_Initialized_ = true;
 		RenderTaskisTerminated_ = false;
 	}
@@ -403,7 +460,14 @@ private:
 	{
 		std::string path = "res/obj/objs.txt";
 		int number_of_objects = 0;
-		number_of_objects = read_list_of_n(path, IdMeshes, PathMeshes);
+		try {
+			number_of_objects = read_list_of_n(path, IdMeshes, PathMeshes);
+		}
+		catch (std::exception e)
+		{
+			std::cout << e.what();
+		}
+			
 		for (auto it = IdMeshes.begin(); it != IdMeshes.end(); ++it)
 		{
 			MeshesId[it->second] = it->first;
@@ -411,7 +475,13 @@ private:
 		// for textures
 		std::string path_textures = "res/textures/textures.txt";
 		int number_of_textures = 0;
+		try{
 		number_of_textures = read_list_of_n(path_textures, IdTextures, PathTextures);
+		}
+		catch (std::exception e)
+		{
+			std::cout << e.what();
+		}
 		for (auto it = IdTextures.begin(); it != IdTextures.end(); ++it)
 		{
 			TexturesId[it->second] = it->first;
@@ -420,8 +490,13 @@ private:
 		std::string path_names = "res/types.txt";
 		int number_of_names = 0;
 		std::map<int, std::string> temp_scale;
-		number_of_names = read_list_of_n(path_names, IdNames, NamesMesh, NamesTexture, temp_scale);
-		
+		try {
+			number_of_names = read_list_of_n(path_names, IdNames, NamesMesh, NamesTexture, temp_scale);
+		}
+		catch (std::exception e)
+		{
+			std::cout << e.what();
+		}
 		for (auto it = IdNames.begin(); it != IdNames.end(); ++it)
 		{
 			NamesId[it->second] = it->first;
@@ -435,8 +510,8 @@ private:
 	}
 	void update_matrixes()
 	{
-		ViewCamera->update_matrixes();
-		ViewCamera->PassMatrixesToShader();
+		ViewCamera.update_matrixes();
+		ViewCamera.PassMatrixesToShader();
 	}
 	void update_input()
 	{
@@ -487,6 +562,15 @@ private:
 		inputs['c'] = false;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 			inputs['c'] = true;
+		// mouse left click
+		inputs['l'] = false;
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+			inputs['l'] = true;
+		// mouse right click
+		inputs['o'] = false;
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+			inputs['o'] = true;
+		
 
 		// mouse move
 		glfwGetCursorPos(window, &mouse_x, &mouse_y);
@@ -562,9 +646,12 @@ private:
 
 	std::mutex inputs_;
 
-	MeshControl* MeshSpace = new MeshControl;
-	camera* ViewCamera = new camera;
-	std::vector<render_object*> RendObjs;
+	MeshControl MeshSpace;
+	camera ViewCamera;
+
+	//camera ConstMeshObject::s_camera = ViewCamera;
+	
+	std::vector<Renderable*> RendObjs;
 	std::vector<light*> Lights;
 	
 	// create dictionary for char and bool
@@ -574,7 +661,8 @@ private:
 		{'d', false}, {'e', false}, {'q', false},
 		{'r', false}, {'t', false}, {'m', false},
 		{'n', false}, {'c', false}, {'s', false},
-		{' ', false} };
+		{' ', false}, {'x', false}, {'y', false},
+		{'l', false}, {'o', false} };
 
 	double mouse_x, mouse_y;
 
