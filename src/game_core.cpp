@@ -256,6 +256,9 @@ int main()
 		for (int cycle = 0; cycle < 10000; cycle++)
 		{
 			{
+				
+				
+				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 				if (true)
 				{
 					for (int i = 0; i < 10000; i++) {
@@ -273,14 +276,22 @@ int main()
 						}
 					}
 				}
-				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
+				if (player_actions.hp <= 0)
+				{
+					std::cout << "THE PLAYER_SHIP IS NOT EXIST ANY MORE. THE GAME OI OVER" << std::endl;
+					break;
+				}
 
 				// testing code (please not delete)
+				/*
 				if (cycle % 100 == 0) {
+					std::cout << general_rockets_number << std::endl;
+					std::cout << std::endl;
 					//print_arr<Type>(CORD, "coords", current_number, fin, cycle);
 					//print_arr<Type>(SPEED, "speeds", current_number, fin, cycle);
 				}
+				*/
 				// end of the testing code
 
 				if (true)
@@ -294,6 +305,11 @@ int main()
 					for (int i1 = 0; i1 < 10000; ++i1) {
 
 						if (TIP[i1] != 0) {
+							//std::cout << TIP[i1] << ' '<< bodies[i1].v <<  ' ' << bodies[i1].r << '\n';
+							if (TIP[i1] == 2)
+								if (bodies[i1].v[0] !=0)
+								{ }
+									//std::cout << "found";
 							force[0] = FORCE[i1][0];
 							force[1] = FORCE[i1][1];
 							force[2] = FORCE[i1][2];
@@ -308,7 +324,6 @@ int main()
 							SPEED[i1][0] = bodies[i1].v[0];
 							SPEED[i1][1] = bodies[i1].v[1];
 							SPEED[i1][2] = bodies[i1].v[2];
-
 
 
 
@@ -327,7 +342,6 @@ int main()
 						}
 					}
 					//body1_Monki.update_angle(dt);
-
 					// copy from bodies to arrays
 					for (int i = 1; i < 500; ++i)
 					{
