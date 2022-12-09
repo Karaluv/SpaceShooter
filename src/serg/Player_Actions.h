@@ -7,7 +7,9 @@ struct Player_Actions
 	long double* weapon_speed;
 	unsigned hp;
 	unsigned recharging_time;
-	Player_Actions() : recharging_time(0), shout(false), hp(50)
+	bool recharging;
+	unsigned const full_recharging_time;
+	Player_Actions() : full_recharging_time(100), recharging(false), recharging_time(0), shout(false), hp(50)
 	{
 		weapon_speed = new long double[3]{ 0 };
 	};
