@@ -62,7 +62,7 @@ int main()
 	directed_segment <lld> v1(0, 0, 0);
 	directed_segment <lld> angle1(0.1, 0.1, 0.1);
 	directed_segment <lld> w1(1, 20, 0);
-	lld size1 = 20;
+	lld size1 = 1;
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
 	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
@@ -153,7 +153,7 @@ int main()
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
 		directed_segment <lld> w1(1, 20, 0);
-		lld size1 =20;
+		lld size1 =1;
 		lld m1 = 1;
 		directed_segment <lld> nul(0.0001, 0.0001, 0.0001);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
@@ -342,7 +342,9 @@ int main()
 										IS_COLLIDED[j] = 1;
 										//try and catch
 										try {
-											//bodies[i1].collision(bodies[j]);
+											if (TIP[i1] == TIP[j]) {
+												bodies[i1].collision(bodies[j]);
+											}
 										}
 										catch (const std::invalid_argument& e) {
 											std::cout << e.what() << "\n";
@@ -372,7 +374,10 @@ int main()
 
 				}
 			}
-		
+			if (player_actions.hp <= 0) {
+				std::cout << "gameover";
+				break;
+			}
 			
 			std::map<char, bool> inputs = srs::get_inputs();
 			
