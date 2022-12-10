@@ -288,10 +288,14 @@ int main()
 				}
 
 				// testing code (please not delete)
+				/*
 				if (cycle % 100 == 0) {
+					std::cout << general_rockets_number << std::endl;
+					std::cout << std::endl;
 					//print_arr<Type>(CORD, "coords", current_number, fin, cycle);
 					//print_arr<Type>(SPEED, "speeds", current_number, fin, cycle);
 				}
+				*/
 				// end of the testing code
 
 				if (true)
@@ -331,7 +335,6 @@ int main()
 
 
 
-
 							for (int j = 0; j < 10000; j++) {
 								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 									if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
@@ -353,7 +356,6 @@ int main()
 						}
 					}
 					//body1_Monki.update_angle(dt);
-
 					// copy from bodies to arrays
 					for (int i = 1; i < 500; ++i)
 					{

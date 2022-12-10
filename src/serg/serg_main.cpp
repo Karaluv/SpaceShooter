@@ -32,10 +32,10 @@ void copy_arr(T* data, T* new_data)
 template <typename T>
 void print_arr(T** arr, std::string name, unsigned N, std::ofstream& fin, unsigned time)
 {
-	if (N > 5) N = 5;
+	//if (N > 5) N = 5;
 	fin << "Moment of time: " << time << std::endl;
 	fin << "Start of output of " << name <<  std::endl;
-	for (unsigned k = 0; k < N; ++k)
+	for (unsigned k = 20; k < N; ++k)
 	{
 		fin << k << ": ";
 		for (unsigned i = 0; i < 3; ++i)
@@ -50,10 +50,9 @@ void print_arr(T** arr, std::string name, unsigned N, std::ofstream& fin, unsign
 template <typename T>
 void print_arr(T* arr, std::string name, unsigned N, std::ofstream& fin, unsigned time)
 {
-	if (N > 5) N = 5;
 	fin << "Moment of time: " << time << std::endl;
 	fin << "Start of output of " << name << std::endl;
-	for (unsigned k = 0; k < N; ++k)
+	for (unsigned k = 20; k < N; ++k)
 	{
 		fin << k << " ";
 		fin << arr[k] << "  ";
@@ -101,13 +100,15 @@ struct Directed_Segment {
 	//I don't understand why it's not correct
 	/***
 	Directed_Segment(Directed_Segment&& src) : x(src.x), y(src.y), z(src.z) {};
-	Directed_Segment& operator = (Directed_Segment& src) {
+	Directed_Segment& operator = (Directed_Segment&& src) {
 		Directed_Segment buffer(std::move(src));
 		std::swap(this->x, buffer.x);
 		std::swap(this->y, buffer.y);
 		std::swap(this->z, buffer.z);
 	};
 	***/
+
+	~Directed_Segment() = default;
 
 	Directed_Segment operator + (Directed_Segment& other) {
 		return Directed_Segment(this->x + other.x, this->y + other.y, this->z + other.z);
@@ -201,6 +202,13 @@ Directed_Segment set_random_sphere_point(Type R)
 }
 
 
+//Class(Class const& src) = default;
+//Class& operator = (Class const& src) = default;
+//Class(Ckass&& src) = default;
+//Class& operator = (Class&& src) = default;
+
+
+
 class Math_Point {
 protected:
 	unsigned number;
@@ -223,6 +231,12 @@ public:
 	}; **/
 	/** Math_Point(double x, double y, double z) : Math_Point(x, y, z, 0, 0, 0) {}; **/
 	Math_Point() : number(0) {};
+	~Math_Point() = default;
+	Math_Point(Math_Point& src) = default;
+	Math_Point& operator = (Math_Point const& src) = default;
+	Math_Point(Math_Point&& src) = default;
+	Math_Point& operator = (Math_Point&& src) = default;
+
 
 	void set_coord(Type* arr) {
 		coord = Directed_Segment(arr[0] * Kc, arr[1] * Kc, arr[2] * Kc);
@@ -291,6 +305,10 @@ protected:
 	Type size;
 public:
 	Massive_Point() : Math_Point(), mass(1), size(0) {};
+	Massive_Point(Massive_Point const& src) = default;
+	Massive_Point& operator = (Massive_Point const& src) = default;
+	Massive_Point(Massive_Point&& src) = default;
+	Massive_Point& operator = (Massive_Point&& src) = default;
 	/** Massive_Point(double mass, double x, double y, double z, double vx, double vy, double vz) :
 		Math_Point(x, y, z, vx, vy, vz), mass(mass), accel(nullptr) {}; **/
 
@@ -316,25 +334,28 @@ public:
 
 class Weapon : public Massive_Point {
 protected:
-	Type const standart_rocket_speed = 200;
+	Type const standart_rocket_speed = 2000;
 	Type const standart_destructive_power = 10;
-	unsigned const time_of_life = 200;
+	unsigned const time_of_life = 1000;
 	Type start_speed;
 	unsigned current_time_of_life;
 	unsigned destructive_power;
 public:
-	Weapon(Type start_speed, unsigned destructive_power) : Massive_Point(), start_speed(start_speed),
-		destructive_power(destructive_power), current_time_of_life(0) {};
+	//Weapon(Type start_speed, unsigned destructive_power) : Massive_Point(), start_speed(start_speed),
+		//destructive_power(destructive_power), current_time_of_life(0) {};
 	Weapon() : Massive_Point(), start_speed(0), destructive_power(0) {};
 	void set_parametres(Type start_speed, unsigned destructive_power) {
 		this->start_speed = start_speed;
 		this->destructive_power = destructive_power;
+		this->current_time_of_life = 0;
 	}
 
-	// deatructor
-	~Weapon() {
-		std::cout << "heh";
-	};
+	~Weapon() = default;
+	Weapon(Weapon const& src) = default;
+	Weapon& operator = (Weapon const& src) = default;
+	Weapon(Weapon&& src) = default;
+	Weapon& operator = (Weapon&& src) = default;
+
 
 	unsigned get_destructive_power()
 	{
@@ -347,7 +368,7 @@ public:
 
 	bool check_time_of_life()
 	{
-		return ( (++current_time_of_life) < time_of_life);
+		return ( (++ current_time_of_life) < time_of_life);
 	}
 };
 
@@ -362,6 +383,10 @@ public:
 	{
 		--general_rockets_number;
 	}
+	Rocket(Rocket const& src) = default;
+	Rocket& operator = (Rocket const& src) = default;
+	Rocket(Rocket&& src) = default;
+	Rocket& operator = (Rocket&& src) = default;
 };
 
 class Space_Ship : public Massive_Point {
@@ -370,8 +395,8 @@ protected:
 	Type const standart_ship_accel = 5;
 	Type const standart_ship_size = 50;
 	Type const detected_distance = 10000; // distance of detection of enemy
-	Type const fire_distance = 2000; // distance of starting of shut
-	unsigned const standart_recharging_time = 1000;
+	Type const fire_distance = 5000; // distance of starting of shut
+	unsigned const standart_recharging_time = 200;
 	unsigned recharging_time;
 	unsigned recharging;
 	Type const free_length = 1000;
@@ -388,13 +413,19 @@ public:
 		this->set_parametres();
 	};
 
+	Space_Ship(Space_Ship const& src) = default;
+	Space_Ship& operator = (Space_Ship const& src) = default;
+	Space_Ship(Space_Ship&& src) = default;
+	Space_Ship& operator = (Space_Ship&& src) = default;
+
+
 	~Space_Ship()
 	{
 		if (arsenal != nullptr) delete[] arsenal;
 	}
 
-	Space_Ship(Type max_speed, Type max_accel, unsigned hp, Type size, unsigned* arsenal) : Massive_Point(),
-		max_speed(max_speed), max_engine_power(max_accel), hp(hp), recharging(0), arsenal(arsenal) {	}
+	//Space_Ship(Type max_speed, Type max_accel, unsigned hp, Type size, unsigned* arsenal) : Massive_Point(),
+		//max_speed(max_speed), max_engine_power(max_accel), hp(hp), recharging(0), arsenal(arsenal) {	}
 
 	void virtual set_parametres()
 	{
@@ -462,7 +493,12 @@ public:
 
 	void destroy()
 	{
-		return; // äîïèñàòü
+		return; 
+	}
+
+	bool possibility_to_shout()
+	{
+		return (recharging == 0);
 	}
 
 	template<typename T>
@@ -470,8 +506,8 @@ public:
 		hp -= (static_cast<int>(force));
 		if (hp <= 0)
 		{
+			//destroy();
 			return true;
-			destroy();
 		}
 		return false;
 	}
@@ -493,6 +529,7 @@ public:
 	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment target, Directed_Segment target_speed) {
 		//arsenal[weapon_type] --;
 		Directed_Segment calculated_speed = calculate_start_weapon_speed(target, target_speed, bullet.get_start_speed());
+		bullet.set_coord(coord);
 		bullet.set_speed(calculated_speed);
 		recharging = recharging_time;
 		//std::cout << bullet.get_speed().x << bullet.get_speed().y << bullet.get_speed().z << "  setting speed " << std::endl;
@@ -536,22 +573,56 @@ public:
 class Player_Ship : public Space_Ship {
 public:
 	Player_Ship() : Space_Ship() {};
+	Player_Ship(Player_Ship const& src) = default;
+	Player_Ship& operator = (Player_Ship const& src) = default;
+	Player_Ship(Player_Ship && src) = default;
+	Player_Ship& operator = (Player_Ship && src) = default;
+	
 	void set_parametres() override
 	{
 		this->max_speed = standart_ship_speed;
 		this->max_engine_power = standart_ship_accel * mass;
 		this->size = standart_ship_size;
 	}
-	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment bullet_speed) {
+	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment shout_direction) {
 		//arsenal[weapon_type] --;
 		bullet.set_coord(coord);
+		shout_direction.print("shout direction");
+		Directed_Segment bullet_speed = shout_direction * (bullet.get_start_speed() / shout_direction.get_module());
 		bullet.set_speed(bullet_speed);
 		recharging = recharging_time;
+	}
+
+	int get_hp()
+	{
+		return hp;
+	}
+
+	void update_player_actions(Player_Actions &player_actions, unsigned time)
+	{
+		player_actions.hp = hp;
+		player_actions.recharging = this->possibility_to_shout();
+		player_actions.recharging_time = recharging;
+		if (time % 200 == 0)
+		{
+			player_actions.shout = true;
+			player_actions.weapon_speed[0] = 1;
+		}
+
+		/***
+		if (time % 500 == 1)
+		{
+			player_actions.shout = false;
+		}
+		***/
 	}
 };
 
 class Object_Management {
 private:
+	unsigned need_to_print_arr;
+	std::ofstream fout;
+	unsigned current_time;
 	unsigned const max_objects_amount = 10000;
 	unsigned const min_start_distance = 1000;
 	unsigned const max_start_distance = 10000;
@@ -563,11 +634,11 @@ private:
 	Player_Ship player_ship;
 	Space_Ship** buffer_ships;
 	Space_Ship** ships;
+	Rocket** rockets;
 	Rocket** buffer_rockets;
 	bool* real_objects;
 	unsigned deleted_objects[50];
 	unsigned amount_deleted_obj;
-	Rocket** rockets;
 	//Math_Point** arr_objects[amount_types];
 	unsigned* match_table;
 	unsigned* buffer_table;
@@ -577,7 +648,9 @@ private:
 public:
 	Object_Management(unsigned* types) {
 		general_rockets_number = 0;
-
+		need_to_print_arr = 0;
+		fout.open("cords.txt", std::ios::app);
+		current_time = 0;
 		srand(time(NULL));
 		general_number = 1;
 		player_ship.set_number(0);
@@ -607,6 +680,28 @@ public:
 		//std::cout << "real number of rockets:  " << counter[1] << std::endl;
 
 	};
+
+	~Object_Management()
+	{
+		fout.close();
+		for (unsigned current_number = 0; current_number < 100; ++current_number)
+		{
+			if (ships[current_number] != nullptr) delete ships[current_number];
+			if (rockets[current_number] != nullptr) delete rockets[current_number];
+			if (buffer_ships[current_number] != nullptr) delete ships[current_number];
+			if (buffer_rockets[current_number] != nullptr) delete rockets[current_number];
+		}
+		delete[] ships;
+		delete[] rockets;
+		delete[] buffer_ships;
+		delete[] buffer_rockets;
+		delete[] real_objects;
+		delete[] match_table;
+		delete[] buffer_table;
+		delete[] counter;
+		delete[] buffer_counter;
+	}
+
 	void print_objects(std::ofstream& fin)
 	{
 		for (unsigned k = 0; k < start_ship_number; ++k)
@@ -653,6 +748,7 @@ public:
 			break; 
 		}
 		case 1: {
+			need_to_print_arr = 2;
 			rockets[counter[type]] = new Rocket(); 
 			rockets[counter[type]]->set_number(number); 
 			break; 
@@ -680,22 +776,22 @@ public:
 
 	void update_object_list(unsigned* objects_types)
 	{
-		if (true)
-		{
- 
 		//for testing
-		/***
+		
+		fout << std::endl;
+		fout << "updating object list" << std::endl;
 		for (unsigned k = 0; k < amount_types; ++k) 
 		{
-			std::cout << counter[k] << " General number of objects with type  " << k << std::endl;
+			fout << counter[k] << " General number of objects with type  " << k << std::endl;
 		}
 		unsigned real_objects_number = 0;
 		for (unsigned k = 0; k < max_objects_amount; ++k)
 		{
 			if (real_objects[k]) ++ real_objects_number;
 		}
-		std::cout << "All " << real_objects_number << " live objects" << std::endl;
-		***/
+		fout << "All " << real_objects_number << " live objects" << std::endl;
+		fout << "remain " << general_rockets_number  << " rockets" << std::endl;
+		fout << std::endl;
 		//end of testing coord
 
 		unsigned current_number = 0;
@@ -762,7 +858,7 @@ public:
 			std::cout << "All " << real_objects_number << " live objects" << std::endl;
 			***/
 			//end of testing coord
-		}
+		
 	}
 
 	bool check_necessary_updating_objects_list()
@@ -815,20 +911,29 @@ public:
 				std::swap(number1, number2);
 				std::swap(arr1[k], arr2[k]);
 			}
-			//if (number1 == 0)
+			
 			if (number1 / 100 == 0 && number2 / 100 == 1)
 			{
-				if (find_ship(number1) != nullptr) {
-					if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
-						delete_object(arr1[k]);
-					delete_object(arr2[k]);
-				}
+				fout << std::endl;
+				fout << "The ship number " << number1 / 100 << " get damage from the rocket number "
+					<< number2 / 100 << std::endl;
+				if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
+					delete_object(arr1[k]);
+				fout << "The ship number " << number1 / 100 << " is not exist any more " << std::endl;
+				delete_object(arr2[k]);
+				fout << std::endl;
 			}
 		}
 	}
 
-	void process_events(unsigned* types, std::ofstream &fout)
+	void process_events(unsigned* types)
 	{
+		if (!fout.is_open())
+		{
+			std::cout << "Error: the outer file is not available" << std::endl;
+			throw;
+		}
+
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
 			for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
@@ -838,7 +943,7 @@ public:
 				{
 					if (! real_objects[ships[current_object]->get_number()])
 					{
-						//fout << "Error: the object number " << ships[current_object]->get_number() << " not exist" << std::endl;
+						fout << "Error: the object number " << ships[current_object]->get_number() << " not exist" << std::endl;
 						break;
 					}
 
@@ -856,21 +961,19 @@ public:
 						//fout << "The ship number " << current_object << " detected player ship" << std::endl;
 						ships[current_object]->set_target(player_ship.get_coord());
 						if (player_ship.get_coord().define_distance(ships[current_object]->get_coord()) <
-							ships[current_object]->get_fire_distance())
+							ships[current_object]->get_fire_distance() && ships[current_object]->possibility_to_shout())
 						{
-							//fout << "The ship number " << current_object << " attack player ship" << std::endl;
-							create_object(1, general_number ++, types);
-
-							//for tecting
-							/*** 
-							Rocket* new_rocket = this->find_rocket(general_number - 1);
-							Directed_Segment target_coord = player_ship.get_coord();
-							Directed_Segment target_speed = player_ship.get_speed();
-							***/
-							//end of the code for testing
-
-							ships[current_object]->shout(1, *(this->find_rocket(general_number - 1)),
+							fout << "The ship number " << current_object << " attack player ship" << std::endl;
+							create_object(1, general_number, types);
+							ships[current_object]->shout(1, *(this->find_rocket(general_number ++)),
 								player_ship.get_coord(), player_ship.get_speed());
+							std::cout << types[21] << " fuck you" << std::endl;
+							//for testing
+							//(find_rocket(general_number - 1)->get_coord()).print("coord of rocket");
+							//(find_rocket(general_number - 1)->get_speed()).print("coord of rocket");
+							//player_ship.get_coord().print("coord of the player_ship");
+							//end testing code
+
 						}
 					}
 					else ships[current_object]->define_direction();
@@ -901,7 +1004,14 @@ public:
 
 	void do_player_actions(Player_Actions &player_actions, unsigned* objects_types)
 	{
-		if (player_actions.shout)
+		if (!fout.is_open())
+		{
+			std::cout << "Error: the outer file is not available" << std::endl;
+			throw;
+		}
+
+		if (player_ship.possibility_to_shout() && player_actions.shout)
+			//
 		{
 			//create_object(1, general_number ++, objects_types);
 			//player_ship.shout(1, *rockets[counter[1] - 1],
@@ -909,7 +1019,7 @@ public:
 		}
 	}
 
-	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned* types, unsigned& current_objects_amount)
+	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned& current_objects_amount)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
@@ -939,50 +1049,132 @@ public:
 			}
 			}
 		}
-		for (unsigned k = 0; k < amount_deleted_obj; ++k)
-		{
-			types[deleted_objects[k]] = 0;
-		}
+		//for (unsigned k = 0; k < amount_deleted_obj; ++k)
+		//{
+			//types[deleted_objects[k]] = 0;
+		//}
 		current_objects_amount = general_number;
 	}
 
 	void get_start_data(Type** coords, Type** speeds, Type** engine_powers, unsigned* types, unsigned& current_objects_amount)
 	{
-		send_changes(coords, speeds, engine_powers, types, current_objects_amount);
+		send_changes(coords, speeds, engine_powers, current_objects_amount);
 	}
 
 	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
 		unsigned amount_collisions, unsigned* arr1, unsigned* arr2,
 		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions &player_actions)
 	{
+		++current_time;
+
+		//test code
+		/*
+		if (rockets[0] != nullptr)
+		{
+			std::cout << "arr_cord:  " << speeds[21][0] << " " << speeds[21][1] << " "
+				<< speeds[21][2] << " " << std::endl;
+			rockets[0]->get_speed().print("vect_speed");
+		}
+		*/
+		//end of test code
+		// 
+		//testing code
+		/*
+		if (fout.is_open() && need_to_print_arr > 0)
+		{
+			print_arr<Type>(coords, "cords", current_objects_amount, fout, current_time);
+			print_arr<Type>(speeds, "speeds", current_objects_amount, fout, current_time);
+		}
+		*/
+		//end of testing code
+		
+		if (need_to_print_arr > 0) -- need_to_print_arr;
+		if (current_time % 100 == 0)
+		{
+			fout << "Time moment:  " << current_time << std::endl;
+		}
 		if (counter[1] != general_rockets_number) 
 		{
-			std::cout << "Unmatching of the decklaredand fact rockets number " << std::endl;
+			std::cout << "Unmatching of the declared fact rockets number " << std::endl;
 			throw;
 		}
-		//print_current_state(coords, speeds, engine_power, type_objects, current_objects_amount);
+		
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
-		std::ofstream fout("cords.txt", std::ios::app);
-		//if (fout.is_open()) print_arr<Type>(coords, "cords", current_objects_amount, fout, 0);
-		//fout.close();
-		//for testing
-		//fout << "collisions:" << std::endl;
-		//for (unsigned k = 0; k < amount_collisions; ++k)
-		//{
-			//fout << arr1[k] << "  " << arr2[k] << std::endl;
-		//}
-		//end the code for testing
+		
 		process_collisions(arr1, arr2, amount_collisions);
 		if (check_necessary_updating_objects_list())
 		{
 			update_object_list(type_objects);
 		}
-		process_events(type_objects, fout);
-		send_changes(coords, speeds, engine_power, type_objects, current_objects_amount);
+		process_events(type_objects);
+
+		//test code
+		/*
+		if (rockets[0] != nullptr)
+		{
+			std::cout << "arr_cord:  " << speeds[21][0] << " " << speeds[21][1] << " "
+				<< speeds[21][2] << " " << std::endl;
+			rockets[0]->get_speed().print("vect_speed");
+		}
+		*/
+		//end of test code
+		 
+		player_ship.update_player_actions(player_actions, current_time);
+		 
+		send_changes(coords, speeds, engine_power, current_objects_amount);
+
+		//testing code
+		/***
+		if (fout.is_open() && need_to_print_arr > 0)
+		{
+			print_arr<Type>(coords, "cords", current_objects_amount, fout, current_time);
+			print_arr<Type>(speeds, "speeds", current_objects_amount, fout, current_time);
+			print_arr<unsigned>(type_objects, "types", current_objects_amount, fout, current_time);
+		}
+		***/
+		//end of testing code
+
+		//test code
+		/*
+		if (rockets[0] != nullptr)
+		{
+			std::cout << "arr_cord:  " << speeds[21][0] << " " << speeds[21][1] << " "
+				<< speeds[21][2] << " " << std::endl;
+			//rockets[0]->get_coord().print("vect_cord");
+		}
+		*/
+		//std::cout << "fuck you" << std::endl;
+		//end of test code
+
+		/***
+		if (current_time % 500 == 0)
+		{
+			print_real_rockets();
+		}
 		//fout.open("cords.txt", std::ios::app);
 		//if (fout.is_open()) print_arr<Type>(engine_power, "forces", current_objects_amount, fout, 0);
-		fout.close();
+		***/
+		//fout.close();
+	}
+
+	void print_real_rockets()
+	{
+		if (! fout.is_open()) 
+		{
+			std::cout << "Error: the outer file is not available" << std::endl;
+			throw;
+		}
+		for (unsigned current_number = 0; current_number < counter[1]; ++ current_number)
+		{
+			if (real_objects[rockets[current_number]->get_number()])
+			{
+				fout << "Rocket number " << current_number << ". Distance to player_ship: "
+					<< (rockets[current_number]->get_coord() - player_ship.get_coord()).get_module() << std::endl;
+				rockets[current_number]->get_coord().print("Coords", fout);
+				rockets[current_number]->get_speed().print("Speeds", fout);
+			}
+		}
 	}
 
 };
