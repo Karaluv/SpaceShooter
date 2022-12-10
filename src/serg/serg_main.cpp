@@ -404,7 +404,7 @@ protected:
 	Type max_engine_power;
 	Directed_Segment engine_power;
 	Directed_Segment target;
-	int const standart_hp = 100000000;
+	int const standart_hp = 100;
 	int hp;
 	unsigned* arsenal;
 public:
@@ -802,7 +802,7 @@ public:
 				{
 					if (current_type == 0)
 					{
-						if (real_objects[ships[current_object]->get_number()])
+						if (ships[current_object] != nullptr && real_objects[ships[current_object]->get_number()])
 						{
 							buffer_table[current_number] = current_type * 100 + buffer_counter[current_type];
 							ships[current_object]->set_number(current_number);
@@ -912,14 +912,18 @@ public:
 				std::swap(arr1[k], arr2[k]);
 			}
 			
-			if (number1 / 100 == 0 && number2 / 100 == 1)
+			if (number1 == 0 && number2 / 100 == 1)
 			{
 				fout << std::endl;
-				fout << "The ship number " << number1 / 100 << " get damage from the rocket number "
-					<< number2 / 100 << std::endl;
+				fout << "The ship number " << number1 % 100 << " get damage from the rocket number "
+					<< number2 % 100 << std::endl;
 				if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
-					delete_object(arr1[k]);
-				fout << "The ship number " << number1 / 100 << " is not exist any more " << std::endl;
+				{
+					std::cout << "Player_SHip is destroyed" << std::endl;
+				}
+					//Player_Ship.hp -= rockets[number2 % 100];
+					//delete_object(arr1[k]);
+				fout << "The ship number " << number1 % 100 << " is not exist any more " << std::endl;
 				delete_object(arr2[k]);
 				fout << std::endl;
 			}
@@ -1067,6 +1071,9 @@ public:
 		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions &player_actions)
 	{
 		++current_time;
+		if (current_time % 100 == 0) {
+			std::cout << player_actions.hp;
+		}
 
 		//test code
 		/*
@@ -1103,7 +1110,7 @@ public:
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
 		
-		//process_collisions(arr1, arr2, amount_collisions);
+		process_collisions(arr1, arr2, amount_collisions);
 		if (check_necessary_updating_objects_list())
 		{
 			update_object_list(type_objects);
