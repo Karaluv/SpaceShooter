@@ -439,6 +439,7 @@ int main()
 			srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
 			
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		//cycle = 1000000;
 		}
 	}
 	srs::stop_render();
