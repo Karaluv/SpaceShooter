@@ -57,13 +57,12 @@ int main()
 	// define lld type as long long double
 	typedef long double lld;
 
-
 	matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
 	directed_segment <lld> r1(0, 0, 0);
 	directed_segment <lld> v1(0, 0, 0);
 	directed_segment <lld> angle1(0.1, 0.1, 0.1);
-	directed_segment <lld> w1(0.1, 20, 0);
-	lld size1 = 1;
+	directed_segment <lld> w1(1, 20, 0);
+	lld size1 = 20;
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
 	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
@@ -101,7 +100,7 @@ int main()
 	directed_segment<lld> force;
 	for (int i = 0; i < 10000; i++) {
 		if (TIP[i] == 0) {
-			bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+			bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 		}
 		else {
 			cord[0] = CORD[i][0];
@@ -153,10 +152,10 @@ int main()
 		directed_segment <lld> r1(0, 0, 0);
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
-		directed_segment <lld> w1(0.1, 20, 0);
-		lld size1 = 1;
+		directed_segment <lld> w1(1, 20, 0);
+		lld size1 =20;
 		lld m1 = 1;
-		directed_segment <lld> nul(0, 0, 0);
+		directed_segment <lld> nul(0.0001, 0.0001, 0.0001);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
 
 
@@ -203,9 +202,11 @@ int main()
 		directed_segment<lld> cord;
 		directed_segment<lld> speed;
 		directed_segment<lld> force;
+		directed_segment<lld> ang;
+		directed_segment<lld> omega;
 		for (int i = 0; i < 10000; i++) {
 			if (TIP[i] == 0) {
-				bodies[i] = Body<lld>(0, tensor1, nul, nul, nul, nul, 0);
+				bodies[i] = Body<lld>(0, tensor1, nul, nul, angle1, w1, 0);
 			}
 			else {
 				cord[0] = CORD[i][0];
@@ -215,6 +216,7 @@ int main()
 				speed[1] = SPEED[i][1];
 				speed[2] = SPEED[i][2];
 				bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+				//std::cout << bodies[i].angle << "ln";
 			}
 		}
 
@@ -254,14 +256,17 @@ int main()
 		//srs::create_light(-8, -3, -2, 1, 1, 1, 50);
 
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
-		for (int cycle = 0; cycle < 10000; cycle++)
+		for (int cycle = 0; cycle < 100000; cycle++)
 		{
 			{
+				
+				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+
 				if (true)
 				{
 					for (int i = 0; i < 10000; i++) {
 						if (TIP[i] == 0) {
-							bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+							bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 						}
 						else {
 							cord[0] = CORD[i][0];
@@ -270,12 +275,17 @@ int main()
 							speed[0] = SPEED[i][0];
 							speed[1] = SPEED[i][1];
 							speed[2] = SPEED[i][2];
-							bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+							bodies[i].m = 1;
+							bodies[i].tensor = tensor1;
+							bodies[i].r = cord;
+							bodies[i].v = speed;
+							bodies[i].size = size1;
+							//std::cout << bodies[i].angle[0] << "ln";
+							//std::cout << bodies[i].r[0] << "ln";
+							//bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
 						}
 					}
 				}
-				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
-
 
 				// testing code (please not delete)
 				if (cycle % 100 == 0) {
@@ -298,27 +308,42 @@ int main()
 							force[0] = FORCE[i1][0];
 							force[1] = FORCE[i1][1];
 							force[2] = FORCE[i1][2];
-							bodies[i1].update_angle(dt);
-							bodies[i1].update_w(dt, null_moment);
-							bodies[i1].update_velocity(dt, force);
-							bodies[i1].update_position(dt);
+							try{
+								bodies[i1].update_angle(dt);
+								bodies[i1].update_w(dt, null_moment);
+								bodies[i1].update_velocity(dt, force);
+								bodies[i1].update_position(dt);
+							}
+							catch (std::invalid_argument& e) {
+								std::cout << e.what() << std::endl;
+							}
+							
 
+
+							//std::cout << SPEED[i1][0] <<" ";
 							CORD[i1][0] = bodies[i1].r[0];
 							CORD[i1][1] = bodies[i1].r[1];
 							CORD[i1][2] = bodies[i1].r[2];
 							SPEED[i1][0] = bodies[i1].v[0];
 							SPEED[i1][1] = bodies[i1].v[1];
 							SPEED[i1][2] = bodies[i1].v[2];
+							//std::cout << SPEED[i1][0] << "\n";
 
 
 
 
 							for (int j = 0; j < 10000; j++) {
-								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0) {
+								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 									if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 										IS_COLLIDED[i1] = 1;
 										IS_COLLIDED[j] = 1;
-										bodies[i1].collision(bodies[j]);
+										//try and catch
+										try {
+											//bodies[i1].collision(bodies[j]);
+										}
+										catch (const std::invalid_argument& e) {
+											std::cout << e.what() << "\n";
+										}
 										R1[collision_count] = i1;
 										R2[collision_count] = j;
 										collision_count++;
@@ -350,13 +375,22 @@ int main()
 			std::map<char, bool> inputs = srs::get_inputs();
 			
 			if (inputs['w'])
-				x += 0.1;
-			if (inputs['s'])
-				x -= 0.1;
-			if (inputs['a'])
-				z -= 0.1;
-			if (inputs['d'])
-				z += 0.1;
+			{
+				x += 0.1 * sin(ax);
+				z += 0.1 * cos(ax);
+			}
+			if (inputs['s']) {
+				x -= 0.1 * sin(ax);
+				z -= 0.1 * cos(ax);
+			}
+			if (inputs['a']) {
+				z -= 0.1 * sin(ax);
+				x += 0.1 * cos(ax);
+			}
+			if (inputs['d']) {
+				z += 0.1 * sin(ax);
+				x -= 0.1 * cos(ax);
+			}
 			if (inputs[' '])
 				y += 0.1;
 			if (inputs['c'])

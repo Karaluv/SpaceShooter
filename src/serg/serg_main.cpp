@@ -379,7 +379,7 @@ protected:
 	Type max_engine_power;
 	Directed_Segment engine_power;
 	Directed_Segment target;
-	int const standart_hp = 10;
+	int const standart_hp = 100000000;
 	int hp;
 	unsigned* arsenal;
 public:
@@ -631,10 +631,10 @@ public:
 
 	Rocket* find_rocket(unsigned number)
 	{
-		if (number >= general_number) {
-			std::cout << "Such object is not existed" << std::endl;
-			throw;
-		}
+		//if (number >= general_number) {
+			//std::cout << "Such object is not existed" << std::endl;
+			//throw;
+		//}
 		return rockets[match_table[number] % 100];
 	}
 
@@ -818,9 +818,11 @@ public:
 			//if (number1 == 0)
 			if (number1 / 100 == 0 && number2 / 100 == 1)
 			{
-				if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
-					delete_object(arr1[k]);
-				delete_object(arr2[k]);
+				if (find_ship(number1) != nullptr) {
+					if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
+						delete_object(arr1[k]);
+					delete_object(arr2[k]);
+				}
 			}
 		}
 	}
@@ -857,7 +859,7 @@ public:
 							ships[current_object]->get_fire_distance())
 						{
 							//fout << "The ship number " << current_object << " attack player ship" << std::endl;
-							create_object(1, general_number ++, types - 1);
+							create_object(1, general_number ++, types);
 
 							//for tecting
 							/*** 
@@ -901,9 +903,9 @@ public:
 	{
 		if (player_actions.shout)
 		{
-			create_object(1, general_number ++, objects_types);
-			player_ship.shout(1, *rockets[counter[1] - 1],
-				Directed_Segment(player_actions.weapon_speed[0], player_actions.weapon_speed[1], player_actions.weapon_speed[2]));
+			//create_object(1, general_number ++, objects_types);
+			//player_ship.shout(1, *rockets[counter[1] - 1],
+				//Directed_Segment(player_actions.weapon_speed[0], player_actions.weapon_speed[1], player_actions.weapon_speed[2]));
 		}
 	}
 
