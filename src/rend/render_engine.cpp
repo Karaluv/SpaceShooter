@@ -73,6 +73,22 @@ public:
 		TwTerminate();
 		glfwTerminate();
 		Is_Initialized_ = false;
+
+		// delete vectors and al its objects
+		for (int i = 0; i < RendObjs.size(); i++)
+		{
+			delete RendObjs[i];
+		}
+		RendObjs.clear();
+		
+		// lights
+		for (int i = 0; i < Lights.size(); i++)
+		{
+			delete Lights[i];
+		}
+		Lights.clear();
+
+		
 	}
 
 	void render_process()

@@ -256,7 +256,7 @@ int main()
 		//srs::create_light(-8, -3, -2, 1, 1, 1, 50);
 
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
-		for (int cycle = 0; cycle < 100000; cycle++)
+		for (int cycle = 0; cycle < 10000; cycle++)
 		{
 			{
 				
