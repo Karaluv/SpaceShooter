@@ -264,7 +264,7 @@ int main()
 
 				if (true)
 				{
-					for (int i = 0; i < 10000; i++) {
+					for (int i = 0; i < 500; i++) {
 						if (TIP[i] == 0) {
 							bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 						}
@@ -300,13 +300,13 @@ int main()
 
 				if (true)
 				{
-					for (int i1 = 0; i1 < 10000; ++i1) {
+					for (int i1 = 0; i1 < 500; ++i1) {
 						IS_COLLIDED[i1] = 0;
 						R1[i1] = 0;
 						R2[i1] = 0;
 						collision_count = 0;
 					}
-					for (int i1 = 0; i1 < 10000; ++i1) {
+					for (int i1 = 0; i1 < 500; ++i1) {
 
 						if (TIP[i1] != 0) {
 							force[0] = FORCE[i1][0];
@@ -335,7 +335,7 @@ int main()
 
 
 
-							for (int j = 0; j < 10000; j++) {
+							for (int j = 0; j < 500; j++) {
 								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 									if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 										IS_COLLIDED[i1] = 1;
