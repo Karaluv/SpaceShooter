@@ -334,7 +334,7 @@ public:
 
 class Weapon : public Massive_Point {
 protected:
-	Type const standart_rocket_speed = 2000;
+	Type const standart_rocket_speed = 200;
 	Type const standart_destructive_power = 10;
 	unsigned const time_of_life = 1000;
 	Type start_speed;
@@ -993,7 +993,7 @@ public:
 					break;
 				}
 				case 1:
-					if (! rockets[current_object]->check_time_of_life())
+					if (rockets[current_object] != nullptr && ! rockets[current_object]->check_time_of_life())
 					{
 						delete_object(rockets[current_object]->get_number());
 					}
@@ -1019,7 +1019,7 @@ public:
 		}
 	}
 
-	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned& current_objects_amount)
+	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned& current_objects_amount, unsigned* types)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
@@ -1049,16 +1049,17 @@ public:
 			}
 			}
 		}
-		//for (unsigned k = 0; k < amount_deleted_obj; ++k)
-		//{
-			//types[deleted_objects[k]] = 0;
-		//}
+		for (unsigned k = 0; k < amount_deleted_obj; ++k)
+		{
+			types[deleted_objects[k]] = 0;
+		}
+		amount_deleted_obj = 0;
 		current_objects_amount = general_number;
 	}
 
 	void get_start_data(Type** coords, Type** speeds, Type** engine_powers, unsigned* types, unsigned& current_objects_amount)
 	{
-		send_changes(coords, speeds, engine_powers, current_objects_amount);
+		send_changes(coords, speeds, engine_powers, current_objects_amount, types);
 	}
 
 	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
@@ -1102,7 +1103,7 @@ public:
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
 		
-		process_collisions(arr1, arr2, amount_collisions);
+		//process_collisions(arr1, arr2, amount_collisions);
 		if (check_necessary_updating_objects_list())
 		{
 			update_object_list(type_objects);
@@ -1122,7 +1123,7 @@ public:
 		 
 		player_ship.update_player_actions(player_actions, current_time);
 		 
-		send_changes(coords, speeds, engine_power, current_objects_amount);
+		send_changes(coords, speeds, engine_power, current_objects_amount, type_objects);
 
 		//testing code
 		/***

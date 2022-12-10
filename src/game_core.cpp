@@ -419,6 +419,9 @@ int main()
 			bodies[0].angle[1] = ay;
 			bodies[0].angle[2] = az;
 
+			CORD[0][0] = x;
+			CORD[0][1] = y;
+			CORD[0][2] = z;
 
 
 			
