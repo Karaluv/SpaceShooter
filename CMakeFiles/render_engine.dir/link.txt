@@ -1,0 +1,2 @@
+/opt/rh/devtoolset-11/root/usr/bin/ar qc librender_engine.a  CMakeFiles/render_engine.dir/src/rend/render_engine.cpp.o CMakeFiles/render_engine.dir/common/shader.cpp.o CMakeFiles/render_engine.dir/common/controls.cpp.o CMakeFiles/render_engine.dir/common/texture.cpp.o CMakeFiles/render_engine.dir/common/vboindexer.cpp.o CMakeFiles/render_engine.dir/common/quaternion_utils.cpp.o CMakeFiles/render_engine.dir/src/rend/cube_map.cpp.o
+/opt/rh/devtoolset-11/root/usr/bin/ranlib librender_engine.a

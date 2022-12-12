@@ -1,0 +1,65 @@
+The ship number 11 attack player ship
+
+The ship number 0 get damage from the rocket number 0
+The ship number 0 is not exist any more 
+
+Time moment:  100
+Time moment:  200
+Time moment:  300
+Time moment:  400
+The ship number 11 attack player ship
+The ship number 3 attack player ship
+Time moment:  500
+
+The ship number 0 get damage from the rocket number 1
+The ship number 0 is not exist any more 
+
+
+The ship number 0 get damage from the rocket number 2
+The ship number 0 is not exist any more 
+
+Time moment:  600
+The ship number 8 attack player ship
+The ship number 6 attack player ship
+The ship number 11 attack player ship
+The ship number 3 attack player ship
+The ship number 5 attack player ship
+
+The ship number 0 get damage from the rocket number 3
+The ship number 0 is not exist any more 
+
+Time moment:  700
+
+The ship number 0 get damage from the rocket number 4
+The ship number 0 is not exist any more 
+
+
+The ship number 0 get damage from the rocket number 6
+The ship number 0 is not exist any more 
+
+
+The ship number 0 get damage from the rocket number 5
+The ship number 0 is not exist any more 
+
+
+The ship number 0 get damage from the rocket number 7
+The ship number 0 is not exist any more 
+
+Time moment:  800
+The ship number 8 attack player ship
+The ship number 9 attack player ship
+The ship number 6 attack player ship
+The ship number 4 attack player ship
+The ship number 11 attack player ship
+The ship number 3 attack player ship
+The ship number 5 attack player ship
+Time moment:  900
+The ship number 14 attack player ship
+
+The ship number 0 get damage from the rocket number 11
+The ship number 0 is not exist any more 
+
+
+The ship number 0 get damage from the rocket number 14
+The ship number 0 is not exist any more 
+

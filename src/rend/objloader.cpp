@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <cstring>
 #include <fstream>
-
 #include <glm/glm.hpp>
 
 bool loadOBJ(

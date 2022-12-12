@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home-local/student/SpaceShooter/src/andrei/andrei_main.cpp
+iostream
+-
+cassert
+-
+matrix.hpp
+-
+valarray
+-
+cmath
+-
+
+src/addlibs/matrix.cpp
+iostream
+-
+cassert
+-
+
+src/addlibs/matrix.hpp
+matrix.cpp
+-
+

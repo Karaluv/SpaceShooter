@@ -1,0 +1,2 @@
+/opt/rh/devtoolset-11/root/usr/bin/ar qc libserg_libs.a  CMakeFiles/serg_libs.dir/src/serg/serg_main.cpp.o
+/opt/rh/devtoolset-11/root/usr/bin/ranlib libserg_libs.a

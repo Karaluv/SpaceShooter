@@ -70,9 +70,7 @@ int read_list_of_3(std::string file, std::map<int, std::string> &NameDict, std::
 }
 
 
-// template function which takes n dictionaries std::map<int, std::string> &
-// which takes path to a file and writes to n dictionaries its contents 
-// each line of the file is a key-value pair separated by a space
+
 
 // write to i dictionary the key-value pair from the line with help of recursion
 template <typename... Args>
@@ -87,6 +85,20 @@ void write_to_dict(unsigned target_index, unsigned current_index,
 	else
 	{
 		write_to_dict(target_index, current_index + 1, int_to_write, string_to_write, args...);
+	}
+}
+
+// template function which takes n dictionaries std::map<int, std::string> &
+// which takes path to a file and writes to n dictionaries its contents 
+// each line of the file is a key-value pair separated by a space
+template <>
+void write_to_dict(unsigned target_index, unsigned current_index,
+	int int_to_write, std::string string_to_write,
+	std::map<int, std::string>& dict)
+{
+	if (target_index == current_index)
+	{
+		dict[int_to_write] = string_to_write;
 	}
 }
 

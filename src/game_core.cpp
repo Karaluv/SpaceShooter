@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <limits>
-#include <crtdbg.h>
+//#include <crtdbg.h>
 #include <stdlib.h>
 
 #include <chrono>
@@ -15,7 +15,7 @@
 #include <serg_main.cpp>
 #include <andrei_main.cpp>
 
-#include <mynum.cpp>
+//#include <mynum.cpp>
 #include <MyDict.cpp>
 
 #include "globals.hpp"
@@ -121,7 +121,7 @@ int main()
 
 
 	
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
 		

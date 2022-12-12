@@ -3,6 +3,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "Player_Actions.h"
 //#include <matrix.cpp>
 
@@ -88,14 +89,31 @@ struct Directed_Segment {
 	Directed_Segment() : x(0), y(0), z(0) {};
 	Directed_Segment(Type x, Type y, Type z) : x(x), y(y), z(z) {};
 	//Directed_Segment(Type* segm) : x(segm[0]), y(segm[1]), z(segm[2]) {};
-	Directed_Segment(Directed_Segment const& src) : Directed_Segment(src.x, src.y, src.z) {};
-	Directed_Segment& operator = (Directed_Segment const& src) {
-		Directed_Segment buffer = Directed_Segment(src);
-		std::swap(this->x, buffer.x);
-		std::swap(this->y, buffer.y);
-		std::swap(this->z, buffer.z);
-		return *this;
+	Directed_Segment(const Directed_Segment& other)
+	{
+	x = other.x;
+	y = other.y;
+	z = other.z;
 	}
+	Directed_Segment& operator = (const Directed_Segment& other) {
+	x = other.x;
+	y = other.y;
+	z = other.z;
+	return *this;
+	}
+
+    Directed_Segment(Directed_Segment&& other){
+            x = other.x;
+            y = other.y;
+            z = other.z;
+    }
+
+    Directed_Segment& operator=(Directed_Segment&& other) {
+            x = other.x;
+            y = other.y;
+            z = other.z;
+            return *this;
+    }
 
 	//I don't understand why it's not correct
 	/***
@@ -108,12 +126,11 @@ struct Directed_Segment {
 	};
 	***/
 
-	~Directed_Segment() = default;
 
-	Directed_Segment operator + (Directed_Segment& other) {
+	Directed_Segment operator + (const Directed_Segment& other) {
 		return Directed_Segment(this->x + other.x, this->y + other.y, this->z + other.z);
 	}
-	Directed_Segment operator - (Directed_Segment& other) {
+	Directed_Segment operator - (const Directed_Segment& other) {
 		return Directed_Segment(this->x - other.x, this->y - other.y, this->z - other.z);
 	}
 	Directed_Segment operator - () {
@@ -125,13 +142,13 @@ struct Directed_Segment {
 	Directed_Segment operator *(Type number) {
 		return Directed_Segment(number * this->x, number * this->y, number * this->z);
 	}
-	Directed_Segment operator += (Directed_Segment& other) {
+	Directed_Segment operator += (const Directed_Segment& other) {
 		this->x += other.x;
 		this->y += other.y;
 		this->z += other.z;
 		return *this;
 	}
-	Directed_Segment operator -= (Directed_Segment& other) {
+	Directed_Segment operator -= (const Directed_Segment& other) {
 		this->x -= other.x;
 		this->y -= other.y;
 		this->z -= other.z;
@@ -152,7 +169,7 @@ struct Directed_Segment {
 		return (*this - other).get_module();
 	}
 
-	Directed_Segment multy(Directed_Segment& other) {
+	Directed_Segment multy(const Directed_Segment& other) {
 		return Directed_Segment(this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z,
 			this->x * other.y - this->y * other.x);
 	}
@@ -534,7 +551,7 @@ public:
 		recharging = recharging_time;
 		//std::cout << bullet.get_speed().x << bullet.get_speed().y << bullet.get_speed().z << "  setting speed " << std::endl;
 	}
-	Directed_Segment& calculate_start_weapon_speed(Directed_Segment target, Directed_Segment target_speed,
+	Directed_Segment calculate_start_weapon_speed(Directed_Segment target, Directed_Segment target_speed,
 		Type bullet_speed)
 	{
 		Type relative_coord[3] = { coord.x - target.x, coord.y - target.y , coord.z - target.z };
@@ -555,7 +572,8 @@ public:
 		Type C = get_square(goal_speed[0] - x0 / z0 * goal_speed[2]) + get_square(goal_speed[1] - y0 / z0 * goal_speed[2]) -
 			get_square(bullet_speed);
 		Type D = B * B - 4 * A * C;
-		if (D < 0) return Directed_Segment(bullet_speed, 0, 0);
+		if (D < 0) 
+			return Directed_Segment(bullet_speed, 0, 0);
 		Type uz1 = (-B + std::sqrt(D)) / 2 / A;
 		Type uz2 = (-B - std::sqrt(D)) / 2 / A;
 		Type time1 = z0 / (goal_speed[2] - uz1);
@@ -565,7 +583,8 @@ public:
 		Type ux = goal_speed[0] - x0 / z0 * goal_speed[2] + x0 / z0 * uz;
 		Type uy = goal_speed[1] - y0 / z0 * goal_speed[2] + y0 / z0 * uz;
 		Type result_speed[3] = { ux, uy, uz };
-		if (max_number != 2) std::swap(result_speed[max_number], result_speed[2]);
+		if (max_number != 2) 
+			std::swap(result_speed[max_number], result_speed[2]);
 		return Directed_Segment(result_speed[0], result_speed[1], result_speed[2]);
 	}
 };
