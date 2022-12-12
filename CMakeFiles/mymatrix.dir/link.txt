@@ -1,2 +1,0 @@
-/opt/rh/devtoolset-11/root/usr/bin/ar qc libmymatrix.a  CMakeFiles/mymatrix.dir/src/addlibs/matrix.cpp.o
-/opt/rh/devtoolset-11/root/usr/bin/ranlib libmymatrix.a
