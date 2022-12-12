@@ -19,7 +19,17 @@ protected:
 
 public:
     MeshControl() {}
-    ~MeshControl() {}
+    ~MeshControl() 
+    {
+       
+		// delete buffers
+		glDeleteBuffers(ElementBuffers.size(), &ElementBuffers[0]);
+		glDeleteBuffers(NormalBuffers.size(), &NormalBuffers[0]);
+		glDeleteBuffers(UvBuffers.size(), &UvBuffers[0]);
+		glDeleteBuffers(VertexBuffers.size(), &VertexBuffers[0]);
+		glDeleteBuffers(IndexBuffer.size(), &IndexBuffer[0]);
+
+    }
 
     void DeleteMesh(int index, GLuint &vertexbuffer, GLuint &uvbuffer, GLuint &normalbuffer,
                     GLuint &elementbuffer)

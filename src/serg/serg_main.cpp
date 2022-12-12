@@ -3,6 +3,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "Player_Actions.h"
 //#include <matrix.cpp>
 
@@ -88,14 +89,31 @@ struct Directed_Segment {
 	Directed_Segment() : x(0), y(0), z(0) {};
 	Directed_Segment(Type x, Type y, Type z) : x(x), y(y), z(z) {};
 	//Directed_Segment(Type* segm) : x(segm[0]), y(segm[1]), z(segm[2]) {};
-	Directed_Segment(Directed_Segment const& src) : Directed_Segment(src.x, src.y, src.z) {};
-	Directed_Segment& operator = (Directed_Segment const& src) {
-		Directed_Segment buffer = Directed_Segment(src);
-		std::swap(this->x, buffer.x);
-		std::swap(this->y, buffer.y);
-		std::swap(this->z, buffer.z);
-		return *this;
+	Directed_Segment(const Directed_Segment& other)
+	{
+	x = other.x;
+	y = other.y;
+	z = other.z;
 	}
+	Directed_Segment& operator = (const Directed_Segment& other) {
+	x = other.x;
+	y = other.y;
+	z = other.z;
+	return *this;
+	}
+
+    Directed_Segment(Directed_Segment&& other){
+            x = other.x;
+            y = other.y;
+            z = other.z;
+    }
+
+    Directed_Segment& operator=(Directed_Segment&& other) {
+            x = other.x;
+            y = other.y;
+            z = other.z;
+            return *this;
+    }
 
 	//I don't understand why it's not correct
 	/***
@@ -108,12 +126,11 @@ struct Directed_Segment {
 	};
 	***/
 
-	~Directed_Segment() = default;
 
-	Directed_Segment operator + (Directed_Segment& other) {
+	Directed_Segment operator + (const Directed_Segment& other) {
 		return Directed_Segment(this->x + other.x, this->y + other.y, this->z + other.z);
 	}
-	Directed_Segment operator - (Directed_Segment& other) {
+	Directed_Segment operator - (const Directed_Segment& other) {
 		return Directed_Segment(this->x - other.x, this->y - other.y, this->z - other.z);
 	}
 	Directed_Segment operator - () {
@@ -125,13 +142,13 @@ struct Directed_Segment {
 	Directed_Segment operator *(Type number) {
 		return Directed_Segment(number * this->x, number * this->y, number * this->z);
 	}
-	Directed_Segment operator += (Directed_Segment& other) {
+	Directed_Segment operator += (const Directed_Segment& other) {
 		this->x += other.x;
 		this->y += other.y;
 		this->z += other.z;
 		return *this;
 	}
-	Directed_Segment operator -= (Directed_Segment& other) {
+	Directed_Segment operator -= (const Directed_Segment& other) {
 		this->x -= other.x;
 		this->y -= other.y;
 		this->z -= other.z;
@@ -152,7 +169,7 @@ struct Directed_Segment {
 		return (*this - other).get_module();
 	}
 
-	Directed_Segment multy(Directed_Segment& other) {
+	Directed_Segment multy(const Directed_Segment& other) {
 		return Directed_Segment(this->y * other.z - this->z * other.y, this->z * other.x - this->x * other.z,
 			this->x * other.y - this->y * other.x);
 	}
@@ -334,7 +351,7 @@ public:
 
 class Weapon : public Massive_Point {
 protected:
-	Type const standart_rocket_speed = 2000;
+	Type const standart_rocket_speed = 200;
 	Type const standart_destructive_power = 10;
 	unsigned const time_of_life = 1000;
 	Type start_speed;
@@ -404,7 +421,7 @@ protected:
 	Type max_engine_power;
 	Directed_Segment engine_power;
 	Directed_Segment target;
-	int const standart_hp = 10;
+	int const standart_hp = 100;
 	int hp;
 	unsigned* arsenal;
 public:
@@ -534,7 +551,7 @@ public:
 		recharging = recharging_time;
 		//std::cout << bullet.get_speed().x << bullet.get_speed().y << bullet.get_speed().z << "  setting speed " << std::endl;
 	}
-	Directed_Segment& calculate_start_weapon_speed(Directed_Segment target, Directed_Segment target_speed,
+	Directed_Segment calculate_start_weapon_speed(Directed_Segment target, Directed_Segment target_speed,
 		Type bullet_speed)
 	{
 		Type relative_coord[3] = { coord.x - target.x, coord.y - target.y , coord.z - target.z };
@@ -555,7 +572,8 @@ public:
 		Type C = get_square(goal_speed[0] - x0 / z0 * goal_speed[2]) + get_square(goal_speed[1] - y0 / z0 * goal_speed[2]) -
 			get_square(bullet_speed);
 		Type D = B * B - 4 * A * C;
-		if (D < 0) return Directed_Segment(bullet_speed, 0, 0);
+		if (D < 0) 
+			return Directed_Segment(bullet_speed, 0, 0);
 		Type uz1 = (-B + std::sqrt(D)) / 2 / A;
 		Type uz2 = (-B - std::sqrt(D)) / 2 / A;
 		Type time1 = z0 / (goal_speed[2] - uz1);
@@ -565,7 +583,8 @@ public:
 		Type ux = goal_speed[0] - x0 / z0 * goal_speed[2] + x0 / z0 * uz;
 		Type uy = goal_speed[1] - y0 / z0 * goal_speed[2] + y0 / z0 * uz;
 		Type result_speed[3] = { ux, uy, uz };
-		if (max_number != 2) std::swap(result_speed[max_number], result_speed[2]);
+		if (max_number != 2) 
+			std::swap(result_speed[max_number], result_speed[2]);
 		return Directed_Segment(result_speed[0], result_speed[1], result_speed[2]);
 	}
 };
@@ -726,10 +745,10 @@ public:
 
 	Rocket* find_rocket(unsigned number)
 	{
-		if (number >= general_number) {
-			std::cout << "Such object is not existed" << std::endl;
-			throw;
-		}
+		//if (number >= general_number) {
+			//std::cout << "Such object is not existed" << std::endl;
+			//throw;
+		//}
 		return rockets[match_table[number] % 100];
 	}
 
@@ -802,7 +821,7 @@ public:
 				{
 					if (current_type == 0)
 					{
-						if (real_objects[ships[current_object]->get_number()])
+						if (ships[current_object] != nullptr && real_objects[ships[current_object]->get_number()])
 						{
 							buffer_table[current_number] = current_type * 100 + buffer_counter[current_type];
 							ships[current_object]->set_number(current_number);
@@ -912,14 +931,18 @@ public:
 				std::swap(arr1[k], arr2[k]);
 			}
 			
-			if (number1 / 100 == 0 && number2 / 100 == 1)
+			if (number1 == 0 && number2 / 100 == 1)
 			{
 				fout << std::endl;
-				fout << "The ship number " << number1 / 100 << " get damage from the rocket number "
-					<< number2 / 100 << std::endl;
+				fout << "The ship number " << number1 % 100 << " get damage from the rocket number "
+					<< number2 % 100 << std::endl;
 				if (find_ship(number1)->get_damage((find_rocket(number2))->get_destructive_power()))
-					delete_object(arr1[k]);
-				fout << "The ship number " << number1 / 100 << " is not exist any more " << std::endl;
+				{
+					std::cout << "Player_SHip is destroyed" << std::endl;
+				}
+					//Player_Ship.hp -= rockets[number2 % 100];
+					//delete_object(arr1[k]);
+				fout << "The ship number " << number1 % 100 << " is not exist any more " << std::endl;
 				delete_object(arr2[k]);
 				fout << std::endl;
 			}
@@ -993,7 +1016,7 @@ public:
 					break;
 				}
 				case 1:
-					if (! rockets[current_object]->check_time_of_life())
+					if (rockets[current_object] != nullptr && ! rockets[current_object]->check_time_of_life())
 					{
 						delete_object(rockets[current_object]->get_number());
 					}
@@ -1013,16 +1036,13 @@ public:
 		if (player_ship.possibility_to_shout() && player_actions.shout)
 			//
 		{
-			//fout << std::endl;
-			//fout << "player_ship make shout" << std::endl;
-			//fout << std::endl;
 			//create_object(1, general_number ++, objects_types);
 			//player_ship.shout(1, *rockets[counter[1] - 1],
 				//Directed_Segment(player_actions.weapon_speed[0], player_actions.weapon_speed[1], player_actions.weapon_speed[2]));
 		}
 	}
 
-	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned& current_objects_amount)
+	void send_changes(Type** coords, Type** speeds, Type** engine_powers, unsigned& current_objects_amount, unsigned* types)
 	{
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
 		{
@@ -1052,16 +1072,17 @@ public:
 			}
 			}
 		}
-		//for (unsigned k = 0; k < amount_deleted_obj; ++k)
-		//{
-			//types[deleted_objects[k]] = 0;
-		//}
+		for (unsigned k = 0; k < amount_deleted_obj; ++k)
+		{
+			types[deleted_objects[k]] = 0;
+		}
+		amount_deleted_obj = 0;
 		current_objects_amount = general_number;
 	}
 
 	void get_start_data(Type** coords, Type** speeds, Type** engine_powers, unsigned* types, unsigned& current_objects_amount)
 	{
-		send_changes(coords, speeds, engine_powers, current_objects_amount);
+		send_changes(coords, speeds, engine_powers, current_objects_amount, types);
 	}
 
 	void launch_cycle(Type** coords, Type** speeds, Type** engine_power,
@@ -1069,6 +1090,9 @@ public:
 		unsigned* type_objects, unsigned& current_objects_amount, Player_Actions &player_actions)
 	{
 		++current_time;
+		if (current_time % 100 == 0) {
+			std::cout << player_actions.hp;
+		}
 
 		//test code
 		/*
@@ -1125,7 +1149,7 @@ public:
 		 
 		player_ship.update_player_actions(player_actions, current_time);
 		 
-		send_changes(coords, speeds, engine_power, current_objects_amount);
+		send_changes(coords, speeds, engine_power, current_objects_amount, type_objects);
 
 		//testing code
 		/***

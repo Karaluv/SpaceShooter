@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <limits>
-#include <crtdbg.h>
+//#include <crtdbg.h>
 #include <stdlib.h>
 
 #include <chrono>
@@ -15,7 +15,7 @@
 #include <serg_main.cpp>
 #include <andrei_main.cpp>
 
-#include <mynum.cpp>
+//#include <mynum.cpp>
 #include <MyDict.cpp>
 
 #include "globals.hpp"
@@ -57,12 +57,11 @@ int main()
 	// define lld type as long long double
 	typedef long double lld;
 
-
 	matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
 	directed_segment <lld> r1(0, 0, 0);
 	directed_segment <lld> v1(0, 0, 0);
 	directed_segment <lld> angle1(0.1, 0.1, 0.1);
-	directed_segment <lld> w1(0.1, 20, 0);
+	directed_segment <lld> w1(1, 20, 0);
 	lld size1 = 1;
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
@@ -101,7 +100,7 @@ int main()
 	directed_segment<lld> force;
 	for (int i = 0; i < 10000; i++) {
 		if (TIP[i] == 0) {
-			bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+			bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 		}
 		else {
 			cord[0] = CORD[i][0];
@@ -122,7 +121,7 @@ int main()
 
 
 	
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
 		
@@ -153,10 +152,10 @@ int main()
 		directed_segment <lld> r1(0, 0, 0);
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
-		directed_segment <lld> w1(0.1, 20, 0);
-		lld size1 = 1;
+		directed_segment <lld> w1(1, 20, 0);
+		lld size1 =1;
 		lld m1 = 1;
-		directed_segment <lld> nul(0, 0, 0);
+		directed_segment <lld> nul(0.0001, 0.0001, 0.0001);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
 
 
@@ -203,9 +202,11 @@ int main()
 		directed_segment<lld> cord;
 		directed_segment<lld> speed;
 		directed_segment<lld> force;
+		directed_segment<lld> ang;
+		directed_segment<lld> omega;
 		for (int i = 0; i < 10000; i++) {
 			if (TIP[i] == 0) {
-				bodies[i] = Body<lld>(0, tensor1, nul, nul, nul, nul, 0);
+				bodies[i] = Body<lld>(0, tensor1, nul, nul, angle1, w1, 0);
 			}
 			else {
 				cord[0] = CORD[i][0];
@@ -215,6 +216,7 @@ int main()
 				speed[1] = SPEED[i][1];
 				speed[2] = SPEED[i][2];
 				bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+				//std::cout << bodies[i].angle << "ln";
 			}
 		}
 
@@ -258,13 +260,13 @@ int main()
 		{
 			{
 				
-				
 				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+
 				if (true)
 				{
-					for (int i = 0; i < 10000; i++) {
+					for (int i = 0; i < 500; i++) {
 						if (TIP[i] == 0) {
-							bodies[i] = Body<lld>(1, tensor1, nul, nul, nul, nul, 0);
+							bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 						}
 						else {
 							cord[0] = CORD[i][0];
@@ -273,15 +275,16 @@ int main()
 							speed[0] = SPEED[i][0];
 							speed[1] = SPEED[i][1];
 							speed[2] = SPEED[i][2];
-							bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+							bodies[i].m = 1;
+							bodies[i].tensor = tensor1;
+							bodies[i].r = cord;
+							bodies[i].v = speed;
+							bodies[i].size = size1;
+							//std::cout << bodies[i].angle[0] << "ln";
+							//std::cout << bodies[i].r[0] << "ln";
+							//bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
 						}
 					}
-				}
-
-				if (player_actions.hp <= 0)
-				{
-					std::cout << "THE PLAYER_SHIP IS NOT EXIST ANY MORE. THE GAME OI OVER" << std::endl;
-					break;
 				}
 
 				// testing code (please not delete)
@@ -297,43 +300,55 @@ int main()
 
 				if (true)
 				{
-					for (int i1 = 0; i1 < 10000; ++i1) {
+					for (int i1 = 0; i1 < 500; ++i1) {
 						IS_COLLIDED[i1] = 0;
 						R1[i1] = 0;
 						R2[i1] = 0;
 						collision_count = 0;
 					}
-					for (int i1 = 0; i1 < 10000; ++i1) {
+					for (int i1 = 0; i1 < 500; ++i1) {
 
 						if (TIP[i1] != 0) {
-							//std::cout << TIP[i1] << ' '<< bodies[i1].v <<  ' ' << bodies[i1].r << '\n';
-							if (TIP[i1] == 2)
-								if (bodies[i1].v[0] !=0)
-								{ }
-									//std::cout << "found";
 							force[0] = FORCE[i1][0];
 							force[1] = FORCE[i1][1];
 							force[2] = FORCE[i1][2];
-							bodies[i1].update_angle(dt);
-							bodies[i1].update_w(dt, null_moment);
-							bodies[i1].update_velocity(dt, force);
-							bodies[i1].update_position(dt);
+							try{
+								bodies[i1].update_angle(dt);
+								bodies[i1].update_w(dt, null_moment);
+								bodies[i1].update_velocity(dt, force);
+								bodies[i1].update_position(dt);
+							}
+							catch (std::invalid_argument& e) {
+								std::cout << e.what() << std::endl;
+							}
+							
 
+
+							//std::cout << SPEED[i1][0] <<" ";
 							CORD[i1][0] = bodies[i1].r[0];
 							CORD[i1][1] = bodies[i1].r[1];
 							CORD[i1][2] = bodies[i1].r[2];
 							SPEED[i1][0] = bodies[i1].v[0];
 							SPEED[i1][1] = bodies[i1].v[1];
 							SPEED[i1][2] = bodies[i1].v[2];
+							//std::cout << SPEED[i1][0] << "\n";
 
 
 
-							for (int j = 0; j < 10000; j++) {
-								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0) {
+							for (int j = 0; j < 500; j++) {
+								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 									if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 										IS_COLLIDED[i1] = 1;
 										IS_COLLIDED[j] = 1;
-										bodies[i1].collision(bodies[j]);
+										//try and catch
+										try {
+											if (TIP[i1] == TIP[j]) {
+												bodies[i1].collision(bodies[j]);
+											}
+										}
+										catch (const std::invalid_argument& e) {
+											std::cout << e.what() << "\n";
+										}
 										R1[collision_count] = i1;
 										R2[collision_count] = j;
 										collision_count++;
@@ -359,18 +374,30 @@ int main()
 
 				}
 			}
-		
+			if (player_actions.hp <= 0) {
+				std::cout << "gameover";
+				break;
+			}
 			
 			std::map<char, bool> inputs = srs::get_inputs();
 			
 			if (inputs['w'])
-				x += 0.1;
-			if (inputs['s'])
-				x -= 0.1;
-			if (inputs['a'])
-				z -= 0.1;
-			if (inputs['d'])
-				z += 0.1;
+			{
+				x += 0.1 * sin(ax);
+				z += 0.1 * cos(ax);
+			}
+			if (inputs['s']) {
+				x -= 0.1 * sin(ax);
+				z -= 0.1 * cos(ax);
+			}
+			if (inputs['a']) {
+				z -= 0.1 * sin(ax);
+				x += 0.1 * cos(ax);
+			}
+			if (inputs['d']) {
+				z += 0.1 * sin(ax);
+				x -= 0.1 * cos(ax);
+			}
 			if (inputs[' '])
 				y += 0.1;
 			if (inputs['c'])
@@ -397,6 +424,9 @@ int main()
 			bodies[0].angle[1] = ay;
 			bodies[0].angle[2] = az;
 
+			CORD[0][0] = x;
+			CORD[0][1] = y;
+			CORD[0][2] = z;
 
 
 			
@@ -409,6 +439,7 @@ int main()
 			srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
 			
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		//cycle = 1000000;
 		}
 	}
 	srs::stop_render();

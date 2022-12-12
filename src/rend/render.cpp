@@ -60,7 +60,7 @@ namespace srs
 					indeces[j] = indeces[j]-1;
 				}
 				
-				if (is_alive != 0)
+				if (is_alive[i] != 0)
 				{
 					// add object
 					RendEng->create_object(int_to_name[is_alive[i]], x_coords[i], y_coords[i], z_coords[i], p[i], q[i], r[i], 0);
