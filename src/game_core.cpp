@@ -1,10 +1,10 @@
-//#define _CRTDBG_MAP_ALLOC
+#define _CRTDBG_MAP_ALLOC
 
 #define enable_testing
 
 #include <stdexcept>
 #include <limits>
-//#include <crtdbg.h>
+#include <crtdbg.h>
 #include <stdlib.h>
 
 #include <chrono>
@@ -15,7 +15,7 @@
 #include <serg_main.cpp>
 #include <andrei_main.cpp>
 
-//#include <mynum.cpp>
+#include <mynum.cpp>
 #include <MyDict.cpp>
 
 #include "globals.hpp"
@@ -52,6 +52,8 @@ struct element {
 int main()
 {
 
+
+
 	// define lld type as long long double
 	typedef long double lld;
 
@@ -67,13 +69,13 @@ int main()
 
 
 
-	//Array of bodies, there always 500 of them (some are living, other - dead)
-	lld** SPEED = new lld * [500];
-	lld** FORCE = new lld * [500];
-	lld** CORD = new lld * [500];
-	unsigned int* TIP = new unsigned int[500];
-	unsigned int* IS_COLLIDED = new unsigned int[500];
-	for (int i = 0; i < 500; i++) {
+	//Array of bodies, there always 10000 of them (some are living, other - dead)
+	lld** SPEED = new lld * [10000];
+	lld** FORCE = new lld * [10000];
+	lld** CORD = new lld * [10000];
+	unsigned int* TIP = new unsigned int[10000];
+	unsigned int* IS_COLLIDED = new unsigned int[10000];
+	for (int i = 0; i < 10000; i++) {
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -86,17 +88,17 @@ int main()
 		}
 	}
 	unsigned int collision_count = 0;
-	unsigned int* R1 = new unsigned int[500];
-	unsigned int* R2 = new unsigned int[500];
+	unsigned int* R1 = new unsigned int[10000];
+	unsigned int* R2 = new unsigned int[10000];
 	unsigned int current_number = 0;
 	directed_segment<lld> null_moment(0, 0, 0);
 
 	//Array of bodies
-	Body<lld>* bodies = new Body<lld>[500];
+	Body<lld>* bodies = new Body<lld>[10000];
 	directed_segment<lld> cord;
 	directed_segment<lld> speed;
 	directed_segment<lld> force;
-	for (int i = 0; i < 500; i++) {
+	for (int i = 0; i < 10000; i++) {
 		if (TIP[i] == 0) {
 			bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 		}
@@ -119,9 +121,9 @@ int main()
 
 
 
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
-	
+	{
 
 		srs::init();
 
@@ -137,11 +139,24 @@ int main()
 		double yaw = 1;
 		double roll = 0;
 
+
+
+		//for simple test
+
 		lld basic_coord = 0;
 		lld basic_speed = 1;
 		lld basic_accel = 0;
 		lld dt = 0.01;
-		
+
+		matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
+		directed_segment <lld> r1(0, 0, 0);
+		directed_segment <lld> v1(0, 0, 0);
+		directed_segment <lld> angle1(0.1, 0.1, 0.1);
+		directed_segment <lld> w1(1, 20, 0);
+		lld size1 = 1;
+		lld m1 = 1;
+		directed_segment <lld> nul(0.0001, 0.0001, 0.0001);
+		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
 
 
 
@@ -158,12 +173,13 @@ int main()
 
 
 
-		//Array of bodies, there always 500 of them (some are living, other - dead)
-		Player_Actions player_actions;
-		
-		double*** data = new double** [3];
-		
-		for (int i = 0; i < 500; i++) {
+		//Array of bodies, there always 10000 of them (some are living, other - dead)
+		lld** SPEED = new lld * [10000];
+		lld** FORCE = new lld * [10000];
+		lld** CORD = new lld * [10000];
+		unsigned int* TIP = new unsigned int[10000];
+		unsigned int* IS_COLLIDED = new unsigned int[10000];
+		for (int i = 0; i < 10000; i++) {
 			SPEED[i] = new lld[3];
 			FORCE[i] = new lld[3];
 			CORD[i] = new lld[3];
@@ -175,8 +191,20 @@ int main()
 				CORD[i][j] = 0;
 			}
 		}
+		unsigned int collision_count = 0;
+		unsigned int* R1 = new unsigned int[10000];
+		unsigned int* R2 = new unsigned int[10000];
+		unsigned int current_number = 0;
+		directed_segment<lld> null_moment(0, 0, 0);
 
-		for (int i = 0; i < 500; i++) {
+		//Array of bodies
+		Body<lld>* bodies = new Body<lld>[10000];
+		directed_segment<lld> cord;
+		directed_segment<lld> speed;
+		directed_segment<lld> force;
+		directed_segment<lld> ang;
+		directed_segment<lld> omega;
+		for (int i = 0; i < 10000; i++) {
 			if (TIP[i] == 0) {
 				bodies[i] = Body<lld>(0, tensor1, nul, nul, angle1, w1, 0);
 			}
@@ -193,6 +221,16 @@ int main()
 		}
 
 
+
+		// test meanings of starting parametres
+		Player_Actions player_actions;
+		Object_Management Manager(TIP);
+		Manager.get_start_data(CORD, SPEED, FORCE, TIP, current_number);
+
+		//print_arr<Type>(CORD, "coords", current_number, fin, 0);
+		//print_arr<Type>(SPEED, "coords", current_number, fin, 0);
+
+		double*** data = new double** [3];
 		for (unsigned k = 0; k < 3; ++k)
 		{
 			data[k] = new double* [1000];
@@ -218,15 +256,15 @@ int main()
 		//srs::create_light(-8, -3, -2, 1, 1, 1, 50);
 
 		// write some code 144 times per seconds to update camera position, objects position, lights position and color
-		for (int cycle = 0; cycle < 100; cycle++)
+		for (int cycle = 0; cycle < 100000; cycle++)
 		{
 			{
 
-				//Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
 				if (true)
 				{
-					for (int i = 0; i < 500; i++) {
+					for (int i = 0; i < 10000; i++) {
 						if (TIP[i] == 0) {
 							bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 						}
@@ -249,13 +287,26 @@ int main()
 					}
 				}
 
-					for (int i1 = 0; i1 < 500; ++i1) {
+				// testing code (please not delete)
+				/*
+				if (cycle % 100 == 0) {
+					std::cout << general_rockets_number << std::endl;
+					std::cout << std::endl;
+					//print_arr<Type>(CORD, "coords", current_number, fin, cycle);
+					//print_arr<Type>(SPEED, "speeds", current_number, fin, cycle);
+				}
+				*/
+				// end of the testing code
+
+				if (true)
+				{
+					for (int i1 = 0; i1 < 10000; ++i1) {
 						IS_COLLIDED[i1] = 0;
 						R1[i1] = 0;
 						R2[i1] = 0;
 						collision_count = 0;
 					}
-					for (int i1 = 0; i1 < 500; ++i1) {
+					for (int i1 = 0; i1 < 10000; ++i1) {
 
 						if (TIP[i1] != 0) {
 							force[0] = FORCE[i1][0];
@@ -284,7 +335,7 @@ int main()
 
 
 
-							for (int j = 0; j < 500; j++) {
+							for (int j = 0; j < 10000; j++) {
 								if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 									if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 										IS_COLLIDED[i1] = 1;
@@ -320,11 +371,12 @@ int main()
 
 						types[i - 1] = TIP[i];
 					}
-					
+
+				}
 			}
 			if (player_actions.hp <= 0) {
 				std::cout << "gameover";
-				//break;
+				break;
 			}
 
 			std::map<char, bool> inputs = srs::get_inputs();
@@ -387,41 +439,11 @@ int main()
 			srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-			//cycle = 50000;
 		}
-	
-	//srs::stop_render();
-	fin.close();
-	srs::stop_render();
-
-	// clear memory
-	{
-		for (int i = 0; i < 500; ++i)
-		{
-			delete[] CORD[i];
-			delete[] SPEED[i];
-			delete[] FORCE[i];
-		}
-		delete[] CORD;
-		delete[] SPEED;
-		delete[] FORCE;
-
-		delete[] IS_COLLIDED;
-		delete[] TIP;
-		delete[] R1;
-		delete[] R2;
-		delete[] bodies;
-		//delete[] Force;
-		delete[] x_coords;
-		delete[] y_coords;
-		delete[] z_coords;
-
-		delete[] ps;
-		delete[] qs;
-		delete[] rs;
-
-		delete[] types;
 	}
+	srs::stop_render();
+	fin.close();
+
 	return 0;
 
 }
