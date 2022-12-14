@@ -35,10 +35,10 @@ public:
     void DeleteMesh(int index, GLuint &vertexbuffer, GLuint &uvbuffer, GLuint &normalbuffer,
                     GLuint &elementbuffer)
     {
-        glDeleteBuffers(index, &vertexbuffer);
-        glDeleteBuffers(index, &uvbuffer);
-        glDeleteBuffers(index, &normalbuffer);
-        glDeleteBuffers(index, &elementbuffer);
+        //glDeleteBuffers(index, &vertexbuffer);
+        //glDeleteBuffers(index, &uvbuffer);
+        //glDeleteBuffers(index, &normalbuffer);
+        //glDeleteBuffers(index, &elementbuffer);
         // glDeleteProgram(programID);
     }
     void LoadAllCustomMesh(std::vector<GLuint> &ElementBuff, std::vector<GLuint> &NormalBuff,
