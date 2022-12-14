@@ -1,3 +1,24 @@
+# set CMAKE_C_Compiler as gcc
+# set CMAKE_CXX_Compiler
+
+
+# if linux
+# set CMAKE_C_Compiler as gcc
+# set CMAKE_CXX_Compiler as g++
+# else nothing do
+
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+	# message linux using system linux
+	message("linux: using gcc and g++")
+	set(CMAKE_C_COMPILER gcc)
+	set(CMAKE_CXX_COMPILER g++)
+endif()
+
+
+# set(CMAKE_C_COMPILER "gcc")
+# set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+
+
 cmake_minimum_required(VERSION 3.0.0)
 project(SpaceShooter VERSION 0.1.0)
 find_package(OpenGL REQUIRED)

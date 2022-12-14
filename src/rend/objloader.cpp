@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
+#include <cstring>
 #include <glm/glm.hpp>
 
 bool loadOBJ(

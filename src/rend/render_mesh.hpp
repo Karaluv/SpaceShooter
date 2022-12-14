@@ -29,6 +29,7 @@ public:
 		glDeleteBuffers(VertexBuffers.size(), &VertexBuffers[0]);
 		glDeleteBuffers(IndexBuffer.size(), &IndexBuffer[0]);
 
+
     }
 
     void DeleteMesh(int index, GLuint &vertexbuffer, GLuint &uvbuffer, GLuint &normalbuffer,

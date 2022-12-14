@@ -34,6 +34,9 @@
 #include <render_object.hpp>
 #include <cub_map.hpp>
 #include <render_mesh.hpp>
+#include <filesystem>
+
+//namespace fs = std::filesystem;
 
 class render_engine
 {
@@ -61,33 +64,39 @@ public:
 
 	void stop()
 	{
-		this->RenderTaskisRunning_ = false;
-		RenderTask_.join();
-
-
-		for (int i = 0; i < VertexBuffers.size(); i++)
+		if (this->RenderTaskisRunning_)
 		{
-			MeshSpace.DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
-		}
-		glDeleteTextures(1, &TextureID);
-		TwTerminate();
-		glfwTerminate();
-		Is_Initialized_ = false;
+			this->RenderTaskisRunning_ = false;
+			try {
+				RenderTask_.join();
+			}
+			catch (std::system_error& e) {
+				std::cout << "Error: " << e.what() << std::endl;
+			}
 
-		// delete vectors and al its objects
-		for (int i = 0; i < RendObjs.size(); i++)
-		{
-			delete RendObjs[i];
-		}
-		RendObjs.clear();
-		
-		// lights
-		for (int i = 0; i < Lights.size(); i++)
-		{
-			delete Lights[i];
-		}
-		Lights.clear();
+			for (int i = 0; i < VertexBuffers.size(); i++)
+			{
+				MeshSpace.DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
+			}
+			glDeleteTextures(1, &TextureID);
+			TwTerminate();
+			glfwTerminate();
+			Is_Initialized_ = false;
 
+			// delete vectors and al its objects
+			for (int i = 0; i < RendObjs.size(); i++)
+			{
+				delete RendObjs[i];
+			}
+			RendObjs.clear();
+
+			// lights
+			for (int i = 0; i < Lights.size(); i++)
+			{
+				delete Lights[i];
+			}
+			Lights.clear();
+		}
 		
 	}
 
@@ -169,7 +178,9 @@ public:
 		{
 			// throw exception
 			//std::cout << "Error: object with name " << name << " not found\n";
-			throw std::exception("Error: object with name not found\n");
+			// runtime_exception
+			throw std::runtime_error("Error: object with name " + name + " not found\n");
+			//throw std::exception("Error: object with name not found\n");
 			return;
 		}
 		access_object_.lock();
@@ -239,7 +250,8 @@ public:
 		
 		// trow "Error: index out of range\n";
 		access_light_.unlock();
-			throw std::exception("Error: index out of range");
+		throw std::runtime_error("Error: index out of range\n");
+			//throw std::exception("Error: index out of range");
 			return;
 		 
 		}
@@ -259,7 +271,9 @@ public:
 		{
 		access_object_.unlock();
 			// trow "Error: index out of range\n";
-		throw std::exception("Error: index out of range");
+		throw std::runtime_error("Error: index out of range\n");
+		//throw std::exception("Error: index out of range");
+
 		return;
 		}
 			//std::cout << "NO such object exicts!";
@@ -384,7 +398,7 @@ private:
 	void Load_All_textures()
 	{
 		// you have dictionary with all pathes
-		
+		std::cout << "In texture loading void\n";
 		for (auto it = TexturesId.begin(); it != TexturesId.end(); ++it)
 		{
 			int index = it->second;
@@ -403,7 +417,8 @@ private:
 
 	void initialize()
 	{
-
+		// cout current path
+		//std::cout << "Current path is " << fs::current_path() << '\n'; // (1)
 		glfwInit();
 
 		glfwWindowHint(GLFW_SAMPLES, 4);
@@ -443,16 +458,25 @@ private:
 
 		Texture = loadDDS("res/textures/MyTest.DDS");
 		TextureID = glGetUniformLocation(programID, "myTextureSampler");
-		
+
+		std::cout << "start loading model data\n";
 		Load_All();
+		std::cout << "end loading model data\n";
+		
+		std::cout << "start loading textures\n";
 		Load_All_textures();
+
+		std::cout << "end loading textures\n";
+		
+		std::cout << "start loading meshes\n";
 
 		
 			
 		
 		MeshSpace.LoadAllCustomMesh(ElementBuffers, NormalBuffers, UvBuffers, VertexBuffers, IndexBuffer, PathMeshes);
 		
-
+		std::cout << "end loading meshes\n";
+		
 		glUseProgram(programID);
 		LightPositsID = glGetUniformLocation(programID, "LightPosits");
 		LightColorsID = glGetUniformLocation(programID, "LightColors");
@@ -463,13 +487,14 @@ private:
 
 		glUniform1i(TypeOfLightningId, 1);
 
-		
+		std::cout << "init camera\n";
 
 		ViewCamera.set_position(glm::vec3(0, 0, 1));
 		ViewCamera.set_angel(glm::vec3(0, 0, 0));
 		ViewCamera.set_rotation(glm::vec3(0, 1, 0));
 		Is_Initialized_ = true;
 		RenderTaskisTerminated_ = false;
+		std::cout << "finished camera\n";
 	}
 
 	void Load_All()

@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 
 #include <GLFW/glfw3.h>
+// cout
+#include <iostream>
 
 
 GLuint loadBMP_custom(const char * imagepath){
@@ -131,9 +133,11 @@ GLuint loadDDS(const char * imagepath){
 	FILE *fp; 
  
 	/* try to open the file */ 
+	//std::cout << imagepath << '\n';
 	fp = fopen(imagepath, "rb"); 
 	if (fp == NULL){
-		printf("%s could not be opened. Are you in the right directory ? Don't forget to read the FAQ !\n", imagepath); getchar(); 
+		std::cout << "Failed to open file !!!" << imagepath << "!!!\n";
+		//printf("%s could not be opened. Are you in the right directory ? Don't forget to read the FAQ !\n", imagepath); getchar(); 
 		return 0;
 	}
    

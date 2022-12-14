@@ -166,5 +166,7 @@ namespace srs
 	void stop_render()
 	{
 		RendEng->stop();
+		delete[] is_alive_previous;
+		
 	}
 }
