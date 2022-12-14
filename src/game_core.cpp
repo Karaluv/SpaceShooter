@@ -120,11 +120,11 @@ int main()
 	fin.open("arrays.txt");
 
 
-
+	
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	srs::start_render();
 	{
-
+		
 		srs::init();
 
 		double x = 0;
@@ -153,14 +153,14 @@ int main()
 		directed_segment <lld> v1(0, 0, 0);
 		directed_segment <lld> angle1(0.1, 0.1, 0.1);
 		directed_segment <lld> w1(1, 20, 0);
-		lld size1 = 1;
+		lld size1 =1;
 		lld m1 = 1;
 		directed_segment <lld> nul(0.0001, 0.0001, 0.0001);
 		Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
 
 
-
-
+		
+		
 		float* x_coords = new float[500];
 		float* y_coords = new float[500];
 		float* z_coords = new float[500];
@@ -192,8 +192,8 @@ int main()
 			}
 		}
 		unsigned int collision_count = 0;
-		unsigned int* R1 = new unsigned int[10000];
-		unsigned int* R2 = new unsigned int[10000];
+		unsigned int* R1 = new unsigned int [10000];
+		unsigned int* R2 = new unsigned int [10000];
 		unsigned int current_number = 0;
 		directed_segment<lld> null_moment(0, 0, 0);
 
@@ -229,9 +229,9 @@ int main()
 
 		//print_arr<Type>(CORD, "coords", current_number, fin, 0);
 		//print_arr<Type>(SPEED, "coords", current_number, fin, 0);
-
-		double*** data = new double** [3];
-		for (unsigned k = 0; k < 3; ++k)
+		
+		double*** data = new double**[3];
+		for (unsigned k = 0; k < 3; ++ k)
 		{
 			data[k] = new double* [1000];
 			for (unsigned j = 0; j < 1000; ++j) {
@@ -259,7 +259,7 @@ int main()
 		for (int cycle = 0; cycle < 100000; cycle++)
 		{
 			{
-
+				
 				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
 
 				if (true)
@@ -312,7 +312,7 @@ int main()
 							force[0] = FORCE[i1][0];
 							force[1] = FORCE[i1][1];
 							force[2] = FORCE[i1][2];
-							try {
+							try{
 								bodies[i1].update_angle(dt);
 								bodies[i1].update_w(dt, null_moment);
 								bodies[i1].update_velocity(dt, force);
@@ -321,7 +321,7 @@ int main()
 							catch (std::invalid_argument& e) {
 								std::cout << e.what() << std::endl;
 							}
-
+							
 
 
 							//std::cout << SPEED[i1][0] <<" ";
@@ -378,9 +378,9 @@ int main()
 				std::cout << "gameover";
 				break;
 			}
-
+			
 			std::map<char, bool> inputs = srs::get_inputs();
-
+			
 			if (inputs['w'])
 			{
 				x += 0.1 * sin(ax);
@@ -412,9 +412,9 @@ int main()
 
 			std::pair<double, double> mouse_pos = srs::get_mouse();
 
-
-			ax = -mouse_pos.first / 1000;
-			ay = -mouse_pos.second / 1000;
+			
+			ax = -mouse_pos.first/1000;
+			ay = -mouse_pos.second/1000;
 
 			bodies[0].r[0] = x;
 			bodies[0].r[1] = y;
@@ -429,7 +429,7 @@ int main()
 			CORD[0][2] = z;
 
 
-
+			
 			//srs::update_object(0, x, y, z,0,0,0,0);
 
 			// camera update
@@ -437,7 +437,7 @@ int main()
 
 			// update objects
 			srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
-
+			
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	}
