@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include <fstream>
 #include <cstring>
-#include <glm/glm.hpp>
+#include <fstream>
+ 
+#include <cstring>
 
 bool loadOBJ(
 	const char *path,

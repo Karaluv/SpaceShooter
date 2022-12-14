@@ -117,6 +117,7 @@ struct Directed_Segment {
 		return *this;
 	}
 
+
 	//I don't understand why it's not correct
 	/***
 	Directed_Segment(Directed_Segment&& src) : x(src.x), y(src.y), z(src.z) {};

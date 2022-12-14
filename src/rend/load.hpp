@@ -88,6 +88,21 @@ void write_to_dict(unsigned target_index, unsigned current_index,
 	}
 }
 
+ 
+// template function which takes n dictionaries std::map<int, std::string> &
+// which takes path to a file and writes to n dictionaries its contents 
+// each line of the file is a key-value pair separated by a space
+template <>
+void write_to_dict(unsigned target_index, unsigned current_index,
+	int int_to_write, std::string string_to_write,
+	std::map<int, std::string>& dict)
+{
+	if (target_index == current_index)
+	{
+		dict[int_to_write] = string_to_write;
+	}
+}
+ 
 
 // for last dictonary cut last symbol from strng
 template <>

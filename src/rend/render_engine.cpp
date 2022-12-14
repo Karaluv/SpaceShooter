@@ -178,9 +178,11 @@ public:
 		{
 			// throw exception
 			//std::cout << "Error: object with name " << name << " not found\n";
+ 
 			// runtime_exception
 			throw std::runtime_error("Error: object with name " + name + " not found\n");
 			//throw std::exception("Error: object with name not found\n");
+ 
 			return;
 		}
 		access_object_.lock();
@@ -250,8 +252,10 @@ public:
 		
 		// trow "Error: index out of range\n";
 		access_light_.unlock();
+ 
 		throw std::runtime_error("Error: index out of range\n");
 			//throw std::exception("Error: index out of range");
+ 
 			return;
 		 
 		}
@@ -271,6 +275,7 @@ public:
 		{
 		access_object_.unlock();
 			// trow "Error: index out of range\n";
+ 
 		throw std::runtime_error("Error: index out of range\n");
 		//throw std::exception("Error: index out of range");
 
