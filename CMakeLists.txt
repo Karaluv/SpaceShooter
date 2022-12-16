@@ -1,11 +1,3 @@
-# set CMAKE_C_Compiler as gcc
-# set CMAKE_CXX_Compiler
-
-
-# if linux
-# set CMAKE_C_Compiler as gcc
-# set CMAKE_CXX_Compiler as g++
-# else nothing do
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	# message linux using system linux
@@ -14,10 +6,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(CMAKE_CXX_COMPILER g++)
 endif()
 
-
-# set(CMAKE_C_COMPILER "gcc")
-# set(CMAKE_CXX_COMPILER "/usr/bin/g++")
-
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/debug) 
 
 cmake_minimum_required(VERSION 3.0.0)
 project(SpaceShooter VERSION 0.1.0)

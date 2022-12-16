@@ -330,7 +330,7 @@ protected:
 	Type size;
 public:
 	Massive_Point() : Math_Point(), mass(1), size(0) {};
-	Massive_Point(Massive_Point const& src) = default;
+	Massive_Point(Massive_Point & src) = default;
 	Massive_Point& operator = (Massive_Point const& src) = default;
 	Massive_Point(Massive_Point&& src) = default;
 	Massive_Point& operator = (Massive_Point&& src) = default;
