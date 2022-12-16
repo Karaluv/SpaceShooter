@@ -69,6 +69,12 @@ public:
 		if (this->RenderTaskisRunning_)
 		{
 			this->RenderTaskisRunning_ = false;
+			try {
+				RenderTask_.join();
+			}
+			catch (std::system_error& e) {
+				std::cout << "Error: " << e.what() << std::endl;
+			}	
 
 			for (int i = 0; i < VertexBuffers.size(); i++)
 			{
@@ -97,12 +103,6 @@ public:
 			
 			Lights.clear();
 			
-			try {
-				RenderTask_.join();
-			}
-			catch (std::system_error& e) {
-				std::cout << "Error: " << e.what() << std::endl;
-			}	
 		}
 		
 	}
