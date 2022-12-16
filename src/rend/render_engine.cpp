@@ -8,6 +8,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+// cassert
+#include <cassert>
 // Include GLEW
 #include <GL/glew.h>
 // Include GLFW
@@ -103,7 +105,7 @@ public:
 	void render_process()
 	{
 
-		const int target_fps = (1000000000 / 144); // 144 fps
+		const int target_fps = (50000000 / 144); // 144 fps
 		RenderTaskisRunning_ = true;               // set this to false to stop the render process
 
 		initialize();

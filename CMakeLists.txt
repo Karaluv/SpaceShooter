@@ -48,6 +48,10 @@ set(ALL_LIBS
 	GLEW_1130
 )
 
+set(test_libs
+	"test.cpp"
+)
+
 add_definitions(
 	-DTW_STATIC
 	-DTW_NO_LIB_PRAGMA

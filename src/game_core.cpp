@@ -20,6 +20,11 @@
 #include "Player_Actions.h"
 #include <fstream>
 
+
+#ifdef enable_testing
+#include <test.cpp>
+#endif
+
 struct Player {
 	unsigned int tip;
 	Type cord;
@@ -60,13 +65,13 @@ int main()
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
 	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
-	lld** SPEED = new lld * [10000];
-	lld** FORCE = new lld * [10000];
-	lld** CORD = new lld * [10000];
+	lld** SPEED = new lld * [500];
+	lld** FORCE = new lld * [500];
+	lld** CORD = new lld * [500];
 
-	unsigned int* TIP = new unsigned int[10000];
-	unsigned int* IS_COLLIDED = new unsigned int[10000];
-	for (int i = 0; i < 10000; i++) {
+	unsigned int* TIP = new unsigned int[500];
+	unsigned int* IS_COLLIDED = new unsigned int[500];
+	for (int i = 0; i < 500; i++) {
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -79,16 +84,16 @@ int main()
 		}
 	}
 	unsigned int collision_count = 0;
-	unsigned int* R1 = new unsigned int[10000];
-	unsigned int* R2 = new unsigned int[10000];
+	unsigned int* R1 = new unsigned int[500];
+	unsigned int* R2 = new unsigned int[500];
 	unsigned int current_number = 0;
 	
 	directed_segment<lld> null_moment(0, 0, 0);
-	Body<lld>* bodies = new Body<lld>[10000];
+	Body<lld>* bodies = new Body<lld>[500];
 	directed_segment<lld> cord;
 	directed_segment<lld> speed;
 	directed_segment<lld> force;
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 500; i++) {
 		if (TIP[i] == 0) {
 			bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 		}
@@ -135,7 +140,7 @@ int main()
 
 	unsigned int* types = new unsigned int[500];
 
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 500; i++) {
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -150,7 +155,7 @@ int main()
 
 	//Array of bodies
 	
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 500; i++) {
 		if (TIP[i] == 0) {
 			bodies[i] = Body<lld>(0, tensor1, nul, nul, angle1, w1, 0);
 		}
@@ -198,7 +203,7 @@ int main()
 	srs::create_light(1000, 1000, 1000, 1, 0.7, 0.1, 5000000);
 
 
-	for (int cycle = 0; cycle < 100000; cycle++)
+	for (int cycle = 0; cycle < 5000; cycle++)
 	{
 		
 		try {
@@ -210,7 +215,7 @@ int main()
 		}
 
 
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 500; i++) {
 			if (TIP[i] == 0) {
 				bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 			}
@@ -229,13 +234,13 @@ int main()
 			}
 		}
 
-		for (int i1 = 0; i1 < 10000; ++i1) {
+		for (int i1 = 0; i1 < 500; ++i1) {
 			IS_COLLIDED[i1] = 0;
 			R1[i1] = 0;
 			R2[i1] = 0;
 			collision_count = 0;
 		}
-		for (int i1 = 0; i1 < 10000; ++i1) {
+		for (int i1 = 0; i1 < 500; ++i1) {
 
 			if (TIP[i1] != 0) {
 				force[0] = FORCE[i1][0];
@@ -264,7 +269,7 @@ int main()
 
 
 
-				for (int j = 0; j < 10000; j++) {
+				for (int j = 0; j < 500; j++) {
 					if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
 						if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
 							IS_COLLIDED[i1] = 1;

@@ -419,7 +419,7 @@ protected:
 	Type const standart_ship_speed = 50;
 	Type const standart_ship_accel = 5;
 	Type const standart_ship_size = 50;
-	Type const detected_distance = 10000; // distance of detection of enemy
+	Type const detected_distance = 500; // distance of detection of enemy
 	Type const fire_distance = 5000; // distance of starting of shut
 	unsigned const standart_recharging_time = 200;
 	unsigned recharging_time;
@@ -648,7 +648,7 @@ private:
 	unsigned need_to_print_arr;
 	std::ofstream fout;
 	unsigned current_time;
-	unsigned const max_objects_amount = 10000;
+	unsigned const max_objects_amount = 500;
 	unsigned const min_start_distance = 1000;
 	unsigned const max_start_distance = 10000;
 	unsigned const start_ship_number = 20;
@@ -1094,7 +1094,7 @@ public:
 	{
 		++current_time;
 		if (current_time % 100 == 0) {
-			std::cout << player_actions.hp;
+		//	std::cout << player_actions.hp;
 		}
 
 		//test code
