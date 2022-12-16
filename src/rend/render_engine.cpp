@@ -69,17 +69,14 @@ public:
 		if (this->RenderTaskisRunning_)
 		{
 			this->RenderTaskisRunning_ = false;
-			try {
-				RenderTask_.join();
-			}
-			catch (std::system_error& e) {
-				std::cout << "Error: " << e.what() << std::endl;
-			}
 
 			for (int i = 0; i < VertexBuffers.size(); i++)
 			{
 				MeshSpace.DeleteMesh(i + 1, VertexBuffers[i], UvBuffers[i], NormalBuffers[i], ElementBuffers[i]);
 			}
+			// fix thread
+			
+			glfwMakeContextCurrent(NULL);
 			glDeleteTextures(1, &TextureID);
 			TwTerminate();
 			glfwTerminate();
@@ -97,7 +94,15 @@ public:
 			{
 				delete Lights[i];
 			}
+			
 			Lights.clear();
+			
+			try {
+				RenderTask_.join();
+			}
+			catch (std::system_error& e) {
+				std::cout << "Error: " << e.what() << std::endl;
+			}	
 		}
 		
 	}

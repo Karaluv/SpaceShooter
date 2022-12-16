@@ -47,3 +47,7 @@ CTestTestfile.cmake
 Testing/
 *.cmake
 
+#valgrind
+vgcore.*
+#.log
+valgrind.txt

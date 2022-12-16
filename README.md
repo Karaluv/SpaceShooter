@@ -1,3 +1,11 @@
+## How to play
+The game is controlled by keyboard and mouse.
+- **WASD** - move the spaceship
+- **Right mouse button** - use special ability
+- **ctrl** - move ship down
+- **space** - move ship up
+
+## Кто что делал
 # Андрей
 - Шаблоны: andrei_main, matrix; используются во всех классах этих файлов
 - Работа с потоками ввода-вывода: game_core; функция ReadPhysData
@@ -19,3 +27,5 @@
 - темплейты в loader.hpp и render_engine.cpp (где-то середина)
 - cmake
 - мультипоточность
+
+
