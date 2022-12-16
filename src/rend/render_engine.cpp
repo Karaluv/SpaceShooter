@@ -613,6 +613,11 @@ private:
 		inputs['o'] = false;
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 			inputs['o'] = true;
+
+		// escape
+		inputs['k'] = false;
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			inputs['k'] = true;
 		
 
 		// mouse move
@@ -705,7 +710,7 @@ private:
 		{'r', false}, {'t', false}, {'m', false},
 		{'n', false}, {'c', false}, {'s', false},
 		{' ', false}, {'x', false}, {'y', false},
-		{'l', false}, {'o', false} };
+		{'l', false}, {'o', false}, {'k', false}};
 
 	double mouse_x, mouse_y;
 

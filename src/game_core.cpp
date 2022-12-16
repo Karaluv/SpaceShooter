@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 
-#include <render.cpp>
+#include <render.hpp>
 #include <serg_main.cpp>
 #include <andrei_main.cpp>
 
@@ -237,11 +237,11 @@ int main()
 	data[1][0][1] = 0;
 	data[1][0][2] = 0;
 
-	srs::start_render();
-	srs::init();
+	 start_render();
+	 init_render();
 
-	srs::create_object("skybox", 0, 0, 0, 0, 0, 0, 1);
-	srs::create_light(1000, 1000, 1000, 1, 0.7, 0.1, 5000000);
+	 create_object("skybox", 0, 0, 0, 0, 0, 0, 1);
+	 create_light(1000, 1000, 1000, 1, 0.7, 0.1, 5000000);
 
 
 	for (int cycle = 0; cycle < 5000; cycle++)
@@ -355,7 +355,7 @@ int main()
 			break;
 		}
 		
-		std::map<char, bool> inputs = srs::get_inputs();
+		std::map<char, bool> inputs =  get_inputs();
 		
 		if (inputs['w'])
 		{
@@ -386,7 +386,11 @@ int main()
 		if (inputs['l'])
 			player_actions.shout = true;
 
-		std::pair<double, double> mouse_pos = srs::get_mouse();
+		// if k exit
+		if (inputs['k'])
+			break;
+
+		std::pair<double, double> mouse_pos =  get_mouse();
 
 		
 		ax = -mouse_pos.first/1000;
@@ -407,15 +411,14 @@ int main()
 
 		
 
-		srs::update_camera(x, y, z, ax, ay, roll);
+		 update_camera(x, y, z, ax, ay, roll);
 
-		srs::sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
+		 sync_changes(types, x_coords, y_coords, z_coords, ps, qs, rs);
 		
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	fin.close();
-	srs::stop_render();
 
 	// clear memory
 	for (int i = 0; i < 500; ++i)
@@ -446,7 +449,9 @@ int main()
 
 	delete[] types;
 	
+	stop_render();
 
 	return 0;
+
 
 }

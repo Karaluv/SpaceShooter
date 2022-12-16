@@ -7,20 +7,11 @@
 #include <render_engine.cpp>
 
 
-namespace srs
-
-{
-	// create class render_engine (singleton)
-	render_engine* RendEng = render_engine::GetInstance();
+	static render_engine* RendEng = render_engine::GetInstance();
 	
-
-	// because in other classes normal arrays are used and vectors in render
-	// i got to map indeces
-
 	unsigned* is_alive_previous = new unsigned[500];
-	// fill with 0
 	
-	void init()
+	void init_render()
 	{
 	for (int i = 0; i < 500; i++)
 	{
@@ -169,4 +160,3 @@ namespace srs
 		delete[] is_alive_previous;
 		
 	}
-}

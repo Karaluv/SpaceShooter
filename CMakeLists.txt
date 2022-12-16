@@ -125,7 +125,7 @@ add_library(render_engine
 
 
 add_library(render
-	src/rend/render.cpp
+	"src/rend/render.hpp"
  "src/serg/Player_Actions.h")
 
 
