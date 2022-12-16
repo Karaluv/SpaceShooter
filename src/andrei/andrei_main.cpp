@@ -2,12 +2,9 @@
 #include <cassert>
 #include <matrix.hpp>
 #include <valarray>
-
-// super accurate sin, tan, cos functions
+#include <iterator>
+#include <algorithm>
 #include <cmath>
-
-
-
 
 template<typename State>
 class GenericRK {
@@ -54,10 +51,6 @@ public:
 
 
 
-
-
-
-// template T class body with fields m, tensor of inertia as matrix 3x3 , rx, ry, rz, w
 template <typename T>
 class Body {
 public:
@@ -78,7 +71,6 @@ public:
 		kinetic_energy_of_rotation = 0;
 	};
 	
-	//rule of five
 	Body(const Body& other) : m(other.m), tensor(other.tensor), r(other.r), v(other.v), angle(other.angle), w(other.w), size(other.size), kinetic_energy_of_rotation(other.kinetic_energy_of_rotation) {};
 	Body(Body&& other) : m(other.m), tensor(other.tensor), r(other.r), v(other.v), angle(other.angle), w(other.w), size(other.size), kinetic_energy_of_rotation(other.kinetic_energy_of_rotation) {};
 	Body& operator=(const Body& other) {
@@ -108,10 +100,6 @@ public:
 
 
 	
-	// void which updates body position using velocity and time, updates alpha using w and time
-
-
-
 
 	Body f(Body& state) {
 		Body result;
@@ -123,13 +111,7 @@ public:
 		result.angle[2] = state.w[2] - (state.w[0] * sin(state.angle[2]) + state.w[1] * cos(state.angle[2])) / tan(state.angle[1]);
 		return result;
 	}
-	/*
-	void update_rotation() {
-		GenericRK<Body> RK;
-		Body bd = RK.step(*this);
-		this = bd;
-	}
-	*/
+	
 
 	
 	
@@ -138,7 +120,6 @@ public:
 	}
 	
 	void update_velocity(T time, directed_segment<T> force) {
-		//exception
 		if (m == 0) {
 			throw std::invalid_argument("Mass of body is 0");
 		}
@@ -147,7 +128,6 @@ public:
 
 	void update_w(T time, directed_segment<T> M) {
 
-		//exception
 		if (tensor[0][0] == 0 || tensor[1][1] == 0 || tensor[2][2] == 0) {
 			throw std::invalid_argument("Tensor of inertia is not defined");
 		}
@@ -175,32 +155,25 @@ public:
 		angle = angle + angle_ * time;
 	}
 
-	// void collision with other body using vector of velocity
 	void collision(Body<T>& other) {
-		//exception
 		if (this == &other) {
 			throw std::invalid_argument("Collision with itself");
 		}
-		//exception
 		if (size == 0 || other.size == 0) {
 			throw std::invalid_argument("Collision with zero size body");
 		}
-		//exception
 		if (m == 0 || other.m == 0) {
 			throw std::invalid_argument("Collision with zero mass body");
 		}
 		
-		// calculate new velocity for this body
 		directed_segment<T> v1 = (v * (m - other.m) + other.v* (2 * other.m)) / (m + other.m);
-		// calculate new velocity for other body
-		directed_segment<T> v2 = (v * (other.m - m) + v*(2*m)) / (m + other.m);
-		//mearure of collision
+		
+		directed_segment<T> v2 = (other.v * (other.m - m) + v*(2*m)) / (m + other.m);
+
 		T collision_measure_1 = m*(v1 - v).length();
 		T collision_measure_2 = other.m * (v2 - other.v).length();
 		
-		// update velocity for this body
 		v = v1;
-		// update velocity for other body
 		other.v = v2;
 		
 		directed_segment<T> direction = other.r - r;
@@ -216,8 +189,6 @@ public:
 
 		directed_segment<T> w1 = S * w;
 		directed_segment<T> w2 = S * other.w;
-		//w1 = w1 / w1.length();
-		//w2 = w2 / w2.length();
 		directed_segment<T> w1_v = direction * (w1 * direction);
 		directed_segment<T> w1_h = w1 - w1_v;
 		directed_segment<T> w2_v = direction * (w2 * direction);
@@ -231,19 +202,11 @@ public:
 		this->update_w(0.01, M21);
 		other.update_w(0.01, M12);
 	}
-
-	//get kinetic energy including rotation using tensor
+	
 	T get_kinetic_energy() {
 		return (m*(v * v))/2+(w * (tensor * w))/2;
 	}
 
-
-
-
-
-
-
-	//operator + for body
 	Body operator+(const Body& other) {
 		Body result;
 		result.r = r + other.r;
@@ -252,7 +215,7 @@ public:
 		result.w = w + other.w;
 		return result;
 	}
-	//operator * for body
+
 	Body operator*(const T& other) {
 		Body result;
 		result.r = r * other;
@@ -262,7 +225,7 @@ public:
 		return result;
 	}
 
-	//operator / for body
+
 	Body operator/(const T& other) {
 		Body result;
 		result.r = r / other;
