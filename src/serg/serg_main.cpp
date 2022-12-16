@@ -23,7 +23,10 @@ Type get_square(Type number) {
 
 void print_current_state(Type** coords, Type** speeds, Type** powers, unsigned* types, unsigned N);
 
-template <typename T, unsigned N>
+
+
+/*
+* template <typename T, unsigned N>
 void copy_arr(T* data, T* new_data)
 {
 	for (unsigned k = 0; k < N; ++k)
@@ -31,6 +34,7 @@ void copy_arr(T* data, T* new_data)
 		data[k] = new_data[k];
 	}
 }
+*/
 
 template <typename T>
 void print_arr(T** arr, std::string name, unsigned N, std::ofstream& fin, unsigned time)
@@ -67,8 +71,7 @@ void print_arr(T* arr, std::string name, unsigned N, std::ofstream& fin, unsigne
 Type random_distribution(int min, int max)
 {
 	if (max <= min) {
-		std::cout << "error of diapason of random value" << std::endl;
-		throw;
+		throw std::logic_error("error of diapason of random value");
 	}
 	int random_value = static_cast<int>(rand() % (static_cast<unsigned>(max - min))) + min;
 	//int random_value = static_cast<int>(rand() % (static_cast<unsigned>(max - min))) + min;
@@ -89,6 +92,11 @@ struct Directed_Segment {
 	Type y;
 	Type z;
 	Directed_Segment() : x(0), y(0), z(0) {};
+	~Directed_Segment()
+	{
+		//std::cout << "Destructor of vector is called";
+		//std::cout << std::endl;
+	}
 	Directed_Segment(Type x, Type y, Type z) : x(x), y(y), z(z) {};
 	//Directed_Segment(Type* segm) : x(segm[0]), y(segm[1]), z(segm[2]) {};
 	Directed_Segment(const Directed_Segment& other)
@@ -190,8 +198,7 @@ struct Directed_Segment {
 Directed_Segment set_random_starting_position(int min, int max)
 {
 	if (min < 0 || max < 0) {
-		std::cout << "wrong start diapason of ship position" << std::endl;
-		throw;
+		throw std::logic_error("wrong start diapason of ship position");
 	}
 	unsigned sign = 0;
 	Type pos[3];
@@ -250,7 +257,10 @@ public:
 	}; **/
 	/** Math_Point(double x, double y, double z) : Math_Point(x, y, z, 0, 0, 0) {}; **/
 	Math_Point() : number(0) {};
-	~Math_Point() = default;
+	~Math_Point()
+	{
+
+	}
 	Math_Point(Math_Point& src) = default;
 	Math_Point& operator = (Math_Point const& src) = default;
 	Math_Point(Math_Point&& src) = default;
@@ -284,22 +294,18 @@ public:
 		return number;
 	}
 
-	Type* get_list_speed()
+	void get_list_speed(Type* list_speed)
 	{
-		Type* list_speed = new Type[3];
 		list_speed[0] = this->speed.x / Ks;
 		list_speed[1] = this->speed.y / Ks;
 		list_speed[2] = this->speed.z / Ks;
-		return list_speed;
 	}
 
-	Type* get_list_coord()
+	void get_list_coord(Type* list_coord)
 	{
-		Type* list_coord = new Type[3];
 		list_coord[0] = this->coord.x / Kc;
 		list_coord[1] = this->coord.y / Kc;
 		list_coord[2] = this->coord.z / Kc;
-		return list_coord;
 	}
 
 	Directed_Segment& get_coord()
@@ -425,9 +431,9 @@ protected:
 	Directed_Segment target;
 	int const standart_hp = 100;
 	int hp;
-	unsigned* arsenal;
+	//unsigned* arsenal;
 public:
-	Space_Ship() : Massive_Point(), max_speed(0), max_engine_power(0), recharging(0), hp(0), arsenal(nullptr)
+	Space_Ship() : Massive_Point(), max_speed(0), max_engine_power(0), recharging(0), hp(0)
 	{
 		this->set_parametres();
 	};
@@ -440,7 +446,7 @@ public:
 
 	~Space_Ship()
 	{
-		if (arsenal != nullptr) delete[] arsenal;
+		//if (arsenal != nullptr) delete[] arsenal;
 	}
 
 	//Space_Ship(Type max_speed, Type max_accel, unsigned hp, Type size, unsigned* arsenal) : Massive_Point(),
@@ -536,13 +542,11 @@ public:
 		return max_speed;
 	}
 
-	Type* get_list_power()
+	void get_list_power(Type* list_power)
 	{
-		Type* list_power = new Type[3];
 		list_power[0] = this->engine_power.x / Kf;
 		list_power[1] = this->engine_power.y / Kf;
 		list_power[2] = this->engine_power.z / Kf;
-		return list_power;
 	}
 
 	void shout(unsigned weapon_type, Weapon& bullet, Directed_Segment target, Directed_Segment target_speed) {
@@ -705,9 +709,10 @@ public:
 	~Object_Management()
 	{
 		fout.close();
-		for (unsigned current_number = 0; current_number < 100; ++current_number)
+		for (unsigned current_number = 1; current_number < 100; ++current_number)
 		{
-			if (ships[current_number] != nullptr) delete ships[current_number];
+			if (ships[current_number] != nullptr)
+				delete ships[current_number];
 			if (rockets[current_number] != nullptr) delete rockets[current_number];
 			if (buffer_ships[current_number] != nullptr) delete ships[current_number];
 			if (buffer_rockets[current_number] != nullptr) delete rockets[current_number];
@@ -739,8 +744,7 @@ public:
 	Space_Ship* find_ship(unsigned number)
 	{
 		if (number >= general_number) {
-			std::cout << "Such object is not existed" << std::endl;
-			throw;
+			throw std::logic_error("Such object is not existed");
 		}
 		return ships[number % 100];
 	}
@@ -757,8 +761,7 @@ public:
 	void create_object(unsigned type, unsigned number, unsigned* types)
 	{
 		if (type >= amount_types) {
-			std::cout << "Error: No this type of object" << std::endl;
-			throw;
+			throw std::logic_error("Error: No this type of object");
 		}
 
 		switch (type)
@@ -779,8 +782,7 @@ public:
 		}
 		match_table[number] = (counter[type] ++) + 100 * type;
 		if (counter[type] >= 100) {
-			std::cout << "Too many rockets create";
-			throw;
+			throw std::logic_error("Error: Too many rockets create");
 		}
 		real_objects[number] = true;
 		types[number] = type + 1;
@@ -793,6 +795,7 @@ public:
 		{
 			deleted_objects[amount_deleted_obj++] = number;
 		}
+		else throw std::logic_error("there are too many deleted objects");
 	}
 
 	void update_object_list(unsigned* objects_types)
@@ -955,8 +958,7 @@ public:
 	{
 		if (!fout.is_open())
 		{
-			std::cout << "Error: the outer file is not available" << std::endl;
-			throw;
+			throw std::logic_error("Error: the outer file is not available");
 		}
 
 		for (unsigned current_type = 0; current_type < amount_types; ++current_type)
@@ -992,7 +994,7 @@ public:
 							create_object(1, general_number, types);
 							ships[current_object]->shout(1, *(this->find_rocket(general_number ++)),
 								player_ship.get_coord(), player_ship.get_speed());
-							std::cout << types[21] << " fuck you" << std::endl;
+							//std::cout << types[21] << " fuck you" << std::endl;
 							//for testing
 							//(find_rocket(general_number - 1)->get_coord()).print("coord of rocket");
 							//(find_rocket(general_number - 1)->get_speed()).print("coord of rocket");
@@ -1031,8 +1033,7 @@ public:
 	{
 		if (!fout.is_open())
 		{
-			std::cout << "Error: the outer file is not available" << std::endl;
-			throw;
+			throw std::logic_error("Error: the outer file is not available");
 		}
 
 		if (player_ship.possibility_to_shout() && player_actions.shout)
@@ -1056,9 +1057,9 @@ public:
 				{
 
 					unsigned number = ships[current_object]->get_number();
-					coords[number] = ships[current_object]->get_list_coord();
-					speeds[number] = ships[current_object]->get_list_speed();
-					engine_powers[number] = ships[current_object]->get_list_power();
+					ships[current_object]->get_list_coord(coords[number]);
+					ships[current_object]->get_list_speed(speeds[number]);
+					ships[current_object]->get_list_power(engine_powers[number]);
 				}
 				break;
 			}
@@ -1067,8 +1068,8 @@ public:
 				for (unsigned current_object = 0; current_object < counter[current_type]; ++current_object)
 				{
 					unsigned number = rockets[current_object]->get_number();
-					coords[number] = rockets[current_object]->get_list_coord();
-					speeds[number] = rockets[current_object]->get_list_speed();
+					rockets[current_object]->get_list_coord(coords[number]);
+					rockets[current_object]->get_list_speed(speeds[number]);
 				}
 				break;
 			}
@@ -1124,14 +1125,15 @@ public:
 		}
 		if (counter[1] != general_rockets_number) 
 		{
-			std::cout << "Unmatching of the declared fact rockets number " << std::endl;
-			throw;
+			throw std::logic_error("Unmatching of the declared fact rockets number ");
 		}
 		
 		update_object(coords, speeds);
 		do_player_actions(player_actions, type_objects);
 		
 		process_collisions(arr1, arr2, amount_collisions);
+		//if (player_ship.get_hp() == 0) {}
+
 		if (check_necessary_updating_objects_list())
 		{
 			update_object_list(type_objects);
@@ -1191,8 +1193,7 @@ public:
 	{
 		if (! fout.is_open()) 
 		{
-			std::cout << "Error: the outer file is not available" << std::endl;
-			throw;
+			throw std::logic_error("Error: the outer file is not available");
 		}
 		for (unsigned current_number = 0; current_number < counter[1]; ++ current_number)
 		{
