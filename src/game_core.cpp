@@ -50,12 +50,38 @@ struct element {
 	~element() {}
 };
 
+typedef long double lld;
 
 
+void ReadPhysData(matrix<lld, 3>* tensor, lld* mass)
+{
+
+	std::ifstream init;
+	init.open("res/init.txt");
+	
+	if (!init.is_open()) {
+		throw std::runtime_error("File is not opened");
+	}
+	
+	unsigned int index;
+	lld m;
+	matrix<lld, 3> tensor1;
+	while (!init.eof()) {
+		init >> index;
+		init >> m;
+		init >> tensor1;
+		tensor[index] = tensor1;
+		mass[index] = m;
+	}
+	init.close();
+}
+
+
+	
 int main()
 {
-	typedef long double lld;
-
+	// define lld type as long double
+	std::ifstream init;
 	matrix<lld, 3> tensor1(3, 0, 0, 0, 4, 0, 0, 0, 6);
 	directed_segment <lld> r1(0, 0, 0);
 	directed_segment <lld> v1(0, 0, 0);
@@ -65,9 +91,20 @@ int main()
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
 	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
-	lld** SPEED = new lld * [500];
-	lld** FORCE = new lld * [500];
-	lld** CORD = new lld * [500];
+
+	lld** SPEED = new lld * [10000];
+	lld** FORCE = new lld * [10000];
+	lld** CORD = new lld * [10000];
+	matrix <lld,3>* TENSOR = new matrix<lld, 3>[10];
+	lld* MASS = new lld[10];
+	
+	try { ReadPhysData(TENSOR, MASS); }
+	catch (std::runtime_error& e) {
+		std::cout << e.what() << std::endl;
+	}
+
+
+
 
 	unsigned int* TIP = new unsigned int[500];
 	unsigned int* IS_COLLIDED = new unsigned int[500];
@@ -89,13 +126,15 @@ int main()
 	unsigned int current_number = 0;
 	
 	directed_segment<lld> null_moment(0, 0, 0);
+
 	Body<lld>* bodies = new Body<lld>[500];
+
 	directed_segment<lld> cord;
 	directed_segment<lld> speed;
 	directed_segment<lld> force;
 	for (int i = 0; i < 500; i++) {
 		if (TIP[i] == 0) {
-			bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
+			bodies[i] = Body<lld>(MASS[0], TENSOR[0], nul, nul, angle1, w1, 0);
 		}
 		else {
 			cord[0] = CORD[i][0];
@@ -104,7 +143,7 @@ int main()
 			speed[0] = SPEED[i][0];
 			speed[1] = SPEED[i][1];
 			speed[2] = SPEED[i][2];
-			bodies[i] = Body<lld>(1, tensor1, cord, speed, angle1, w1, size1);
+			bodies[i] = Body<lld>(MASS[TIP[i]], TENSOR[TIP[i]], cord, speed, angle1, w1, size1);
 		}
 	}
 
@@ -140,7 +179,9 @@ int main()
 
 	unsigned int* types = new unsigned int[500];
 
+
 	for (int i = 0; i < 500; i++) {
+
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -231,6 +272,7 @@ int main()
 				bodies[i].r = cord;
 				bodies[i].v = speed;
 				bodies[i].size = size1;
+
 			}
 		}
 
@@ -378,9 +420,11 @@ int main()
 	// clear memory
 	for (int i = 0; i < 500; ++i)
 	{
+
 		delete[] CORD[i];
 		delete[] SPEED[i];
 		delete[] FORCE[i];
+
 	}
 	delete[] CORD;
 	delete[] SPEED;

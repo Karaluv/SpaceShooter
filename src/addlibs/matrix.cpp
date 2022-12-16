@@ -18,9 +18,7 @@ public:
 	}
 
 	directed_segment(T x, T y, T z) : x(x), y(y), z(z) {}
-
-	//rule of 5 operators
-
+	
 	directed_segment(const directed_segment& other) {
 		x = other.x;
 		y = other.y;
@@ -52,14 +50,11 @@ public:
 		y = 0;
 		z = 0;
 	}
-
-	//length of directed segment
 	
 	T length() {
 		return sqrt(x * x + y * y + z * z);
 	}
 
-	//operator+
 
 	directed_segment operator+(const directed_segment& other) {
 		directed_segment result;
@@ -68,9 +63,7 @@ public:
 		result.z = z + other.z;
 		return result;
 	}
-
-	//operator-
-
+	
 	directed_segment operator-(const directed_segment& other) {
 		directed_segment result;
 		result.x = x - other.x;
@@ -78,9 +71,7 @@ public:
 		result.z = z - other.z;
 		return result;
 	}
-
-	//operator*, scalar multiplication
-
+	
 	directed_segment operator*(const T& scalar) {
 		directed_segment result;
 		result.x = x * scalar;
@@ -88,8 +79,6 @@ public:
 		result.z = z * scalar;
 		return result;
 	}
-
-	//operator /
 	
 	directed_segment operator/(const T& scalar) {
 		directed_segment result;
@@ -98,16 +87,14 @@ public:
 		result.z = z / scalar;
 		return result;
 	}
-
-	//operator*, dot product
+	
 
 	T operator*(const directed_segment& other) {
 		T result;
 		result = x * other.x + y * other.y + z * other.z;
 		return result;
 	}
-
-	//operator^, cross product
+	
 
 	directed_segment operator^(const directed_segment& other) {
 		directed_segment result;
@@ -116,38 +103,31 @@ public:
 		result.z = x * other.y - y * other.x;
 		return result;
 	}
-
-	//operator==
+	
 
 	bool operator==(const directed_segment& other) {
 		return x == other.x && y == other.y && z == other.z;
 	}
-
-	//operator!=
+	
 
 	bool operator!=(const directed_segment& other) {
 		return x != other.x || y != other.y || z != other.z;
 	}
-
-	//operator+=
-
+	
 	directed_segment& operator+=(const directed_segment& other) {
 		x += other.x;
 		y += other.y;
 		z += other.z;
 		return *this;
 	}
-
-	//operator-=
-
+	
 	directed_segment& operator-=(const directed_segment& other) {
 		x -= other.x;
 		y -= other.y;
 		z -= other.z;
 		return *this;
 	}
-
-	//operator*=
+	
 	
 	directed_segment& operator*=(const T& scalar) {
 		x *= scalar;
@@ -155,9 +135,7 @@ public:
 		z *= scalar;
 		return *this;
 	}
-
-		
-	//operator /=
+	
 
 	directed_segment& operator/=(const T& scalar) {
 		x /= scalar;
@@ -165,10 +143,7 @@ public:
 		z /= scalar;
 		return *this;
 	}
-
-
-	//operator^=
-
+	
 	directed_segment& operator^=(const directed_segment& other) {
 		T x1 = x;
 		T y1 = y;
@@ -178,23 +153,18 @@ public:
 		z = x1 * other.y - y1 * other.x;
 		return *this;
 	}
-
-	//operator<<
+	
 
 	friend std::ostream& operator<<(std::ostream& os, const directed_segment& other) {
 		os << "(" << other.x << ", " << other.y << ", " << other.z << ")";
 		return os;
 	}
 
-	//operator>>
-
 
 	friend std::istream& operator>>(std::istream& is, directed_segment& other) {
 		is >> other.x >> other.y >> other.z;
 		return is;
 	}
-
-	//operator[]
 
 	T& operator[](int index) {
 		assert(index >= 0 && index < 3);
@@ -209,8 +179,6 @@ public:
 		}
 	}
 
-
-	//operator[] const
 	
 	const T& operator[](int index) const {
 		assert(index >= 0 && index < 3);
@@ -224,8 +192,7 @@ public:
 			return z;
 		}
 	}
-	
-	//operator - (unary)
+
 	
 	directed_segment operator-() {
 		directed_segment result;
@@ -239,8 +206,6 @@ public:
 
 
 
-
-// class for matrix with template type T and template size N
 template <typename T, size_t N>
 class matrix {
 public:
@@ -262,7 +227,6 @@ public:
 		}
 	}
 
-	//constructor for N^2 arhuments
 	template <typename... Args>
 	matrix(Args... args) {
 		assert(sizeof...(args) == N * N);
@@ -273,8 +237,6 @@ public:
 			}
 		}
 	}
-
-	//rule of 5 operators
 
 	matrix(const matrix& other) {
 		for (size_t i = 0; i < N; i++) {
@@ -318,8 +280,6 @@ public:
 		}
 	}
 
-	//operator+
-
 	matrix operator+(const matrix& other) {
 		matrix result;
 		for (size_t i = 0; i < N; i++) {
@@ -330,8 +290,6 @@ public:
 		return result;
 	}
 
-	//operator-
-
 	matrix operator-(const matrix& other) {
 		matrix result;
 		for (size_t i = 0; i < N; i++) {
@@ -341,8 +299,6 @@ public:
 		}
 		return result;
 	}
-
-	//operator*, matrix multiplication
 
 	matrix operator*(const matrix& other) {
 		matrix result;
@@ -356,8 +312,6 @@ public:
 		return result;
 	}
 
-	//operator*, scalar multiplication
-
 	matrix operator*(const T& scalar) {
 		matrix result;
 		for (size_t i = 0; i < N; i++) {
@@ -367,8 +321,6 @@ public:
 		}
 		return result;
 	}
-
-	//operator*, multiplication of matrix and directed segment
 	
 	directed_segment<T> operator*(const directed_segment<T>& other) {
 		directed_segment<T> result;
@@ -379,8 +331,6 @@ public:
 		}
 		return result;
 	}
-
-	//operator==
 
 	bool operator==(const matrix& other) {
 		for (size_t i = 0; i < N; i++) {
@@ -393,8 +343,6 @@ public:
 		return true;
 	}
 
-	//operator!=
-
 	bool operator!=(const matrix& other) {
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
@@ -406,8 +354,6 @@ public:
 		return false;
 	}
 
-	//operator+=
-
 	matrix& operator+=(const matrix& other) {
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
@@ -417,8 +363,6 @@ public:
 		return *this;
 	}
 
-	//operator-=
-
 	matrix& operator-=(const matrix& other) {
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
@@ -427,8 +371,6 @@ public:
 		}
 		return *this;
 	}
-
-	//operator*=, matrix multiplication
 
 	matrix& operator*=(const matrix& other) {
 		matrix result;
@@ -443,8 +385,6 @@ public:
 		return *this;
 	}
 
-	//operator*=, scalar multiplication
-
 	matrix& operator*=(const T& scalar) {
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
@@ -454,25 +394,17 @@ public:
 		return *this;
 	}
 
-	//operator[]
-
 	T* operator[](size_t index) {
 		return data[index];
 	}
-
-	//operator() const
 
 	const T& operator()(size_t i, size_t j) const {
 		return data[i][j];
 	}
 
-	//operator()
-
 	T& operator()(size_t i, size_t j) {
 		return data[i][j];
 	}
-
-	//transpose
 
 	matrix transpose() {
 		matrix result;
@@ -483,8 +415,6 @@ public:
 		}
 		return result;
 	}
-
-	//determinant
 
 	T determinant_func(size_t n) {
 		if (n == 1) {
@@ -516,9 +446,6 @@ public:
 	T determinant() {
 		return determinant_func(N);
 	}
-
-
-	//inverse
 
 	matrix inverse() {
 		matrix result;
@@ -555,8 +482,6 @@ public:
 		return result;
 	}
 
-	//print
-
 	void print() {
 		for (size_t i = 0; i < N; i++) {
 			for (size_t j = 0; j < N; j++) {
@@ -565,8 +490,6 @@ public:
 			std::cout << std::endl;
 		}
 	}
-
-	// power operator 
 
 	matrix operator^(const int& power) {
 		matrix result;
@@ -584,22 +507,25 @@ public:
 		}
 		return result;
 	}
+	
+	friend std::istream& operator>>(std::istream& is, matrix& m) {
+		for (size_t i = 0; i < N; i++) {
+			for (size_t j = 0; j < N; j++) {
+				is >> m.data[i][j];
+			}
+		}
+		return is;
+	}
 
 
 };
 
 
-
-
-//tests
 void test_directed_segment()
 {
-	//for each operator, a test
-
 	directed_segment<int> a(1, 2, 3);
 	directed_segment<int> b(4, 5, 6);
 	directed_segment<int> c(7, 8, 9);
-	//tests for copy and assigment
 	directed_segment<int> d(a);
 	directed_segment<int> e;
 	e = a;
@@ -614,7 +540,6 @@ void test_directed_segment()
 	assert((a += b) == directed_segment<int>(5, 7, 9));
 	assert((a -= b) == directed_segment<int>(1, 2, 3));
 
-	//memory leak test for move constructors and copy constructors
 	for (int i = 0; i < 1000000; i++) {
 		directed_segment<int> d = a;
 		directed_segment<int> e = std::move(d);
@@ -626,7 +551,6 @@ void test_directed_segment()
 
 void test_matrix()
 {
-	//test for matrix
 
 	matrix<int, 3> a;
 	a(0, 0) = 1;
@@ -691,8 +615,6 @@ void test_matrix()
 	{
 		std::cout << e.what() << std::endl;
 	}
-
-	//memory leak test for move constructors and copy constructors
 
 	for (int i = 0; i < 1000000; i++) {
 		matrix<int, 3> f = a;
