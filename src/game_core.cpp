@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 #include <limits>
-#include <crtdbg.h>
+// #include <crtdbg.h>
 #include <stdlib.h>
 
 #include <chrono>
@@ -19,6 +19,11 @@
 #include "globals.hpp"
 #include "Player_Actions.h"
 #include <fstream>
+
+
+#ifdef enable_testing
+#include <test.cpp>
+#endif
 
 struct Player {
 	unsigned int tip;
@@ -50,6 +55,7 @@ typedef long double lld;
 
 void ReadPhysData(matrix<lld, 3>* tensor, lld* mass)
 {
+
 	std::ifstream init;
 	init.open("res/init.txt");
 	
@@ -70,6 +76,7 @@ void ReadPhysData(matrix<lld, 3>* tensor, lld* mass)
 	init.close();
 }
 
+
 	
 int main()
 {
@@ -84,6 +91,7 @@ int main()
 	lld m1 = 1;
 	directed_segment <lld> nul(0.001, 0.001, 0.001);
 	Body<lld> body1_Monki(m1, tensor1, r1, v1, angle1, w1, size1);
+
 	lld** SPEED = new lld * [10000];
 	lld** FORCE = new lld * [10000];
 	lld** CORD = new lld * [10000];
@@ -97,10 +105,10 @@ int main()
 
 
 
-	//Array of bodies, there always 10000 of them (some are living, other - dead)
-	unsigned int* TIP = new unsigned int[10000];
-	unsigned int* IS_COLLIDED = new unsigned int[10000];
-	for (int i = 0; i < 10000; i++) {
+
+	unsigned int* TIP = new unsigned int[500];
+	unsigned int* IS_COLLIDED = new unsigned int[500];
+	for (int i = 0; i < 500; i++) {
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -113,17 +121,18 @@ int main()
 		}
 	}
 	unsigned int collision_count = 0;
-	unsigned int* R1 = new unsigned int[10000];
-	unsigned int* R2 = new unsigned int[10000];
+	unsigned int* R1 = new unsigned int[500];
+	unsigned int* R2 = new unsigned int[500];
 	unsigned int current_number = 0;
-	directed_segment<lld> null_moment(0, 0, 0);
 	
-	//vector <Body<lld>> bodies(10000);
-	Body<lld>* bodies = new Body<lld>[10000];
+	directed_segment<lld> null_moment(0, 0, 0);
+
+	Body<lld>* bodies = new Body<lld>[500];
+
 	directed_segment<lld> cord;
 	directed_segment<lld> speed;
 	directed_segment<lld> force;
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 500; i++) {
 		if (TIP[i] == 0) {
 			bodies[i] = Body<lld>(MASS[0], TENSOR[0], nul, nul, angle1, w1, 0);
 		}
@@ -143,8 +152,6 @@ int main()
 	std::ofstream fin;
 	fin.open("arrays.txt");
 
-
-	
 	double x = 0;
 	double y = 0;
 	double z = 0;
@@ -157,19 +164,11 @@ int main()
 	double yaw = 1;
 	double roll = 0;
 
-
-
-	//for simple test
-
 	lld basic_coord = 0;
 	lld basic_speed = 1;
 	lld basic_accel = 0;
 	lld dt = 0.01;
 
-
-
-	
-	
 	float* x_coords = new float[500];
 	float* y_coords = new float[500];
 	float* z_coords = new float[500];
@@ -181,10 +180,8 @@ int main()
 	unsigned int* types = new unsigned int[500];
 
 
+	for (int i = 0; i < 500; i++) {
 
-	//Arrays that help to convert bodies to other types
-
-	for (int i = 0; i < 10000; i++) {
 		SPEED[i] = new lld[3];
 		FORCE[i] = new lld[3];
 		CORD[i] = new lld[3];
@@ -199,7 +196,7 @@ int main()
 
 	//Array of bodies
 	
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 500; i++) {
 		if (TIP[i] == 0) {
 			bodies[i] = Body<lld>(0, tensor1, nul, nul, angle1, w1, 0);
 		}
@@ -247,121 +244,112 @@ int main()
 	srs::create_light(1000, 1000, 1000, 1, 0.7, 0.1, 5000000);
 
 
-	for (int cycle = 0; cycle < 100000; cycle++)
+	for (int cycle = 0; cycle < 5000; cycle++)
 	{
-		{
-			
+		
+		try {
 			Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+		}
+		catch (const std::logic_error& exc)
+		{
+			std::cout << exc.what();
+		}
 
-			if (true)
-			{
-				for (int i = 0; i < 10000; i++) {
-					if (TIP[i] == 0) {
-						bodies[i] = Body<lld>(MASS[0], TENSOR[0], nul, nul, angle1, w1, 0);
-					}
-					else {
-						cord[0] = CORD[i][0];
-						cord[1] = CORD[i][1];
-						cord[2] = CORD[i][2];
-						speed[0] = SPEED[i][0];
-						speed[1] = SPEED[i][1];
-						speed[2] = SPEED[i][2];
-						bodies[i].m = MASS[TIP[i]];
-						bodies[i].tensor = TENSOR[TIP[i]];
-						bodies[i].r = cord;
-						bodies[i].v = speed;
-						bodies[i].size = size1;
-					}
-				}
+
+		for (int i = 0; i < 500; i++) {
+			if (TIP[i] == 0) {
+				bodies[i] = Body<lld>(1, tensor1, nul, nul, angle1, w1, 0);
 			}
-
-			// testing code (please do not delete)
-			/*
-			if (cycle % 100 == 0) {
-				std::cout << general_rockets_number << std::endl;
-				std::cout << std::endl;
-				//print_arr<Type>(CORD, "coords", current_number, fin, cycle);
-				//print_arr<Type>(SPEED, "speeds", current_number, fin, cycle);
-			}
-			*/
-			// end of the testing code
-
-			if (true)
-			{
-				for (int i1 = 0; i1 < 10000; ++i1) {
-					IS_COLLIDED[i1] = 0;
-					R1[i1] = 0;
-					R2[i1] = 0;
-					collision_count = 0;
-				}
-				for (int i1 = 0; i1 < 10000; ++i1) {
-
-					if (TIP[i1] != 0) {
-						force[0] = FORCE[i1][0];
-						force[1] = FORCE[i1][1];
-						force[2] = FORCE[i1][2];
-						try{
-							bodies[i1].update_angle(dt);
-							bodies[i1].update_w(dt, null_moment);
-							bodies[i1].update_velocity(dt, force);
-							bodies[i1].update_position(dt);
-						}
-						catch (std::invalid_argument& e) {
-							std::cout << e.what() << std::endl;
-						}
-						
-
-
-						//std::cout << SPEED[i1][0] <<" ";
-						CORD[i1][0] = bodies[i1].r[0];
-						CORD[i1][1] = bodies[i1].r[1];
-						CORD[i1][2] = bodies[i1].r[2];
-						SPEED[i1][0] = bodies[i1].v[0];
-						SPEED[i1][1] = bodies[i1].v[1];
-						SPEED[i1][2] = bodies[i1].v[2];
-						//std::cout << SPEED[i1][0] << "\n";
-
-
-
-						for (int j = 0; j < 10000; j++) {
-							if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
-								if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
-									IS_COLLIDED[i1] = 1;
-									IS_COLLIDED[j] = 1;
-									//try and catch
-									try {
-										if (TIP[i1] == TIP[j]) {
-											bodies[i1].collision(bodies[j]);
-										}
-									}
-									catch (const std::invalid_argument& e) {
-										std::cout << e.what() << "\n";
-									}
-									R1[collision_count] = i1;
-									R2[collision_count] = j;
-									collision_count++;
-								}
-							}
-						}
-					}
-				}
-				//body1_Monki.update_angle(dt);
-				// copy from bodies to arrays
-				for (int i = 1; i < 500; ++i)
-				{
-					x_coords[i - 1] = bodies[i].r[0];
-					y_coords[i - 1] = bodies[i].r[1];
-					z_coords[i - 1] = bodies[i].r[2];
-
-					ps[i - 1] = bodies[i].angle[0];
-					qs[i - 1] = bodies[i].angle[1];
-					rs[i - 1] = bodies[i].angle[2];
-
-					types[i - 1] = TIP[i];
-				}
+			else {
+				cord[0] = CORD[i][0];
+				cord[1] = CORD[i][1];
+				cord[2] = CORD[i][2];
+				speed[0] = SPEED[i][0];
+				speed[1] = SPEED[i][1];
+				speed[2] = SPEED[i][2];
+				bodies[i].m = 1;
+				bodies[i].tensor = tensor1;
+				bodies[i].r = cord;
+				bodies[i].v = speed;
+				bodies[i].size = size1;
 
 			}
 		}
+
+		for (int i1 = 0; i1 < 500; ++i1) {
+			IS_COLLIDED[i1] = 0;
+			R1[i1] = 0;
+			R2[i1] = 0;
+			collision_count = 0;
+		}
+		for (int i1 = 0; i1 < 500; ++i1) {
+
+			if (TIP[i1] != 0) {
+				force[0] = FORCE[i1][0];
+				force[1] = FORCE[i1][1];
+				force[2] = FORCE[i1][2];
+				try{
+					bodies[i1].update_angle(dt);
+					bodies[i1].update_w(dt, null_moment);
+					bodies[i1].update_velocity(dt, force);
+					bodies[i1].update_position(dt);
+				}
+				catch (std::invalid_argument& e) {
+					std::cout << e.what() << std::endl;
+				}
+				
+
+
+				//std::cout << SPEED[i1][0] <<" ";
+				CORD[i1][0] = bodies[i1].r[0];
+				CORD[i1][1] = bodies[i1].r[1];
+				CORD[i1][2] = bodies[i1].r[2];
+				SPEED[i1][0] = bodies[i1].v[0];
+				SPEED[i1][1] = bodies[i1].v[1];
+				SPEED[i1][2] = bodies[i1].v[2];
+				//std::cout << SPEED[i1][0] << "\n";
+
+
+
+				for (int j = 0; j < 500; j++) {
+					if (IS_COLLIDED[i1] == 0 && IS_COLLIDED[j] == 0 && TIP[j] != 0 && i1 != j) {
+						if (bodies[i1].size + bodies[j].size >= (bodies[i1].r - bodies[j].r).length()) {
+							IS_COLLIDED[i1] = 1;
+							IS_COLLIDED[j] = 1;
+							//try and catch
+							try {
+								if (TIP[i1] == TIP[j]) {
+									bodies[i1].collision(bodies[j]);
+								}
+							}
+							catch (const std::invalid_argument& e) {
+								std::cout << e.what() << "\n";
+							}
+							R1[collision_count] = i1;
+							R2[collision_count] = j;
+							collision_count++;
+						}
+					}
+				}
+			}
+		}
+		//body1_Monki.update_angle(dt);
+		// copy from bodies to arrays
+		for (int i = 1; i < 500; ++i)
+		{
+			x_coords[i - 1] = bodies[i].r[0];
+			y_coords[i - 1] = bodies[i].r[1];
+			z_coords[i - 1] = bodies[i].r[2];
+
+			ps[i - 1] = bodies[i].angle[0];
+			qs[i - 1] = bodies[i].angle[1];
+			rs[i - 1] = bodies[i].angle[2];
+
+			types[i - 1] = TIP[i];
+		}
+
+			
+		
 		if (player_actions.hp <= 0) {
 			std::cout << "gameover";
 			break;
@@ -430,35 +418,34 @@ int main()
 	srs::stop_render();
 
 	// clear memory
+	for (int i = 0; i < 500; ++i)
 	{
-		for (int i = 0; i < 500; ++i)
-		{
-			delete[] CORD[i];
-			delete[] SPEED[i];
-			delete[] FORCE[i];
-		}
-		delete[] CORD;
-		delete[] SPEED;
-		delete[] FORCE;
-		delete[] TENSOR;
-		delete[] MASS;
 
-		delete[] IS_COLLIDED;
-		delete[] TIP;
-		delete[] R1;
-		delete[] R2;
-		delete[] bodies;
-		//delete[] Force;
-		delete[] x_coords;
-		delete[] y_coords;
-		delete[] z_coords;
+		delete[] CORD[i];
+		delete[] SPEED[i];
+		delete[] FORCE[i];
 
-		delete[] ps;
-		delete[] qs;
-		delete[] rs;
-
-		delete[] types;
 	}
+	delete[] CORD;
+	delete[] SPEED;
+	delete[] FORCE;
+
+	delete[] IS_COLLIDED;
+	delete[] TIP;
+	delete[] R1;
+	delete[] R2;
+	delete[] bodies;
+	
+	delete[] x_coords;
+	delete[] y_coords;
+	delete[] z_coords;
+
+	delete[] ps;
+	delete[] qs;
+	delete[] rs;
+
+	delete[] types;
+	
 
 	return 0;
 
