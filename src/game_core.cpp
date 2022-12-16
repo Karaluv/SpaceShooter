@@ -235,8 +235,13 @@ int main()
 		for (int cycle = 0; cycle < 100000; cycle++)
 		{
 			{
-				
-				Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+				try {
+					Manager.launch_cycle(CORD, SPEED, FORCE, collision_count, R1, R2, TIP, current_number, player_actions);
+				}
+				catch (const std::logic_error& exc)
+				{
+					std::cout << exc.what();
+				}
 
 				if (true)
 				{
