@@ -60,17 +60,17 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-add_library(mynum
-src/addlibs/MyNum.cpp
-src/addlibs/MyNum.hpp
- "src/serg/Player_Actions.h")
+#add_library(mynum
+#src/addlibs/MyNum.cpp
+#src/addlibs/MyNum.hpp
+ #"src/serg/Player_Actions.h")
 
-add_library(mydict
-src/addlibs/MyDict.cpp
-src/addlibs/MyDict.hpp
- "src/serg/Player_Actions.h")
+#add_library(mydict
+#src/addlibs/MyDict.cpp
+#src/addlibs/MyDict.hpp
+#"src/serg/Player_Actions.h")
 
-add_library(mycontrol
+add_library(mycontrolin
 src/addlibs/MyControl.cpp
 src/addlibs/MyControl.hpp
  "src/serg/Player_Actions.h")
@@ -81,9 +81,9 @@ src/addlibs/matrix.hpp
  "src/serg/Player_Actions.h")
 
 set(ADD_LIBS
-	mynum
-	mydict
-	mycontrol
+#mynum
+	#mydict
+	#mycontrol
 	mymatrix
 )
 # render engine

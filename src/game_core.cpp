@@ -13,8 +13,8 @@
 #include <serg_main.cpp>
 #include <andrei_main.cpp>
 
-#include <mynum.cpp>
-#include <MyDict.cpp>
+//#include <mynum.cpp>
+//#include <MyDict.cpp>
 
 #include "globals.hpp"
 #include "Player_Actions.h"
