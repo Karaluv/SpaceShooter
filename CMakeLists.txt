@@ -124,9 +124,9 @@ add_library(render_engine
 )
 
 
-add_library(render
-	"src/rend/render.hpp"
- "src/serg/Player_Actions.h")
+#add_library(render
+#	"src/rend/render.hpp"
+# "src/serg/Player_Actions.h")
 
 
 target_link_libraries(render_engine
@@ -134,9 +134,9 @@ target_link_libraries(render_engine
 	OBJLoader
 )
 
-target_link_libraries(render
-	render_engine
-)
+#target_link_libraries(render
+#	render_engine
+#)
 
 # sergey
 
@@ -159,7 +159,7 @@ target_link_libraries(game_core
 	${ALL_LIBS}
 	${ADD_LIBS}
 	ANTTWEAKBAR_116_OGLCORE_GLFW
-	render
+	#render
 	render_engine
 	
 	
