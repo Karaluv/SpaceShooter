@@ -181,12 +181,12 @@ public:
 	Skybox() {}
 	virtual ~Skybox() {}
 
-	virtual void update()
+	void update() override final
 	{
 		m_position = m_camera->get_position();
 	}
 	
-	virtual void render()
+	void render() override final
 	{
 		glUniform1f(m_scaleUniformId, 1);
 
